@@ -10,7 +10,13 @@ import { expect, test } from '@playwright/test';
 
 type CourseCard = { slug: string; membersOnly: boolean; status: string };
 
-type Lesson = { slug: string; isFreePreview: boolean; hasAccess: boolean; contentRef: string | null };
+type Lesson = {
+  slug: string;
+  type: string;
+  isFreePreview: boolean;
+  hasAccess: boolean;
+  contentRef: string | null;
+};
 
 type CourseDetail = { slug: string; sections: { lessons: Lesson[] }[] };
 
@@ -65,6 +71,36 @@ test('una lección de muestra se abre sin cuenta y una de pago redirige a planes
     await expect(page.getByRole('heading', { name: 'Esta clase es para miembros' })).toBeVisible();
     await expect(page.getByRole('link', { name: 'Ver planes' })).toBeVisible();
   }
+});
+
+/*
+ * Las prácticas de los cursos en HTML se importan como `lab`, pero su contenido es un
+ * documento HTML completo, no un Markdown. Tienen que pintarse en el marco como cualquier
+ * otra lección: antes el visor las volcaba como texto y el alumno veía el `<!DOCTYPE html>`.
+ */
+test('una práctica en HTML se pinta en el marco, no como texto en crudo', async ({ page, request }) => {
+  const courses = (await (await request.get('/api/courses')).json()) as CourseCard[];
+
+  let target: { course: string; lesson: string } | null = null;
+
+  for (const course of courses.filter((c) => c.status === 'published')) {
+    const detail = (await (await request.get(`/api/courses/${course.slug}`)).json()) as CourseDetail;
+    const lab = detail.sections
+      .flatMap((section) => section.lessons)
+      .find((lesson) => lesson.type === 'lab' && lesson.hasAccess && /\.html?$/i.test(lesson.contentRef ?? ''));
+
+    if (lab) {
+      target = { course: course.slug, lesson: lab.slug };
+      break;
+    }
+  }
+
+  test.skip(!target, 'No hay ninguna práctica en HTML abierta sin cuenta.');
+
+  await page.goto(`/aprender/${target!.course}/${target!.lesson}`);
+  await expect(page.locator('iframe.player__frame')).toBeVisible();
+  await expect(page.locator('.lab')).toHaveCount(0);
+  await expect(page.getByText('<!DOCTYPE html>')).toHaveCount(0);
 });
 
 test('el contenido no se sirve sin un token válido', async ({ request }) => {

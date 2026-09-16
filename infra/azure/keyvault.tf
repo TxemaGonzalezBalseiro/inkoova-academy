@@ -6,7 +6,7 @@
 # ellas. Ventajas frente a pasar el valor directo:
 #   - Rotación sin tocar las apps: al cambiar el secreto en el vault, ACA lo relee solo
 #     (referencia sin versión, sondeo cada ~30 min) o al forzar una revisión nueva.
-#   - Un sitio donde mirar qué secretos existen y quién los lee (Azure RBAC + auditoría).
+#   - Un sitio donde mirar qué secretos existen y quién los lee (access policies + auditoría).
 #   - Los valores sensibles no pasan por el for_each de las apps (terraform lo prohíbe).
 #
 # Los valores siguen viviendo también en el state de terraform (random_password y
@@ -73,9 +73,11 @@ resource "azurerm_key_vault" "main" {
   tenant_id           = data.azurerm_client_config.current.tenant_id
   sku_name            = "standard"
 
-  # Autorización por Azure RBAC (roles), no por access policies: es el modelo que Azure
-  # recomienda y el único que casa con las identidades administradas sin más bloques.
-  rbac_authorization_enabled = true
+  # Access policies, no Azure RBAC. RBAC exigiría crear role assignments
+  # (Microsoft.Authorization/roleAssignments/write), y en esta suscripción quien
+  # ejecuta terraform es Contributor, no Owner: el apply moría con AuthorizationFailed.
+  # Las access policies son una propiedad del propio vault y un Contributor las escribe.
+  rbac_authorization_enabled = false
 
   # 7 días es el mínimo de retención tras borrar. Con purge protection un vault borrado
   # no se puede purgar hasta que pase la retención (bloquea reusar el nombre); se activa
@@ -90,30 +92,23 @@ resource "azurerm_key_vault" "main" {
   tags = local.tags
 }
 
-# Quien ejecuta terraform necesita escribir secretos. Ser Owner de la suscripción NO basta:
-# con RBAC el plano de datos del vault tiene sus propios roles.
-resource "azurerm_role_assignment" "terraform_secrets_officer" {
-  scope                = azurerm_key_vault.main.id
-  role_definition_name = "Key Vault Secrets Officer"
-  principal_id         = data.azurerm_client_config.current.object_id
+# Quien ejecuta terraform necesita escribir secretos. Ser Contributor (u Owner) de la
+# suscripción NO basta: el plano de datos del vault se autoriza aparte.
+resource "azurerm_key_vault_access_policy" "terraform" {
+  key_vault_id = azurerm_key_vault.main.id
+  tenant_id    = data.azurerm_client_config.current.tenant_id
+  object_id    = data.azurerm_client_config.current.object_id
+
+  secret_permissions = ["Get", "List", "Set", "Delete", "Purge", "Recover"]
 }
 
 # Las apps solo leen.
-resource "azurerm_role_assignment" "apps_secrets_user" {
-  scope                = azurerm_key_vault.main.id
-  role_definition_name = "Key Vault Secrets User"
-  principal_id         = azurerm_user_assigned_identity.apps.principal_id
-}
+resource "azurerm_key_vault_access_policy" "apps" {
+  key_vault_id = azurerm_key_vault.main.id
+  tenant_id    = azurerm_user_assigned_identity.apps.tenant_id
+  object_id    = azurerm_user_assigned_identity.apps.principal_id
 
-# Las asignaciones de rol tardan hasta un par de minutos en propagarse; sin esta espera
-# el primer apply falla con 403 al escribir el primer secreto (y ACA al leerlo).
-resource "time_sleep" "rbac_propagation" {
-  create_duration = "90s"
-
-  depends_on = [
-    azurerm_role_assignment.terraform_secrets_officer,
-    azurerm_role_assignment.apps_secrets_user,
-  ]
+  secret_permissions = ["Get", "List"]
 }
 
 # ── secretos ─────────────────────────────────────────────────────────────────────────────
@@ -168,7 +163,7 @@ resource "azurerm_key_vault_secret" "app" {
   content_type = "text/plain"
   tags         = local.tags
 
-  depends_on = [time_sleep.rbac_propagation]
+  depends_on = [azurerm_key_vault_access_policy.terraform]
 }
 
 # name → URL sin versión del secreto. Es lo que reciben las apps: sin versión para que

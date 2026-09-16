@@ -37,7 +37,9 @@ export function PlayerPage() {
     reload,
   } = useApi<PlayerLesson>(`/learn/${courseSlug}/${lessonSlug}`, [courseSlug, lessonSlug]);
 
-  const { data: course } = useApi<CourseDetail>(`/courses/${courseSlug}`, [courseSlug]);
+  const { data: course, error: courseError } = useApi<CourseDetail>(`/courses/${courseSlug}`, [
+    courseSlug,
+  ]);
 
   const iframeRef = useRef<HTMLIFrameElement>(null);
 
@@ -252,6 +254,27 @@ export function PlayerPage() {
     `${api.baseUrl}/content/${lesson.contentToken}?theme=${theme}` +
     (lesson.contentFragment ? `#${lesson.contentFragment}` : '');
 
+  /*
+   * El tipo `lab` no dice en qué formato viene el contenido. Los labs generados en Markdown
+   * (labs/*.md) se leen como texto plano; las prácticas de los cursos en HTML se importan
+   * también como `lab`, pero son un documento completo y van al marco como cualquier otra
+   * lección. Antes el visor las volcaba en un <pre> y el alumno veía el `<!DOCTYPE html>`.
+   *
+   * La extensión solo la conoce el temario (contentRef), así que un lab espera a tenerlo. Si
+   * el temario falla o no trae contentRef, se asume documento: es el caso general.
+   */
+  const catalogLesson = course?.sections
+    .flatMap((section) => section.lessons)
+    .find((item) => item.slug === lessonSlug);
+  const labFormat =
+    lesson.type !== 'lab'
+      ? 'document'
+      : !course && !courseError
+        ? 'pending'
+        : /\.md$/i.test(catalogLesson?.contentRef ?? '')
+          ? 'markdown'
+          : 'document';
+
   return (
     <div className={`player ${sidebarOpen ? '' : 'player--collapsed'}`}>
       <header className="player__bar">
@@ -362,7 +385,9 @@ export function PlayerPage() {
         <div className="player__content">
           {contentError ? (
             <ContentErrorView code={contentError} courseSlug={courseSlug} onRetry={reload} />
-          ) : lesson.type === 'lab' ? (
+          ) : labFormat === 'pending' ? (
+            <Spinner />
+          ) : labFormat === 'markdown' ? (
             <LabView contentUrl={contentUrl} title={lesson.title} />
           ) : (
             <iframe

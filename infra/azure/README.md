@@ -24,10 +24,10 @@ tfvars por entorno.
 - [Terraform](https://developer.hashicorp.com/terraform/install) >= 1.9
 - Docker (para `migrate-db.ps1` y para construir la imagen de Caddy)
 - Un PAT de GitHub con **solo** `read:packages`, para que ACA descargue las imágenes de GHCR
-- Permiso para asignar roles en la suscripción (Owner o User Access Administrator):
-  terraform concede a tu usuario `Key Vault Secrets Officer` y a la identidad de las apps
-  `Key Vault Secrets User` sobre el vault. Ser Owner por sí solo no da acceso a los
-  secretos: el plano de datos del Key Vault usa sus propios roles.
+- Contributor sobre la suscripción basta. El Key Vault usa **access policies** (no
+  Azure RBAC) a propósito: RBAC obligaría a crear role assignments, que un Contributor
+  no puede. Terraform da a tu usuario permisos de escritura de secretos y a la identidad
+  de las apps solo lectura, ambos como políticas del propio vault.
 
 ## La imagen de Caddy (una vez por despliegue de la web)
 
@@ -67,8 +67,6 @@ terraform init
 terraform workspace new prod        # las siguientes veces: terraform workspace select prod
 terraform plan  -var-file envs/prod.tfvars
 terraform apply -var-file envs/prod.tfvars
-#    El primer apply espera 90 s tras asignar roles (propagación de RBAC) antes de
-#    escribir secretos; es normal.
 
 # 4. Migraciones de esquema (Container Apps Job, arranque manual)
 az containerapp job start --name job-migrator-prod --resource-group rg-inkoova-academy-prod
@@ -179,8 +177,9 @@ certificado gestionado cuando el dominio esté decidido; a mano son dos comandos
 | Stripe, SMTP, GHCR, Discord, OTEL | tfvars (externos) | `stripe-secret-key`, `stripe-webhook-secret`, `smtp-password`, `ghcr-token`, `discord-bot-token`, `discord-client-secret`, `otel-headers` |
 
 - **Key Vault** `kv-academy-<env>-xxxx` (salida `key_vault_name`): la fuente de verdad.
-  Autorización por RBAC; las apps leen con la identidad `id-inkoova-academy-<env>`
-  (`Key Vault Secrets User`), tu usuario escribe (`Key Vault Secrets Officer`). Leer uno:
+  Access policies: las apps leen (Get/List) con la identidad `id-inkoova-academy-<env>`,
+  tu usuario escribe. Otra persona que vaya a ejecutar terraform necesita su propia
+  política (o que la añada quien ya la tiene). Leer uno:
   ```powershell
   az keyvault secret show --vault-name (terraform output -raw key_vault_name) --name jwt-signing-key --query value -o tsv
   ```
