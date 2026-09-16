@@ -1,0 +1,23 @@
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+indent_style = space
+indent_size = 4
+trim_trailing_whitespace = true
+
+[*.{js,jsx,ts,tsx,json,jsonc,css,scss,html,yml,yaml,md}]
+indent_size = 2
+
+[*.cs]
+indent_size = 4
+csharp_style_namespace_declarations = file_scoped:error
+csharp_style_var_when_type_is_apparent = true:suggestion
+dotnet_style_prefer_is_null_check_over_reference_equality_method = true:error
+dotnet_diagnostic.CA2007.severity = none
+dotnet_diagnostic.IDE0290.severity = none
+
+[*.py]
+indent_size = 4

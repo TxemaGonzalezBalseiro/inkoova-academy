@@ -1,0 +1,163 @@
+# Estado por tarea
+
+Actualizado: 2026-08-30.
+
+Leyenda: **Hecho** · **Parcial** (queda algo señalado) · **Pendiente**.
+
+## Plataforma
+
+| Tarea | Estado | Qué hay | Qué falta |
+|---|---|---|---|
+| **T-00** Discovery y stack | Hecho | Monorepo, `CLAUDE.md`, `DECISIONS.md` con 8 ADR, esqueleto de solución, compose local | — |
+| **T-01** Dominio y esquema | Hecho | Entidades con invariantes, VOs, 5 migraciones SQL, repos Dapper, 78 tests de dominio | — |
+| **T-02** API de catálogo | Hecho | Catálogo, ficha, progreso, verificación pública, `IAccessPolicy`, caché, OpenAPI, OTel, health | Medición real de p95 con caché caliente |
+| **T-03** Auth | Hecho | Registro, verificación de email, login, reset, JWT 15 min + refresh rotatorio, roles | Login social Google/GitHub (opcional en la tarea) |
+| **T-04** Suscripciones Stripe | Hecho | Seed idempotente de planes, checkout de plan y de producto, portal, webhook idempotente, periodo de gracia, emails | Prueba con Stripe CLI contra la cuenta real |
+| **T-05** Landing pública | Hecho | Las 9 secciones, `/sobre-mi`, `/faq`, `/soporte`, SEO, sitemap, robots | Medir Lighthouse contra el despliegue real; biografía extendida de B0 |
+| **T-06** Catálogo y ficha | Hecho | `/cursos` con filtros, ficha con temario, previews, CTA contextual, waitlist | — |
+| **T-07** Player e importación | Hecho | Importador Python (16 tests), manifest, player con iframe sandbox, `postMessage`, tokens de 60 s, descargas | Añadir el fragmento de `PROTOCOL.md` al generador `content.py` |
+| **T-08** Quiz y pre-curso | Hecho | Quiz corregido en servidor, umbrales originales fijados por test, intento anónimo reclamable, pre-curso importado como curso gratuito | — |
+| **T-09** Roadmap | Parcial | Endpoint con estado por alumno y página accesible | Sembrar `roadmap_node`; falta CRUD en el panel |
+| **T-10** Certificados | Hecho | Emisión con invariante de 100 %, hash reproducible, PDF con QR, verificación pública con rate limit, LinkedIn, revocación | — |
+| **T-11** Panel admin | Parcial | Publicar, marcas, reordenar, usuarios, accesos manuales, métricas, auditoría, importador con diff, packs, afiliados | CRUD completo de secciones y lecciones; churn necesita histórico |
+| **T-12** Comunidad y Discord | Hecho | OAuth2, roles por plan, reconciliación diaria, sesiones por plan, página de empresas | Configurar guild y roles reales |
+| **T-13** Infraestructura | Hecho | Compose de desarrollo y de producción, 4 Dockerfiles, Caddy con CSP, `bootstrap.sh`, backup y prueba de restauración, CI y despliegue | Ejecutarlo sobre una VPS real |
+| **T-14** Legal y Verifactu | Parcial | Cuatro páginas legales, banner con consentimiento real, exportación y borrado de datos, numeración y encadenamiento de facturas, rectificativas | **Adaptador Verifactu de envío a AEAT** y datos identificativos de la empresa |
+| **T-15** Lanzamiento | Parcial | Analítica tras consentimiento, SEO, `LAUNCH.md` | Beta cerrada, dashboards de embudo, prueba de pago real |
+| **T-16** Descuentos y afiliados | Hecho | Atribución por cookie y por código, comisiones con ventana de 14 días, reversión por reembolso, liquidación mensual reproducible, panel de afiliado, antifraude | Stripe Connect queda en backlog, como pide la tarea |
+
+## Contenido
+
+| Tarea | Estado | Qué hay |
+|---|---|---|
+| **C-00** Caso conductor | Hecho | `caso/meridiana.md`, 31 siniestros sintéticos deterministas, 5 pólizas, catálogo de coberturas, repo `meridiana-agent` que resuelve el conjunto completo con `--all --check` en verde |
+| **C-01** Extensión curso 1 | Esqueleto | 2 bloques (PE-A, PE-B), 53 slides guionizadas, labs y temas de quiz |
+| **C-02 → C-08** Curso 3 | Esqueleto | 7 bloques, 192 slides guionizadas, 7 labs sobre Meridiana |
+| **C-09 → C-14** Curso 4 | Esqueleto | 6 bloques, 161 slides guionizadas, con **verificación normativa obligatoria** y fuentes primarias listadas |
+| **C-15 → C-20** Packs | Esqueleto | 6 packs con sus 5 ficheros y fuentes a verificar |
+| **C-21** Proyecto final | Hecho | Enunciado y rúbrica completa de autoevaluación sobre los cuatro cursos |
+
+### Por qué el contenido está en esqueleto y no escrito
+
+La estructura pedagógica se puede decidir de antemano y está decidida: objetivo, guion slide
+a slide, labs, «qué te llevas» y temas de quiz. Lo que no se puede generar es la prosa de los
+cursos 3 y 4, porque el README del plan lo prohíbe explícitamente: *toda afirmación normativa
+con artículo/fuente y fecha de verificación, nunca inventar plazos*.
+
+Escribir «según el artículo 6.2, desde el 2 de agosto de 2026…» sin haber abierto el DOUE
+produciría material que **parece** verificado. En un curso de cumplimiento normativo eso no
+es un borrador incompleto: es un defecto que se propaga a los expedientes técnicos de quien
+lo estudie. Cada bloque normativo lleva su lista de fuentes primarias y un
+`TODO(YYYY-MM-DD)` de fecha de verificación que hay que rellenar abriéndolas.
+
+## Lo que hay que decidir o aportar antes de vender
+
+1. **Datos identificativos de la empresa** (razón social, NIF, domicilio, datos registrales)
+   para el aviso legal, la política de privacidad y las facturas. Están como `TODO(T-14)`
+   porque inventarlos sería una infracción de la LSSI, no un hueco pendiente.
+2. **Adaptador Verifactu.** La numeración, el encadenamiento por hash, el QR y el PDF están
+   implementados; el envío del registro a la AEAT necesita la librería existente de Inkoova y
+   el certificado cualificado. Con `SubmitToAeat=true` y sin adaptador, la API **rechaza el
+   pago a propósito** en vez de emitir una factura que nunca se declaró.
+3. **Precios definitivos.** Los del seed son los propuestos en T-04 (19 / 49 / 79 / 129 / 249).
+4. **Cuenta de Stripe** en modo real y prueba de pago y reembolso de punta a punta.
+5. **Guild de Discord** con los roles `monthly`, `quarterly`, `biannual`, `yearly`, `lifetime`.
+6. **Nada.** El banco de quizzes compartido ya no filtra los bloques de pago: el importador lo
+   reparte por documento. Ver ADR-008.
+
+## Verificación ejecutada
+
+| Comprobación | Resultado |
+|---|---|
+| `dotnet build api/Inkoova.Academy.slnx` | Correcto, sin avisos (warnings como errores) |
+| `dotnet test tests/Inkoova.Academy.Domain.Tests` | 80 de 80 correctos |
+| Tests de integración (Testcontainers) | **26 de 26 correctos** |
+| `npm run typecheck` / `lint` / `build` en `web` | Correcto, cero avisos |
+| Playwright | Escritos; **no ejecutados** |
+| `python content/tools/test_importer.py` | 29 de 29 correctos |
+| `meridiana-agent --all --check` | 31 de 31 decisiones de derivación coinciden |
+| Generador de datos del caso | Determinista: mismo hash en dos ejecuciones |
+
+### Recorrido completo ejecutado con `.\dev.ps1 up`
+
+| Comprobación | Resultado |
+|---|---|
+| Arranque | Postgres, migraciones, API y seed de planes en verde |
+| Importación de los 3 cursos | agent-engineering-v3 (8 bloques · **321 clases** · 14 h), pre-curso (4 · 29 · 2 h), prompt-engineering (8 módulos · 54 · 17 h) |
+| Ficheros de contenido | 0 faltantes en los tres manifests |
+| Publicación y catálogo público | Los 3 cursos visibles sin autenticar |
+| **Contenido de pago no se filtra** | 296 de 321 lecciones sin `contentRef` para un anónimo |
+| Player y token de contenido | Navegación slide a slide con ancla, incluido el salto entre bloques; token inválido → 403; lección de pago sin sesión → 403 |
+| **Contenido importado tal y como se ve** | CSS (134 reglas) y los cuatro scripts del curso cargados dentro del iframe; `CursoViewer`, `QUIZZES` y `Progreso` definidos; consola sin errores en las dos formas de curso |
+| Alcance de un token gratuito | Su documento 200, assets del curso 200, **bloque de pago 403**, otro curso 403 |
+| Endpoints de admin | 401 sin sesión; login de admin devuelve roles `student,admin` |
+| **Umbrales del test de nivel (T-08)** | 12 preguntas en 4 dimensiones; los 3 veredictos correctos en 9 puntos de corte |
+
+### Granularidad del contenido
+
+La lección es la **slide**, no el fichero del bloque. Cada bloque de `curso-autodidacta` es un
+HTML con `<section id="slide-N" data-slide-idx="N">` por slide, con su título, su duración
+declarada y sus marcadores `data-checkpoint`, `data-exercise-slide` y `data-quiz-slide`. El
+HTML no se trocea —su CSS y su JS son inline— sino que cada lección lo referencia con un ancla
+que el player aplica al iframe.
+
+| | Lecciones | Obligatorias | Notas |
+|---|---:|---:|---|
+| agent-engineering-v3 | 321 | 293 | 297 slides, 16 ejercicios, 8 quizzes; 28 checkpoints opcionales |
+| pre-curso | 29 | 29 | Todas gratuitas (T-08) |
+| prompt-engineering | 54 | 54 | Un pane por lección, agrupados por módulo |
+
+Los checkpoints no son obligatorios a propósito: son una pausa para pensar, no producen
+evidencia y no deben bloquear la emisión del certificado.
+
+### Cuatro defectos que solo aparecieron al mirar la consola del navegador
+
+Ninguno rompía una petición. Los tests miraban códigos de estado y todos daban 200, así que
+ninguno podía verlos: el fallo estaba en cabeceras y en la forma de las URL.
+
+1. **`X-Frame-Options: DENY` en toda la API.** Se aplicaba también a `/api/content`, que es lo
+   único que el player mete en un iframe. El navegador rechazaba el documento y el player salía
+   en blanco en **todas** las lecciones. Ahora esa ruta va con `SAMEORIGIN` y el resto sigue con
+   `DENY`.
+2. **El contenido se servía sin profundidad de ruta.** Un bloque pide `../assets/css/curso.css`;
+   desde `/api/content/{token}` ese `..` se sale del token y daba 404. Las lecciones se veían
+   sin estilos y sin JS. Ahora la URL canónica lleva la ruta real del fichero y la corta
+   redirige a ella.
+3. **El pre-curso se copiaba fuera de su curso padre.** Su HTML referencia `../assets`, que en
+   el origen es la carpeta del curso principal; sacarlo a una carpeta propia dejaba ese `..`
+   apuntando a la nada. Conserva su posición, `agent-engineering-v3/pre-curso/`, y solo el
+   catálogo lo trata como producto aparte. De paso dejaba de publicar los `.py` del origen, que
+   son las herramientas que generaron el HTML, no contenido del curso.
+4. **`down` no paraba nada en Windows PowerShell 5.1.** En 5.1 `ConvertFrom-Json` no enumera el
+   array: lo devuelve como un objeto, así que cada arranque anidaba el registro de PIDs un nivel
+   más y acababa guardando `{"value":[...],"Count":n}`. `down` recorría ese envoltorio, no
+   encontraba `.pid` y dejaba la API y Vite vivos bloqueando los binarios y el puerto. Además
+   daba por parado lo que `taskkill` no había podido matar; ahora lo comprueba y lo dice.
+
+### Cinco defectos que solo aparecieron al ejecutarlo
+
+1. **Dapper y los records posicionales.** `MatchNamesWithUnderscores` solo se aplica al mapeo
+   por propiedades, no al de constructores, así que ninguna consulta podía materializar sus
+   filas (`product_id` no casa con `ProductId`). Afectaba a **todos** los repositorios.
+   Resuelto con `SnakeCaseTypeMap`, en un solo sitio y sin tocar el SQL.
+2. **El test de nivel perdía la mitad de las preguntas.** El dominio exigía "exactamente una
+   opción correcta", pero el original marca varias como válidas cuando de verdad lo son.
+   Se descartaban 6 de 12 **en silencio** y el veredicto salía de un examen que ya no era el
+   original. Ahora se exige "al menos una", y el importador **aborta** en vez de saltarse una
+   pregunta: un test a medias es peor que no importarlo.
+3. **Postgres en el puerto 5432.** Si el bind falla, Docker arranca el contenedor igual pero
+   sin publicar el puerto, y `pg_isready` dentro del contenedor sigue dando verde mientras la
+   API se conecta a otra base de datos. Desarrollo usa ahora el 5433, y el arranque comprueba
+   el puerto **desde el host** además de la salud interna.
+
+4. **`WebApplicationFactory` no podía configurar la API.** Con top-level statements,
+   `Program.cs` llama a `AddAcademyInfrastructure` mientras construye el builder, antes de
+   que `ConfigureAppConfiguration` pueda inyectar nada: los 11 tests que usan la factory
+   arrancaban con "Falta ConnectionStrings:Academy". La configuración va ahora por variables
+   de entorno, que es el único canal que `CreateBuilder` lee a tiempo.
+5. **Colisión de slugs en un test.** Usaba los *primeros* 8 caracteres de un GUID v7 como
+   sufijo único, y v7 empieza por marca de tiempo: dos tests en el mismo instante generaban
+   el mismo slug. Ahora usa la cola, que es la parte aleatoria.
+
+Los dos primeros son exactamente lo que cazaron los tests de integración en cuanto pudieron
+ejecutarse.

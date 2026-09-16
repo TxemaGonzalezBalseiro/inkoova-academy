@@ -1,0 +1,85 @@
+# Caddy para Azure Container Apps. Mismo routing que infra/Caddyfile (la fuente de verdad
+# del porqué de cada bloque está allí); lo que cambia es el entorno:
+#
+#   - El TLS y el certificado los pone el ingress de ACA: aquí se escucha :8080 en claro
+#     y se apaga auto_https para que Caddy no intente pedir certificados.
+#   - La API no se llama «api»: su FQDN interno llega en la variable API_UPSTREAM (la pone
+#     terraform). El ingress interno de ACA enruta por cabecera Host, así que cada proxy
+#     la reescribe al host del upstream; sin eso el ingress no sabe a qué app entregar.
+#   - La SPA no viene de un volumen: está copiada en /srv/web dentro de la imagen
+#     (ver Dockerfile.caddy). El contenido de cursos sí es un mount (Azure Files, ro).
+
+{
+	auto_https off
+}
+
+:8080 {
+	encode zstd gzip
+
+	# Mismas cabeceras que en el VPS. El HSTS sigue teniendo sentido: el navegador habla
+	# HTTPS con el ingress de ACA aunque este tramo interno sea HTTP.
+	header {
+		Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+		X-Content-Type-Options "nosniff"
+		Referrer-Policy "strict-origin-when-cross-origin"
+		Permissions-Policy "camera=(), microphone=(), geolocation=(), interest-cohort=()"
+		Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' {$ANALYTICS_ORIGIN}; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob:; connect-src 'self' {$ANALYTICS_ORIGIN}; frame-src 'self'; frame-ancestors 'self'; base-uri 'self'; form-action 'self'; object-src 'none'"
+		-Server
+	}
+
+	# El webhook de Stripe llega antes que nada (su firma se valida en la API).
+	handle /api/webhooks/* {
+		reverse_proxy {$API_UPSTREAM}:80 {
+			header_up Host {$API_UPSTREAM}
+		}
+	}
+
+	# El contenido del curso: la API dice si se puede, Caddy manda los bytes (ADR-012).
+	handle /api/content/* {
+		route {
+			# Token a secas: la API responde con la redirección a la ruta canónica.
+			@token_only path_regexp ^/api/content/[^/]+/?$
+			reverse_proxy @token_only {$API_UPSTREAM}:80 {
+				header_up Host {$API_UPSTREAM}
+			}
+
+			# Token con ruta: si /authorize responde 2xx, X-Content-File trae el fichero
+			# aprobado; si responde 403, se corta aquí y el player pide token nuevo.
+			forward_auth {$API_UPSTREAM}:80 {
+				uri /api/content/authorize
+				copy_headers X-Content-File
+				header_up Host {$API_UPSTREAM}
+			}
+
+			# Se sirve lo que aprobó la API, no lo que pidió el navegador.
+			rewrite * {http.request.header.X-Content-File}
+			root * /srv/content
+			header Cache-Control "private, no-store"
+			file_server
+		}
+	}
+
+	handle /api/* {
+		reverse_proxy {$API_UPSTREAM}:80 {
+			header_up Host {$API_UPSTREAM}
+		}
+	}
+
+	handle /health/* {
+		reverse_proxy {$API_UPSTREAM}:80 {
+			header_up Host {$API_UPSTREAM}
+		}
+	}
+
+	# La SPA. Los assets con hash son inmutables; el index nunca se cachea.
+	handle {
+		root * /srv/web
+
+		@hashed path_regexp \.[0-9a-f]{8,}\.(js|css|woff2|png|jpg|svg)$
+		header @hashed Cache-Control "public, max-age=31536000, immutable"
+		header /index.html Cache-Control "no-cache"
+
+		try_files {path} /index.html
+		file_server
+	}
+}

@@ -1,0 +1,247 @@
+/*
+ * ══════════════════════════════════════════════════════════════════════════════════════════
+ * Modo «cristal»: la academia con las pautas de interfaz de Apple.
+ * ══════════════════════════════════════════════════════════════════════════════════════════
+ *
+ * Es un TERCER ASPECTO, no un tercer color. Dentro de él sigue habiendo claro y oscuro, y
+ * quien decide cuál es el sistema operativo, igual que en «automático». Por eso el selector lo
+ * ofrece al lado de claro y oscuro y no dentro de ellos.
+ *
+ * Qué cambia respecto al tema propio, y por qué:
+ *
+ *   1. **Materiales.** Las superficies dejan de ser opacas y pasan a ser translúcidas con
+ *      desenfoque. En la guía de Apple un material no es decoración: es lo que separa una capa
+ *      de la que tiene detrás. Aquí eso significa que la cabecera y las tarjetas dejan ver el
+ *      fondo, y el fondo deja de ser plano para que haya algo que ver.
+ *   2. **Radios amplios y sombras suaves.** 10 px pasa a 14, 16 a 22. Es lo que hace que un
+ *      panel parezca una lámina y no una caja.
+ *   3. **Tipografía del sistema.** San Francisco en un Mac o un iPhone, Segoe en Windows. El
+ *      texto se lee como el del resto del aparato, que es justo lo que persigue la guía.
+ *
+ * Qué NO cambia, y esto importa más que lo anterior: **el contraste del texto**. Los tokens de
+ * texto siguen siendo opacos y por encima de 4,5:1 sobre su fondo. Un material bonito que se
+ * come la legibilidad es, según el propio criterio de la guía, un fallo crítico y no un estilo.
+ *
+ * Y hay una salida: quien tenga activado «reducir transparencia» en su sistema recibe el mismo
+ * tema con superficies opacas. No es un detalle menor —translucidez y desenfoque son
+ * exactamente lo que esa preferencia existe para apagar—, así que está al final del fichero.
+ */
+
+:root[data-theme='glass'] {
+  /* El navegador decide sus controles por el sistema: dentro de cristal hay claro y oscuro. */
+  color-scheme: light dark;
+
+  /*
+   * La tipografía del sistema. Va delante de Manrope a propósito: en cristal el texto debe
+   * parecerse al del aparato, no al de la marca.
+   */
+  --font-sans: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI Variable Text',
+    'Segoe UI', system-ui, sans-serif;
+
+  /* Láminas, no cajas. */
+  --radius-sm: 8px;
+  --radius: 14px;
+  --radius-lg: 22px;
+
+  /*
+   * El material. Se aplica con `backdrop-filter` allí donde hay una superficie; la saturación
+   * acompaña al desenfoque porque el color que se ve a través se apaga si solo se difumina.
+   */
+  --material: saturate(180%) blur(20px);
+
+  /* Superficies translúcidas: lo que tienen detrás se intuye, no se lee. */
+  --surface: rgb(255 255 255 / 0.72);
+  --surface-muted: rgb(255 255 255 / 0.5);
+  --surface-inverse: #1c1c1e;
+
+  /* Un borde de un píxel a media opacidad: define el canto sin dibujar una caja. */
+  --border: rgb(0 0 0 / 0.08);
+  --border-strong: rgb(0 0 0 / 0.16);
+
+  /*
+   * El texto NO es translúcido. Es el punto donde la mayoría de los intentos de este estilo se
+   * rompen: en cuanto el texto hereda la opacidad del material, deja de leerse sobre lo que
+   * pase por debajo.
+   */
+  --text: #1c1c1e;
+  --text-muted: #6b6b70;
+
+  /* Sombra difusa y baja, la de un objeto que flota poco. */
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.04);
+  --shadow: 0 8px 30px rgb(0 0 0 / 0.08);
+  --shadow-lg: 0 24px 60px rgb(0 0 0 / 0.12);
+
+  --grid-line: rgb(0 0 0 / 0.035);
+
+  /*
+   * El fondo de la página, que es lo que se ve a través de los materiales. Un color plano
+   * dejaría el desenfoque sin nada que desenfocar y el efecto no se notaría.
+   */
+  --glass-backdrop: radial-gradient(
+      1200px 600px at 12% -10%,
+      rgb(30 58 138 / 0.16),
+      transparent 60%
+    ),
+    radial-gradient(900px 500px at 88% 0%, rgb(219 39 119 / 0.12), transparent 60%),
+    radial-gradient(1000px 800px at 50% 110%, rgb(8 145 178 / 0.1), transparent 60%), #f2f2f7;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root[data-theme='glass'] {
+    --surface: rgb(28 28 30 / 0.72);
+    --surface-muted: rgb(28 28 30 / 0.5);
+    --surface-inverse: #f2f2f7;
+
+    --border: rgb(255 255 255 / 0.12);
+    --border-strong: rgb(255 255 255 / 0.22);
+
+    --text: #f2f2f7;
+    --text-muted: #a1a1a6;
+
+    /* La marca se aclara por el mismo motivo que en el oscuro propio: sobre fondo oscuro el
+       azul de papel se queda en 1,8:1 y media web lo usa como texto. */
+    --ink-blue: #7aa2f7;
+    --ink-blue-600: #a8c3ff;
+    --ink-blue-050: #14213f;
+    --ink-magenta: #f472b6;
+    --ink-magenta-600: #f9a8d4;
+    --ink-magenta-050: #2a1224;
+    --ink-teal: #38bdf8;
+    --ink-success: #4ade80;
+    --ink-warn: #fbbf24;
+    --ink-error: #f87171;
+    --ink-050: #1c1c1e;
+    --ink-100: #2c2c2e;
+    --ink-000: #000000;
+    --ink-900: #f2f2f7;
+
+    --on-brand: #0b1220;
+    --warn-fg: #fbbf24;
+
+    --alert-error-bg: rgb(248 113 113 / 0.14);
+    --alert-error-fg: #fca5a5;
+    --alert-success-bg: rgb(74 222 128 / 0.14);
+    --alert-success-fg: #86efac;
+    --alert-info-bg: rgb(122 162 247 / 0.14);
+    --alert-info-fg: #a8c3ff;
+
+    --shadow-sm: none;
+    --shadow: 0 8px 30px rgb(0 0 0 / 0.5);
+    --shadow-lg: 0 24px 60px rgb(0 0 0 / 0.6);
+
+    --grid-line: rgb(255 255 255 / 0.05);
+    --ring: 0 0 0 3px rgb(122 162 247 / 0.28);
+    --ring-accent: 0 0 0 3px rgb(244 114 182 / 0.28);
+
+    --glass-backdrop: radial-gradient(
+        1200px 600px at 12% -10%,
+        rgb(122 162 247 / 0.16),
+        transparent 60%
+      ),
+      radial-gradient(900px 500px at 88% 0%, rgb(244 114 182 / 0.12), transparent 60%),
+      radial-gradient(1000px 800px at 50% 110%, rgb(56 189 248 / 0.1), transparent 60%), #000000;
+  }
+}
+
+/* ── el material, aplicado ───────────────────────────────────────────────────────────────
+ *
+ * Solo bajo `[data-theme='glass']`: los otros dos temas no se enteran de que este fichero
+ * existe. Es lo que permite añadir un aspecto entero sin tocar una línea de los que ya había.
+ */
+
+:root[data-theme='glass'] body {
+  background: var(--glass-backdrop);
+  /* Fijo: el material tiene que revelar algo distinto según se baja por la página. */
+  background-attachment: fixed;
+}
+
+:root[data-theme='glass'] .site-header,
+:root[data-theme='glass'] .card,
+:root[data-theme='glass'] .course-card,
+:root[data-theme='glass'] .plan-card,
+:root[data-theme='glass'] .help-card,
+:root[data-theme='glass'] .admin__panel,
+:root[data-theme='glass'] .site-footer,
+:root[data-theme='glass'] .auth__card,
+:root[data-theme='glass'] .theme-toggle,
+:root[data-theme='glass'] .social-login__btn {
+  backdrop-filter: var(--material);
+  -webkit-backdrop-filter: var(--material);
+}
+
+/*
+ * El menú móvil desplegado es la única capa que se pinta ENCIMA de contenido en movimiento.
+ * Ahí el material va más cerrado: con el mismo que la cabecera, el texto del menú compite con
+ * el de la página que hay debajo.
+ */
+:root[data-theme='glass'] .site-nav--open {
+  background: var(--surface);
+  backdrop-filter: saturate(180%) blur(30px);
+  -webkit-backdrop-filter: saturate(180%) blur(30px);
+}
+
+/* Los botones de marca siguen siendo sólidos: son la acción principal y no deben difuminarse
+   contra lo que tengan detrás. */
+:root[data-theme='glass'] .btn--primary,
+:root[data-theme='glass'] .btn--accent {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+/* ── reducir transparencia ───────────────────────────────────────────────────────────────
+ *
+ * Quien lo pide en su sistema recibe el mismo tema SIN materiales. No es una degradación: la
+ * translucidez es exactamente lo que esa preferencia existe para apagar, y un tema que la
+ * ignora es inaccesible por mucho que le guste a quien lo diseñó.
+ *
+ * Va al final para ganar por orden, sin subir especificidad.
+ */
+@media (prefers-reduced-transparency: reduce) {
+  :root[data-theme='glass'] {
+    --surface: #ffffff;
+    --surface-muted: #f2f2f7;
+    --glass-backdrop: #f2f2f7;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root[data-theme='glass'] {
+      --surface: #1c1c1e;
+      --surface-muted: #2c2c2e;
+      --glass-backdrop: #000000;
+    }
+  }
+
+  :root[data-theme='glass'] .site-header,
+  :root[data-theme='glass'] .card,
+  :root[data-theme='glass'] .course-card,
+  :root[data-theme='glass'] .plan-card,
+  :root[data-theme='glass'] .help-card,
+  :root[data-theme='glass'] .admin__panel,
+  :root[data-theme='glass'] .site-footer,
+  :root[data-theme='glass'] .auth__card,
+  :root[data-theme='glass'] .theme-toggle,
+  :root[data-theme='glass'] .social-login__btn,
+  :root[data-theme='glass'] .site-nav--open {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+}
+
+/*
+ * `backdrop-filter` no está en todos los navegadores. Donde no esté, las superficies se
+ * vuelven opacas en vez de quedarse semitransparentes sin desenfoque, que es como se ve el
+ * texto de una página encima del de otra.
+ */
+@supports not (backdrop-filter: blur(1px)) {
+  :root[data-theme='glass'] {
+    --surface: #ffffff;
+    --surface-muted: #f2f2f7;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root[data-theme='glass'] {
+      --surface: #1c1c1e;
+      --surface-muted: #2c2c2e;
+    }
+  }
+}

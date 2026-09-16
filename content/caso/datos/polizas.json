@@ -1,0 +1,89 @@
+[
+  {
+    "numero": "POL-2024-100341",
+    "tomador": "Aurora Beltrán Quesada",
+    "matricula": "1234 KLM",
+    "vehiculo": "Seat León 1.5 TSI (2019)",
+    "modalidad": "Todo riesgo con franquicia",
+    "vigencia": {
+      "desde": "2024-03-01",
+      "hasta": "2027-03-01"
+    },
+    "coberturas": [
+      "RC_OBLIGATORIA",
+      "DANOS_PROPIOS",
+      "LUNAS",
+      "ROBO",
+      "ASISTENCIA",
+      "OCUPANTES"
+    ],
+    "franquicia_danos_propios": 300
+  },
+  {
+    "numero": "POL-2025-208877",
+    "tomador": "Nicolás Ferrán Oteiza",
+    "matricula": "5678 BCD",
+    "vehiculo": "Dacia Sandero 1.0 (2022)",
+    "modalidad": "Terceros ampliado",
+    "vigencia": {
+      "desde": "2025-01-15",
+      "hasta": "2027-01-15"
+    },
+    "coberturas": [
+      "RC_OBLIGATORIA",
+      "LUNAS",
+      "ROBO",
+      "ASISTENCIA"
+    ],
+    "franquicia_danos_propios": null
+  },
+  {
+    "numero": "POL-2023-045512",
+    "tomador": "Marisol Cadenas Prieto",
+    "matricula": "9012 FGH",
+    "vehiculo": "Renault Clio 1.3 (2017)",
+    "modalidad": "Terceros",
+    "vigencia": {
+      "desde": "2023-06-10",
+      "hasta": "2027-06-10"
+    },
+    "coberturas": [
+      "RC_OBLIGATORIA",
+      "ASISTENCIA"
+    ],
+    "franquicia_danos_propios": null
+  },
+  {
+    "numero": "POL-2025-311204",
+    "tomador": "Transportes Vallecas Norte, S.L.",
+    "matricula": "3456 JKL",
+    "vehiculo": "Ford Transit Custom (2021)",
+    "modalidad": "Todo riesgo flota",
+    "vigencia": {
+      "desde": "2025-04-01",
+      "hasta": "2027-04-01"
+    },
+    "coberturas": [
+      "RC_OBLIGATORIA",
+      "DANOS_PROPIOS",
+      "LUNAS",
+      "ASISTENCIA"
+    ],
+    "franquicia_danos_propios": 600
+  },
+  {
+    "numero": "POL-2022-771903",
+    "tomador": "Ismael Arrieta Fonseca",
+    "matricula": "7890 NPQ",
+    "vehiculo": "Opel Corsa 1.2 (2015)",
+    "modalidad": "Terceros",
+    "vigencia": {
+      "desde": "2022-09-01",
+      "hasta": "2025-09-01"
+    },
+    "coberturas": [
+      "RC_OBLIGATORIA"
+    ],
+    "franquicia_danos_propios": null
+  }
+]

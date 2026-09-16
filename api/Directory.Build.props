@@ -1,0 +1,20 @@
+<Project>
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <WarningsNotAsErrors>CS1591</WarningsNotAsErrors>
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+    <InvariantGlobalization>true</InvariantGlobalization>
+    <NeutralLanguage>es-ES</NeutralLanguage>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(MSBuildProjectName)' != 'Inkoova.Academy.Domain'">
+    <!-- Domain is deliberately dependency-free; see CLAUDE.md convention 4. -->
+  </PropertyGroup>
+
+</Project>

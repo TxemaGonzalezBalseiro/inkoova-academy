@@ -1,0 +1,40 @@
+# El contexto de build es la raíz del repo (ver .github/workflows/deploy.yml). Sin esta lista,
+# `COPY api/ api/` mete dentro de la imagen los `obj/` de la máquina de quien construye, y el
+# `dotnet publish --no-restore` del Dockerfile lee ese `project.assets.json`: en Windows viene
+# con rutas como `C:\Program Files (x86)\...\NuGetPackages` y la compilación muere con
+# «Unable to find fallback package folder». En CI no se veía porque el checkout está limpio.
+
+# .NET
+**/bin/
+**/obj/
+**/TestResults/
+*.user
+*.suo
+
+# Node
+**/node_modules/
+web/dist/
+**/.vite/
+**/playwright-report/
+**/test-results/
+
+# Python
+**/__pycache__/
+**/*.pyc
+**/.venv/
+**/venv/
+
+# Git y CI
+.git/
+.github/
+.gitignore
+
+# Nada de esto entra en ninguna imagen
+.env
+**/.env.local
+**/*.local.json
+**/*.bak
+docs/
+tasks/
+content-tasks/
+infra/backups/

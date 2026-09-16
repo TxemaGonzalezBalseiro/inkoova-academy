@@ -1,0 +1,60 @@
+/*
+ * Botones de acceso con proveedor externo.
+ *
+ * Son enlaces, no botones, porque el navegador tiene que salir del sitio. Se les da altura y
+ * foco de botón para que no se noten distintos de los del formulario que tienen encima.
+ */
+
+.social-login {
+  margin-top: var(--space-6);
+}
+
+/* La línea con el «o» en medio. Los dos filetes se dibujan con los pseudoelementos para no
+   meter dos divs vacíos en el marcado. */
+.social-login__divider {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+  color: var(--text-muted);
+  font-size: var(--text-sm);
+}
+
+.social-login__divider::before,
+.social-login__divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+.social-login__btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  width: 100%;
+  /* 44 px: el mínimo cómodo de toque, el mismo que el resto de botones. */
+  min-height: 44px;
+  padding: var(--space-3) var(--space-4);
+  margin-bottom: var(--space-3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+  font-weight: 600;
+  text-decoration: none;
+  transition: border-color 0.15s var(--ease), background 0.15s var(--ease);
+}
+
+.social-login__btn:hover {
+  border-color: var(--border-strong);
+  background: var(--surface-muted);
+}
+
+.social-login__btn:focus-visible {
+  outline: none;
+  border-color: var(--ink-magenta);
+  box-shadow: var(--ring-accent);
+}

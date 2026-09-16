@@ -1,0 +1,495 @@
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import { ErrorMessage, Spinner } from '../components/common';
+import {
+  IconAlert,
+  IconArrowLeft,
+  IconArrowRight,
+  IconCheck,
+  IconPanelLeft,
+  IconRefresh,
+  IconUser,
+} from '../components/icons';
+import { useApi } from '../hooks/useApi';
+import { api, ApiError } from '../lib/api';
+import { useAuth } from '../lib/useAuth';
+import { baseAppearance } from '../lib/theme';
+import { useTheme } from '../lib/useTheme';
+import type { CourseDetail, PlayerLesson } from '../lib/types';
+import './player.css';
+
+/** Versión del contrato con el contenido. Ver content/PROTOCOL.md. */
+const PROTOCOL_VERSION = 1;
+
+export function PlayerPage() {
+  const { courseSlug = '', lessonSlug = '' } = useParams();
+  const navigate = useNavigate();
+  const { user } = useAuth();
+  // El visor del curso solo entiende de claro y oscuro. En «cristal» se le manda el aspecto que
+  // hay debajo —el del sistema—: enviarle «glass» lo dejaría en claro con la academia en oscuro.
+  const { resolved } = useTheme();
+  const theme = baseAppearance(resolved);
+
+  const {
+    data: lesson,
+    error,
+    loading,
+    reload,
+  } = useApi<PlayerLesson>(`/learn/${courseSlug}/${lessonSlug}`, [courseSlug, lessonSlug]);
+
+  const { data: course } = useApi<CourseDetail>(`/courses/${courseSlug}`, [courseSlug]);
+
+  const iframeRef = useRef<HTMLIFrameElement>(null);
+
+  /*
+   * El tema llega al documento por dos caminos, y los dos hacen falta:
+   *
+   * - En la URL (`?theme=`), que es lo que lee el script del <head> antes de pintar. Sin esto,
+   *   quien tiene la academia en oscuro ve un fogonazo blanco en cada lección.
+   * - Por postMessage al recibir el saludo del documento, para el caso en el que el iframe ya
+   *   estaba cargado.
+   *
+   * Cambiar el tema cambia la URL y recarga el iframe. Es aceptable: recargar deja la lección
+   * en el color correcto y ocurre solo al tocar el interruptor, no al navegar.
+   */
+
+  /*
+   * El temario empieza abierto en escritorio y cerrado en móvil, y el botón lo alterna en las
+   * dos. Antes solo tenía efecto por debajo de 860 px: en escritorio el panel estaba fijo por
+   * CSS y pulsar "Temario" no hacía nada.
+   */
+  const [sidebarOpen, setSidebarOpen] = useState(() =>
+    typeof window === 'undefined' ? true : window.innerWidth > 860,
+  );
+
+  const [saving, setSaving] = useState(false);
+
+  /*
+   * El fallo se guarda junto a la clase en la que ocurrió, y luego se compara. Es el mismo
+   * patrón que "completada" más abajo: así no hace falta un efecto que limpie el estado en
+   * cada navegación, y no se arrastra el aviso de una clase a la siguiente.
+   */
+  const [contentFailure, setContentFailure] = useState<{ lesson: string; code: string } | null>(null);
+  const contentError = contentFailure?.lesson === lessonSlug ? contentFailure.code : null;
+
+  /*
+   * "Completada" se deriva del servidor y solo se sobreescribe localmente tras marcarla,
+   * anotando de qué lección era ese cambio. Guardar la lección junto al override es lo que
+   * evita arrastrar el estado de una lección a la siguiente sin recurrir a un efecto que
+   * resetee estado en cada navegación.
+   */
+  const [locallyCompleted, setLocallyCompleted] = useState<string | null>(null);
+  const completed = lesson ? lesson.completed || locallyCompleted === lesson.lessonId : false;
+
+  useEffect(() => {
+    document.title = lesson ? `${lesson.title} · Inkoova Academy` : 'Inkoova Academy';
+  }, [lesson]);
+
+  const markCompleted = useCallback(async () => {
+    if (!lesson || !user || completed) {
+      return;
+    }
+
+    setSaving(true);
+
+    try {
+      await api.post(`/me/progress/lessons/${lesson.lessonId}/complete`);
+      setLocallyCompleted(lesson.lessonId);
+    } catch {
+      // Marcar como completada es una comodidad: si falla, el alumno puede reintentarlo.
+    } finally {
+      setSaving(false);
+    }
+  }, [lesson, user, completed]);
+
+  const savePosition = useCallback(
+    async (positionRef: string) => {
+      if (!lesson || !user) {
+        return;
+      }
+
+      try {
+        await api.put(`/me/progress/lessons/${lesson.lessonId}/position`, { positionRef });
+      } catch {
+        // La posición se reintenta en el siguiente cambio de slide.
+      }
+    },
+    [lesson, user],
+  );
+
+  // Contrato postMessage con el HTML importado (content/PROTOCOL.md).
+  useEffect(() => {
+    function onMessage(event: MessageEvent) {
+      // Solo se aceptan mensajes de la ventana del iframe que hemos creado nosotros.
+      if (!iframeRef.current || event.source !== iframeRef.current.contentWindow) {
+        return;
+      }
+
+      const data = event.data as {
+        type?: string;
+        version?: number;
+        positionRef?: string;
+        code?: string;
+        recoverable?: boolean;
+      } | null;
+
+      if (!data || typeof data !== 'object' || data.version !== PROTOCOL_VERSION) {
+        return;
+      }
+
+      switch (data.type) {
+        // La API sirve sus errores de contenido como página, no como JSON, y avisa por aquí.
+        // Un token caducado se arregla pidiendo otro y el alumno no llega a ver nada; lo demás
+        // necesita explicación, así que se guarda para pintarla en el sitio del visor.
+        case 'inkoova:content-error':
+          if (data.recoverable) {
+            reload();
+          } else {
+            setContentFailure({ lesson: lessonSlug, code: data.code ?? 'content.unknown' });
+          }
+          break;
+
+        // El documento avisa de que ya escucha. Sin este apretón de manos, el tema que se
+        // manda al cargar puede llegar antes de que el visor registre su listener y perderse,
+        // dejando la lección con el tema del sistema en lugar del de la academia.
+        case 'inkoova:theme-ready':
+          iframeRef.current.contentWindow?.postMessage(
+            { type: 'inkoova:theme', version: PROTOCOL_VERSION, theme },
+            '*',
+          );
+          break;
+
+        case 'inkoova:ready':
+          if (lesson?.lastPositionRef) {
+            iframeRef.current.contentWindow?.postMessage(
+              { type: 'inkoova:restore', version: PROTOCOL_VERSION, positionRef: lesson.lastPositionRef },
+              '*',
+            );
+          }
+          break;
+
+        case 'inkoova:position':
+          if (typeof data.positionRef === 'string') {
+            void savePosition(data.positionRef.slice(0, 200));
+          }
+          break;
+
+        case 'inkoova:completed':
+          void markCompleted();
+          break;
+      }
+    }
+
+    window.addEventListener('message', onMessage);
+    return () => window.removeEventListener('message', onMessage);
+  }, [lesson, lessonSlug, markCompleted, savePosition, reload, theme]);
+
+  // Atajos de teclado: siguiente y anterior, como en el visor original.
+  useEffect(() => {
+    function onKeyDown(event: KeyboardEvent) {
+      // Dentro de un campo de texto las flechas mueven el cursor, no la lección.
+      const target = event.target as HTMLElement | null;
+      if (target && ['INPUT', 'TEXTAREA', 'SELECT'].includes(target.tagName)) {
+        return;
+      }
+
+      if (event.key === 'j' && lesson?.nextLessonSlug) {
+        navigate(`/aprender/${courseSlug}/${lesson.nextLessonSlug}`);
+      }
+
+      if (event.key === 'k' && lesson?.previousLessonSlug) {
+        navigate(`/aprender/${courseSlug}/${lesson.previousLessonSlug}`);
+      }
+
+      if (event.key === 'Escape') {
+        setSidebarOpen(false);
+      }
+    }
+
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, [lesson, courseSlug, navigate]);
+
+  if (loading) {
+    return <Spinner label="Abriendo la lección…" />;
+  }
+
+  if (error?.status === 403) {
+    return (
+      <div className="player-gate">
+        <h1>Esta clase es para miembros</h1>
+        <p className="muted">{error.message}</p>
+        <div className="row">
+          <Link to="/precios" className="btn btn--accent">
+            Ver planes
+          </Link>
+          <Link to={`/curso/${courseSlug}`} className="btn btn--ghost">
+            Volver al temario
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
+  if (error || !lesson) {
+    return (
+      <div className="player-gate">
+        <ErrorMessage>
+          {error instanceof ApiError ? error.message : 'No hemos podido abrir la lección.'}
+        </ErrorMessage>
+        <Link to={`/curso/${courseSlug}`} className="btn btn--ghost">
+          Volver al temario
+        </Link>
+      </div>
+    );
+  }
+
+  // El ancla va en la URL del iframe, no en el token: el navegador salta a ella al cargar.
+  // Los cursos que viven en un único HTML sirven así cada lección desde el mismo fichero.
+  // El tema viaja en la query para que el documento pinte del color correcto a la primera. Va
+  // antes del fragmento porque una query después de `#` es parte del ancla, no de la URL.
+  const contentUrl =
+    `${api.baseUrl}/content/${lesson.contentToken}?theme=${theme}` +
+    (lesson.contentFragment ? `#${lesson.contentFragment}` : '');
+
+  return (
+    <div className={`player ${sidebarOpen ? '' : 'player--collapsed'}`}>
+      <header className="player__bar">
+        <button
+          type="button"
+          className="btn btn--ghost btn--sm btn--icon-text"
+          aria-expanded={sidebarOpen}
+          aria-controls="player-sidebar"
+          onClick={() => setSidebarOpen((open) => !open)}
+        >
+          <IconPanelLeft />
+          <span className="player__bar-label">Temario</span>
+        </button>
+
+        {/* Sin esto el player era un callejón sin salida: no había forma de volver. */}
+        <Link to="/" className="player__brand" title="Volver a la plataforma">
+          <span className="player__brand-mark" aria-hidden="true" />
+          <span className="player__bar-label">Academy</span>
+        </Link>
+
+        <div className="player__title">
+          <Link to={`/curso/${courseSlug}`} className="muted player__course">
+            {course?.title ?? courseSlug}
+          </Link>
+          <h1>{lesson.title}</h1>
+        </div>
+
+        <div className="player__actions">
+          {user && (
+            <button
+              type="button"
+              className={`btn btn--sm btn--icon-text ${completed ? 'btn--ghost' : 'btn--primary'}`}
+              onClick={() => void markCompleted()}
+              disabled={completed || saving}
+            >
+              <IconCheck />
+              <span className="player__bar-label">
+                {completed ? 'Completada' : saving ? 'Guardando…' : 'Marcar completada'}
+              </span>
+            </button>
+          )}
+
+          <div className="player__steps">
+            <Link
+              to={lesson.previousLessonSlug ? `/aprender/${courseSlug}/${lesson.previousLessonSlug}` : '#'}
+              className="btn btn--ghost btn--sm btn--icon"
+              aria-disabled={!lesson.previousLessonSlug}
+              aria-label="Clase anterior (tecla k)"
+              title="Anterior (tecla k)"
+            >
+              <IconArrowLeft />
+            </Link>
+
+            <Link
+              to={lesson.nextLessonSlug ? `/aprender/${courseSlug}/${lesson.nextLessonSlug}` : '#'}
+              className="btn btn--ghost btn--sm btn--icon"
+              aria-disabled={!lesson.nextLessonSlug}
+              aria-label="Clase siguiente (tecla j)"
+              title="Siguiente (tecla j)"
+            >
+              <IconArrowRight />
+            </Link>
+          </div>
+
+          <Link
+            to={user ? '/cuenta' : '/login'}
+            className="btn btn--ghost btn--sm btn--icon"
+            aria-label={user ? 'Mi cuenta' : 'Entrar'}
+            title={user ? 'Mi cuenta' : 'Entrar'}
+          >
+            <IconUser />
+          </Link>
+        </div>
+      </header>
+
+      <div className="player__body">
+        <nav
+          id="player-sidebar"
+          className="player__sidebar"
+          aria-label="Temario del curso"
+        >
+          {course?.sections.map((section) => (
+            <section key={section.title}>
+              <h2>{section.title}</h2>
+              <ul>
+                {section.lessons.map((item) => (
+                  <li key={item.slug}>
+                    {item.hasAccess ? (
+                      <Link
+                        to={`/aprender/${courseSlug}/${item.slug}`}
+                        className={item.slug === lessonSlug ? 'is-current' : ''}
+                        aria-current={item.slug === lessonSlug ? 'page' : undefined}
+                      >
+                        {item.title}
+                      </Link>
+                    ) : (
+                      <span className="muted">
+                        {item.title} <span aria-label="Solo para miembros">🔒</span>
+                      </span>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </section>
+          ))}
+        </nav>
+
+        <div className="player__content">
+          {contentError ? (
+            <ContentErrorView code={contentError} courseSlug={courseSlug} onRetry={reload} />
+          ) : lesson.type === 'lab' ? (
+            <LabView contentUrl={contentUrl} title={lesson.title} />
+          ) : (
+            <iframe
+              ref={iframeRef}
+              src={contentUrl}
+              title={lesson.title}
+              className="player__frame"
+              /*
+               * allow-same-origin es necesario para que el contenido lea sus propios assets
+               * relativos; no se concede allow-top-navigation ni allow-popups, así que el
+               * HTML importado no puede sacar al alumno de la plataforma.
+               *
+               * El token dura 60 s y NO se renueva por reloj. Renovarlo cambiaba el `src` y
+               * recargaba el iframe cada 50 segundos, tirando por el camino lo que el alumno
+               * llevara respondido de un quiz. Cuando de verdad caduca, la API responde con su
+               * página de aviso y esa pide un token nuevo por postMessage.
+               */
+              sandbox="allow-scripts allow-same-origin allow-forms"
+              referrerPolicy="no-referrer"
+            />
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/**
+ * Aviso cuando el contenido no se puede servir, en el sitio del visor y con el aspecto de la
+ * plataforma. Antes el alumno veía el `problem+json` en crudo dentro del marco.
+ */
+function ContentErrorView({
+  code,
+  courseSlug,
+  onRetry,
+}: {
+  code: string;
+  courseSlug: string;
+  onRetry: () => void;
+}) {
+  const { heading, body } = EXPLAIN[code] ?? EXPLAIN.default;
+
+  return (
+    <div className="player-notice">
+      <span className="player-notice__mark" aria-hidden="true">
+        <IconAlert size={26} />
+      </span>
+
+      <h2>{heading}</h2>
+      <p className="muted">{body}</p>
+
+      <div className="row">
+        <button type="button" className="btn btn--primary btn--icon-text" onClick={onRetry}>
+          <IconRefresh />
+          Reintentar
+        </button>
+
+        <Link to={`/curso/${courseSlug}`} className="btn btn--ghost">
+          Volver al temario
+        </Link>
+      </div>
+    </div>
+  );
+}
+
+/** Mismo texto que la página que sirve la API, para que no se contradigan. */
+const EXPLAIN: Record<string, { heading: string; body: string }> = {
+  'content.out_of_scope': {
+    heading: 'Esta clase no entra en tu acceso',
+    body: 'Ábrela desde el temario. Si es de un bloque de pago, necesitas un plan que lo incluya.',
+  },
+  'content.not_found': {
+    heading: 'Este material no está disponible',
+    body: 'El fichero de la clase no está en el servidor. Avísanos indicando qué clase es.',
+  },
+  'content_token.bad_signature': {
+    heading: 'El enlace de esta clase no es válido',
+    body: 'Vuelve al temario y ábrela desde ahí para conseguir uno nuevo.',
+  },
+  default: {
+    heading: 'No hemos podido abrir esta clase',
+    body: 'Inténtalo otra vez. Si sigue igual, avísanos desde soporte.',
+  },
+};
+
+/**
+ * Los labs son Markdown. Se muestran como texto preformateado en vez de convertirlos a HTML:
+ * meter un renderer de Markdown implica sanear HTML arbitrario, y el contenido de un lab es
+ * sobre todo código que se lee igual de bien en monoespaciada.
+ */
+function LabView({ contentUrl, title }: { contentUrl: string; title: string }) {
+  const [markdown, setMarkdown] = useState<string | null>(null);
+  const [failed, setFailed] = useState(false);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    fetch(contentUrl, { credentials: 'include' })
+      .then((response) => (response.ok ? response.text() : Promise.reject(new Error('no'))))
+      .then((text) => {
+        if (!cancelled) {
+          setMarkdown(text);
+        }
+      })
+      .catch(() => {
+        if (!cancelled) {
+          setFailed(true);
+        }
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [contentUrl]);
+
+  if (failed) {
+    return <ErrorMessage>No hemos podido cargar el lab. Recarga la página.</ErrorMessage>;
+  }
+
+  if (markdown === null) {
+    return <Spinner />;
+  }
+
+  return (
+    <article className="lab">
+      <h2 className="sr-only">{title}</h2>
+      <pre className="lab__body">{markdown}</pre>
+    </article>
+  );
+}

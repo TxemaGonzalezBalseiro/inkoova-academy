@@ -1,0 +1,216 @@
+using System.Text;
+using System.Threading.RateLimiting;
+using Inkoova.Academy.Api;
+using Inkoova.Academy.Api.Endpoints;
+using Inkoova.Academy.Domain.Users;
+using Inkoova.Academy.Infrastructure;
+using Inkoova.Academy.Infrastructure.Identity;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.AspNetCore.HttpOverrides;
+using Microsoft.IdentityModel.Tokens;
+using OpenTelemetry.Metrics;
+using OpenTelemetry.Resources;
+using OpenTelemetry.Trace;
+using Scalar.AspNetCore;
+
+var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddAcademyInfrastructure(builder.Configuration);
+builder.Services.AddOpenApi();
+builder.Services.AddProblemDetails();
+
+// Caddy terminates TLS in front of the API, so the scheme and the client IP arrive in
+// headers. Without this, rate limiting would see one client and links would say http.
+builder.Services.Configure<ForwardedHeadersOptions>(options =>
+{
+    options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+    options.KnownIPNetworks.Clear();
+    options.KnownProxies.Clear();
+});
+
+// ── auth ────────────────────────────────────────────────────────────────────────────────
+
+var jwt = new JwtOptions
+{
+    Issuer = builder.Configuration["Academy:Jwt:Issuer"] ?? "inkoova-academy",
+    Audience = builder.Configuration["Academy:Jwt:Audience"] ?? "inkoova-academy",
+    SigningKey = builder.Configuration["Academy:Jwt:SigningKey"]
+                 ?? throw new InvalidOperationException("Falta el secreto 'Academy:Jwt:SigningKey'.")
+};
+
+builder.Services
+    .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidIssuer = jwt.Issuer,
+            ValidateAudience = true,
+            ValidAudience = jwt.Audience,
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwt.SigningKey)),
+            ValidateLifetime = true,
+            // The default 5-minute skew would keep a 15-minute token alive for 20.
+            ClockSkew = TimeSpan.FromSeconds(30)
+        };
+    });
+
+builder.Services.AddAuthorizationBuilder()
+    .AddPolicy("admin", policy => policy.RequireRole(Roles.Admin))
+    .AddPolicy("affiliate", policy => policy.RequireRole(Roles.Affiliate, Roles.Admin));
+
+// ── CORS ────────────────────────────────────────────────────────────────────────────────
+
+var allowedOrigins = builder.Configuration.GetSection("Academy:Cors:Origins").Get<string[]>()
+                     ?? ["http://localhost:5173"];
+
+builder.Services.AddCors(options => options.AddDefaultPolicy(policy => policy
+    .WithOrigins(allowedOrigins)
+    .AllowAnyHeader()
+    .AllowAnyMethod()
+    // The refresh token lives in a cookie, so the SPA must be allowed to send it.
+    .AllowCredentials()));
+
+// ── rate limiting ───────────────────────────────────────────────────────────────────────
+
+builder.Services.AddRateLimiter(options =>
+{
+    options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
+
+    // Credential endpoints: tight, per IP. Slows down credential stuffing without making
+    // the site unusable behind a shared NAT.
+    options.AddPolicy("auth", context => RateLimitPartition.GetFixedWindowLimiter(
+        ClientKey(context),
+        _ => new FixedWindowRateLimiterOptions { PermitLimit = 10, Window = TimeSpan.FromMinutes(5) }));
+
+    // Public certificate verification: unauthenticated and cacheable by scrapers (T-10).
+    options.AddPolicy("verification", context => RateLimitPartition.GetFixedWindowLimiter(
+        ClientKey(context),
+        _ => new FixedWindowRateLimiterOptions { PermitLimit = 30, Window = TimeSpan.FromMinutes(1) }));
+
+    options.AddPolicy("quiz", context => RateLimitPartition.GetFixedWindowLimiter(
+        ClientKey(context),
+        _ => new FixedWindowRateLimiterOptions { PermitLimit = 20, Window = TimeSpan.FromMinutes(10) }));
+
+    // Referral clicks: enough for real navigation, low enough that click inflation is not
+    // worth attempting (T-16 antifraud).
+    options.AddPolicy("referral", context => RateLimitPartition.GetFixedWindowLimiter(
+        ClientKey(context),
+        _ => new FixedWindowRateLimiterOptions { PermitLimit = 30, Window = TimeSpan.FromHours(1) }));
+});
+
+// ── observability ───────────────────────────────────────────────────────────────────────
+
+builder.Services.AddOpenTelemetry()
+    .ConfigureResource(resource => resource.AddService("inkoova-academy-api"))
+    .WithTracing(tracing => tracing
+        .AddAspNetCoreInstrumentation(o => o.Filter = ctx => !ctx.Request.Path.StartsWithSegments("/health"))
+        .AddHttpClientInstrumentation()
+        .AddOtlpExporter())
+    .WithMetrics(metrics => metrics
+        .AddAspNetCoreInstrumentation()
+        .AddHttpClientInstrumentation()
+        .AddRuntimeInstrumentation()
+        .AddOtlpExporter());
+
+builder.Services.AddHealthChecks()
+    .AddNpgSql(
+        builder.Configuration.GetConnectionString("Academy")!,
+        name: "postgres",
+        tags: ["ready"]);
+
+var app = builder.Build();
+
+app.UseForwardedHeaders();
+
+app.UseExceptionHandler(handler => handler.Run(async context =>
+{
+    var feature = context.Features.Get<IExceptionHandlerFeature>();
+
+    // Una petición mal formada es culpa de quien llama, no del servidor. Sin esto el
+    // manejador se tragaba el 400 del binding y contestaba 500 a algo tan corriente como
+    // olvidar un parámetro, mandando a buscar el fallo al sitio equivocado.
+    if (feature?.Error is BadHttpRequestException badRequest)
+    {
+        await Results.Problem(
+                title: "Petición no válida",
+                detail: badRequest.Message,
+                statusCode: badRequest.StatusCode)
+            .ExecuteAsync(context);
+
+        return;
+    }
+
+    app.Logger.LogError(feature?.Error, "Unhandled exception on {Path}", context.Request.Path);
+
+    // No stack traces to the client: the trace id is enough to find it in the collector.
+    await Results.Problem(
+            title: "Error inesperado",
+            detail: "Ha ocurrido un error. Inténtalo de nuevo en unos segundos.",
+            statusCode: StatusCodes.Status500InternalServerError,
+            extensions: new Dictionary<string, object?> { ["traceId"] = context.TraceIdentifier })
+        .ExecuteAsync(context);
+}));
+
+app.Use(async (context, next) =>
+{
+    var headers = context.Response.Headers;
+    headers["X-Content-Type-Options"] = "nosniff";
+    headers["Referrer-Policy"] = "strict-origin-when-cross-origin";
+    headers["Permissions-Policy"] = "camera=(), microphone=(), geolocation=()";
+
+    // El contenido importado se sirve DENTRO del iframe del player (ADR-008), así que es la
+    // única ruta que no puede llevar DENY: con DENY el navegador rechaza el documento y el
+    // player se queda en blanco en todas las lecciones. SAMEORIGIN sigue impidiendo que un
+    // tercero enmarque una lección con el token de otro alumno, que es lo que protege esta
+    // cabecera. El resto de la API mantiene DENY: nada más debe enmarcarse nunca.
+    headers["X-Frame-Options"] =
+        context.Request.Path.StartsWithSegments("/api/content") ? "SAMEORIGIN" : "DENY";
+
+    await next();
+});
+
+app.UseCors();
+app.UseRateLimiter();
+app.UseAuthentication();
+app.UseAuthorization();
+
+if (app.Environment.IsDevelopment())
+{
+    app.MapOpenApi();
+    app.MapScalarApiReference();
+}
+
+app.MapHealthChecks("/health/live");
+app.MapHealthChecks("/health/ready", new Microsoft.AspNetCore.Diagnostics.HealthChecks.HealthCheckOptions
+{
+    Predicate = check => check.Tags.Contains("ready")
+});
+
+app.MapAuthEndpoints();
+app.MapCatalogEndpoints();
+app.MapLearningEndpoints();
+app.MapContentEndpoints();
+app.MapBillingEndpoints();
+app.MapRoadmapEndpoints();
+app.MapAffiliateEndpoints();
+app.MapCommunityEndpoints();
+app.MapPrivacyEndpoints();
+app.MapAdminEndpoints();
+app.MapAuthoringEndpoints();
+app.MapBillingAdminEndpoints();
+
+await SeedRunner.RunAsync(app);
+
+app.Run();
+
+/// <summary>Rate-limit partition key: the authenticated user when there is one, the IP otherwise.</summary>
+static string ClientKey(HttpContext context) =>
+    context.User.Identity?.IsAuthenticated == true
+        ? context.User.FindFirst("sub")?.Value ?? "anonymous"
+        : context.Connection.RemoteIpAddress?.ToString() ?? "unknown";
+
+/// <summary>Exposed so the integration tests can build the same host.</summary>
+public partial class Program;

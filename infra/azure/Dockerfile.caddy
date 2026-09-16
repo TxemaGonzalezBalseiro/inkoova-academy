@@ -1,0 +1,26 @@
+# syntax=docker/dockerfile:1
+# Caddy para Azure Container Apps.
+#
+# En el VPS la SPA viaja en un volumen que rellena la imagen «web» al desplegar; en ACA no
+# hay volúmenes compartidos entre apps, así que los estáticos se copian aquí dentro y la
+# imagen resultante es autosuficiente: Caddy + Caddyfile + SPA. El contenido de cursos NO
+# va dentro: es un mount de Azure Files en /srv/content (solo lectura).
+#
+# Se construye desde la raíz del repositorio, encadenada a la imagen web ya publicada:
+#
+#   docker build -f infra/azure/Dockerfile.caddy \
+#     --build-arg WEB_IMAGE=ghcr.io/inkoova/inkoova-academy/web:<tag> \
+#     -t ghcr.io/inkoova/inkoova-academy/caddy-azure:<tag> .
+#   docker push ghcr.io/inkoova/inkoova-academy/caddy-azure:<tag>
+#
+# (.github/workflows/deploy-azure.yml hace exactamente esto.)
+
+ARG WEB_IMAGE=ghcr.io/inkoova/inkoova-academy/web:latest
+FROM ${WEB_IMAGE} AS dist
+
+FROM caddy:2-alpine
+COPY infra/azure/Caddyfile.azure /etc/caddy/Caddyfile
+COPY --from=dist /dist /srv/web
+
+# El TLS lo termina el ingress de ACA; aquí solo hay HTTP plano.
+EXPOSE 8080

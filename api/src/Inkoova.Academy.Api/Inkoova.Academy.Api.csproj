@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AspNetCore.HealthChecks.NpgSql" Version="9.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="10.0.11" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="10.0.11" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="10.0.11" />
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.11" />
+    <PackageReference Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.18.0" />
+    <PackageReference Include="OpenTelemetry.Extensions.Hosting" Version="1.18.0" />
+    <PackageReference Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.18.0" />
+    <PackageReference Include="OpenTelemetry.Instrumentation.Http" Version="1.18.0" />
+    <PackageReference Include="OpenTelemetry.Instrumentation.Runtime" Version="1.18.0" />
+    <PackageReference Include="Scalar.AspNetCore" Version="2.17.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Inkoova.Academy.Infrastructure\Inkoova.Academy.Infrastructure.csproj" />
+    <ProjectReference Include="..\Inkoova.Academy.Application\Inkoova.Academy.Application.csproj" />
+    <ProjectReference Include="..\Inkoova.Academy.Domain\Inkoova.Academy.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

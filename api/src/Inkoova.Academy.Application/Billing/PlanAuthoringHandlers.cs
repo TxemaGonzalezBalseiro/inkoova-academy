@@ -1,0 +1,191 @@
+using Inkoova.Academy.Application.Abstractions;
+using Inkoova.Academy.Domain.Billing;
+using Inkoova.Academy.Domain.Common;
+using Inkoova.Academy.Domain.ValueObjects;
+
+namespace Inkoova.Academy.Application.Billing;
+
+/// <summary>
+/// Gestión de planes desde el panel (T-04, T-11).
+///
+/// Hasta ahora los cinco planes venían del seed y solo se podían cambiar tocando código y
+/// volviendo a desplegar. Cambiar un precio es una decisión de negocio, no un despliegue.
+///
+/// Dos cosas no se editan nunca:
+///
+/// - **El código.** Viaja en los metadatos de Stripe, en las suscripciones vivas y en los roles
+///   de Discord. Cambiarlo dejaría a los suscriptores actuales apuntando a un plan que ya no
+///   existe.
+/// - **El intervalo.** Define el periodo de facturación de lo ya contratado. Un plan que pasa de
+///   mensual a anual es un plan distinto, y se crea como tal.
+/// </summary>
+public sealed record CreatePlanRequest(
+    string Code,
+    string Name,
+    string Interval,
+    long PriceCents,
+    IReadOnlyList<string> Benefits,
+    bool IncludesAllCourses,
+    bool IncludesAllPacks,
+    IReadOnlyList<Guid> IncludedProductIds,
+    int DisplayOrder);
+
+public sealed record UpdatePlanRequest(
+    string Name,
+    long PriceCents,
+    IReadOnlyList<string> Benefits,
+    bool IncludesAllCourses,
+    bool IncludesAllPacks,
+    IReadOnlyList<Guid> IncludedProductIds,
+    int DisplayOrder);
+
+/// <summary>Resultado de sincronizar con Stripe, plan a plan, para poder enseñarlo en pantalla.</summary>
+public sealed record PlanSyncResult(string Code, bool Linked, string? PriceId, string? Problem);
+
+public sealed class PlanAuthoringHandlers(
+    IPlanRepository plans,
+    ICatalogCache cache,
+    IPaymentGateway? payments = null)
+{
+    public Task<IReadOnlyList<Plan>> ListAsync(CancellationToken ct) => plans.GetAllAsync(ct);
+
+    public async Task<Result<Guid, Error>> CreateAsync(CreatePlanRequest request, CancellationToken ct)
+    {
+        var code = Slug.Create(request.Code);
+        if (code.IsFailure)
+        {
+            return code.Error;
+        }
+
+        if (await plans.GetByCodeAsync(code.Value.Value, ct) is not null)
+        {
+            return Error.Conflict("plan.code_taken", "Ya existe un plan con ese código.");
+        }
+
+        if (!Enum.TryParse<BillingInterval>(request.Interval, ignoreCase: true, out var interval))
+        {
+            return Error.Validation("plan.interval_unknown", $"Intervalo desconocido: {request.Interval}.");
+        }
+
+        var plan = Plan.Create(
+            Guid.CreateVersion7(), code.Value.Value, request.Name, interval,
+            Money.Euros(request.PriceCents), request.Benefits,
+            request.IncludesAllCourses, request.IncludesAllPacks, request.IncludedProductIds,
+            request.DisplayOrder);
+
+        if (plan.IsFailure)
+        {
+            return plan.Error;
+        }
+
+        await plans.UpsertAsync(plan.Value, ct);
+        cache.Invalidate();
+
+        return plan.Value.Id;
+    }
+
+    /// <summary>
+    /// Devuelve si el cambio ha desenlazado el precio de Stripe, para que el panel pueda decir
+    /// que hay que sincronizar antes de que nadie compre al precio nuevo.
+    /// </summary>
+    public async Task<Result<bool, Error>> UpdateAsync(Guid planId, UpdatePlanRequest request, CancellationToken ct)
+    {
+        var plan = await plans.GetByIdAsync(planId, ct);
+        if (plan is null)
+        {
+            return Error.NotFound("plan.not_found", "No existe ese plan.");
+        }
+
+        var described = plan.Describe(
+            request.Name, Money.Euros(request.PriceCents), request.Benefits,
+            request.IncludesAllCourses, request.IncludesAllPacks, request.IncludedProductIds,
+            request.DisplayOrder);
+
+        if (described.IsFailure)
+        {
+            return described.Error;
+        }
+
+        await plans.UpsertAsync(plan, ct);
+        cache.Invalidate();
+
+        return described.Value;
+    }
+
+    public async Task<Result<Unit, Error>> SetActiveAsync(Guid planId, bool active, CancellationToken ct)
+    {
+        var plan = await plans.GetByIdAsync(planId, ct);
+        if (plan is null)
+        {
+            return Error.NotFound("plan.not_found", "No existe ese plan.");
+        }
+
+        if (active)
+        {
+            plan.Activate();
+        }
+        else
+        {
+            // No se borra: hay suscripciones vivas apuntando a él y facturas que lo nombran.
+            // Retirarlo lo quita del escaparate y deja intacto lo ya vendido.
+            plan.Deactivate();
+        }
+
+        await plans.UpsertAsync(plan, ct);
+        cache.Invalidate();
+
+        return Unit.Value;
+    }
+
+    /// <summary>
+    /// Crea en Stripe el precio de cada plan que no lo tenga y lo enlaza. Es idempotente: los
+    /// planes ya enlazados no se tocan, así que se puede ejecutar tantas veces como haga falta.
+    ///
+    /// El precio se busca por `lookup_key`, que incluye el importe: cambiar el precio de un plan
+    /// produce una clave nueva y por tanto un precio nuevo en Stripe, que es la única forma —allí
+    /// los precios son inmutables.
+    /// </summary>
+    public async Task<Result<IReadOnlyList<PlanSyncResult>, Error>> SyncWithStripeAsync(CancellationToken ct)
+    {
+        if (payments is null)
+        {
+            return Error.Conflict(
+                "stripe.not_configured",
+                "Stripe no está configurado. Falta Academy:Stripe:SecretKey.");
+        }
+
+        var results = new List<PlanSyncResult>();
+
+        foreach (var plan in await plans.GetAllAsync(ct))
+        {
+            if (plan.StripePriceId is not null)
+            {
+                results.Add(new PlanSyncResult(plan.Code, Linked: true, plan.StripePriceId, Problem: null));
+                continue;
+            }
+
+            var price = await payments.EnsurePriceAsync(
+                $"Inkoova Academy · {plan.Name}",
+                // El importe entra en la clave: un precio distinto es un precio distinto en Stripe.
+                $"academy_{plan.Code}_{plan.Price.AmountInCents}",
+                plan.Price,
+                plan.IsRecurring ? plan.Interval : null,
+                ct);
+
+            if (price.IsFailure)
+            {
+                results.Add(new PlanSyncResult(plan.Code, Linked: false, null, price.Error.Message));
+                continue;
+            }
+
+            plan.LinkStripePrice(price.Value);
+            await plans.UpsertAsync(plan, ct);
+
+            results.Add(new PlanSyncResult(plan.Code, Linked: true, price.Value, Problem: null));
+        }
+
+        cache.Invalidate();
+
+        return results;
+    }
+}

@@ -1,0 +1,70 @@
+# Inkoova Academy
+
+# Regla general. Los rastreadores de IA no necesitan mención aparte para poder entrar
+# —"*" ya los cubre— pero sí para lo contrario: quien quiera excluir uno concreto del
+# entrenamiento tiene que nombrarlo, porque no obedecen al comodín para eso.
+User-agent: *
+Allow: /
+
+# El contenido de los cursos se sirve con token de vida corta: indexarlo no tiene sentido
+# y solo produciría 403 en el índice.
+Disallow: /api/
+Disallow: /aprender/
+Disallow: /admin/
+Disallow: /cuenta/
+Disallow: /afiliado
+
+# Búsqueda y respuestas de IA. Se dejan entrar a propósito: son las que citan la fuente y
+# mandan visitas, y son distintas del rastreador de entrenamiento del mismo proveedor.
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+# Rastreo para conjuntos de entrenamiento. Entran con las mismas exclusiones que el resto:
+# el catálogo y el temario son públicos y aparecer en ellos es lo que se busca. Para retirar
+# el material del entrenamiento sin perder la cita en las respuestas, poner "Disallow: /"
+# en GPTBot, ClaudeBot, Google-Extended y Applebot-Extended, y dejar los de arriba en Allow.
+User-agent: GPTBot
+Allow: /
+Disallow: /api/
+Disallow: /aprender/
+Disallow: /admin/
+Disallow: /cuenta/
+Disallow: /afiliado
+
+User-agent: ClaudeBot
+Allow: /
+Disallow: /api/
+Disallow: /aprender/
+Disallow: /admin/
+Disallow: /cuenta/
+Disallow: /afiliado
+
+User-agent: Google-Extended
+Allow: /
+Disallow: /aprender/
+Disallow: /admin/
+Disallow: /cuenta/
+Disallow: /afiliado
+
+User-agent: Applebot-Extended
+Allow: /
+Disallow: /aprender/
+Disallow: /admin/
+Disallow: /cuenta/
+Disallow: /afiliado
+
+# Lo genera la API a partir de lo que está publicado, no el build: publicar un curso desde
+# el panel tiene que salir aquí sin volver a desplegar el frontal.
+Sitemap: https://academy.inkoova.com/sitemap.xml

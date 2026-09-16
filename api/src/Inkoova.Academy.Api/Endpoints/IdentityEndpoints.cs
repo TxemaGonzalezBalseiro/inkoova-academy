@@ -1,0 +1,646 @@
+using System.Text.Json;
+using Inkoova.Academy.Api.Common;
+using Inkoova.Academy.Application.Abstractions;
+using Inkoova.Academy.Domain.Common;
+using Inkoova.Academy.Domain.Identities;
+using Inkoova.Academy.Infrastructure.Identity;
+
+namespace Inkoova.Academy.Api.Endpoints;
+
+/// <summary>
+/// Gestión de las marcas de la academia: presentación, buzón de salida y plantillas de correo.
+///
+/// Dos reglas que atraviesan todo este fichero:
+///
+/// 1. **La contraseña del buzón no sale nunca.** Ni en la lista, ni al editar, ni en el detalle.
+///    Se dice si hay una puesta y nada más. Un panel que devuelve secretos acaba enseñándolos
+///    en una captura de pantalla o en el registro de un proxy.
+/// 2. **Guardar sin contraseña no la borra.** Editar el puerto no puede obligar a volver a
+///    teclear la contraseña, porque quien no la recuerda acabaría dejando el buzón roto.
+/// </summary>
+public static class IdentityEndpoints
+{
+    /// <summary>Las plantillas que la plataforma sabe mandar. Es el menú del editor.</summary>
+    private static readonly (string Name, string Label)[] KnownTemplates =
+    [
+        ("confirm-email", "Confirmar la cuenta"),
+        ("welcome", "Bienvenida"),
+        ("password-reset", "Restablecer la contraseña"),
+        ("payment-failed", "Cobro fallido"),
+        ("subscription-cancelled", "Suscripción cancelada"),
+        ("pack-new-version", "Nueva versión de un pack"),
+        ("affiliate-payout-ready", "Liquidación de afiliado lista"),
+        ("affiliate-payout-carried", "Liquidación de afiliado aplazada")
+    ];
+
+    public static void MapIdentityEndpoints(this IEndpointRouteBuilder app)
+    {
+        var group = app.MapGroup("/api/admin/identities")
+            .WithTags("Identidad")
+            .RequireAuthorization("admin");
+
+        group.MapGet("/", async (IAcademyIdentityRepository identities, CancellationToken ct) =>
+            {
+                var all = await identities.GetAllAsync(ct);
+
+                return Results.Ok(all.Select(ToDto));
+            })
+            .WithSummary("Todas las marcas.");
+
+        group.MapPost("/", async (
+                CreateIdentityBody body,
+                IAcademyIdentityRepository identities,
+                IAuditLogRepository audit,
+                HttpContext context,
+                IClock clock,
+                CancellationToken ct) =>
+            {
+                var clash = await identities.GetBySlugAsync(body.Slug ?? string.Empty, ct);
+                if (clash is not null)
+                {
+                    return Error.Conflict("identity.slug_taken", "Ya hay una marca con ese identificador.")
+                        .ToProblem();
+                }
+
+                var created = AcademyIdentity.Create(
+                    Guid.CreateVersion7(), body.Slug ?? string.Empty, body.Name ?? string.Empty,
+                    body.Tagline ?? string.Empty, body.LogoUrl ?? string.Empty,
+                    body.PublicDomain ?? string.Empty, body.SupportEmail ?? string.Empty);
+
+                if (created.IsFailure)
+                {
+                    return created.Error.ToProblem();
+                }
+
+                await identities.UpsertAsync(created.Value, ct);
+                await Audit(audit, context, clock, "identity.create", created.Value.Id, new { body.Slug }, ct);
+
+                return Results.Ok(ToDto(created.Value));
+            })
+            .WithSummary("Crea una marca. Nace activa, sin buzón y sin ser la principal.");
+
+        group.MapPut("/{id:guid}", async (
+                Guid id,
+                CreateIdentityBody body,
+                IAcademyIdentityRepository identities,
+                IAuditLogRepository audit,
+                HttpContext context,
+                IClock clock,
+                CancellationToken ct) =>
+            {
+                var identity = await identities.GetByIdAsync(id, ct);
+                if (identity is null)
+                {
+                    return Error.NotFound("identity.not_found", "No existe esa marca.").ToProblem();
+                }
+
+                var described = identity.Describe(
+                    body.Name ?? string.Empty, body.Tagline ?? string.Empty, body.LogoUrl ?? string.Empty,
+                    body.PublicDomain ?? string.Empty, body.SupportEmail ?? string.Empty);
+
+                if (described.IsFailure)
+                {
+                    return described.Error.ToProblem();
+                }
+
+                await identities.UpsertAsync(identity, ct);
+                await Audit(audit, context, clock, "identity.update", id, new { body.Name }, ct);
+
+                return Results.Ok(ToDto(identity));
+            })
+            .WithSummary("Edita la presentación de una marca.");
+
+        // ── datos identificativos ──────────────────────────────────────────────────────
+
+        group.MapPut("/{id:guid}/legal", async (
+                Guid id,
+                LegalBody body,
+                IAcademyIdentityRepository identities,
+                IAuditLogRepository audit,
+                HttpContext context,
+                IClock clock,
+                CancellationToken ct) =>
+            {
+                var identity = await identities.GetByIdAsync(id, ct);
+                if (identity is null)
+                {
+                    return Error.NotFound("identity.not_found", "No existe esa marca.").ToProblem();
+                }
+
+                var configured = identity.ConfigureLegal(LegalDetails.From(
+                    body.LegalName, body.TaxId, body.Address, body.RegistryDetails,
+                    body.Email, body.LinkedInUrl, body.CompanyUrl,
+                    body.InvoiceType, body.CorrectiveInvoiceType));
+
+                if (configured.IsFailure)
+                {
+                    return configured.Error.ToProblem();
+                }
+
+                await identities.UpsertAsync(identity, ct);
+
+                // Se registra QUÉ falta todavía, no los datos: el NIF y el domicilio de una
+                // empresa no tienen por qué quedar copiados en el registro de auditoría.
+                await Audit(audit, context, clock, "identity.legal", id,
+                    new { missing = identity.Legal.Missing }, ct);
+
+                return Results.Ok(ToDto(identity));
+            })
+            .WithSummary("Datos del titular del sitio y enlaces del pie.");
+
+        // ── buzón ──────────────────────────────────────────────────────────────────────
+
+        group.MapPut("/{id:guid}/mailbox", async (
+                MailboxBody body,
+                Guid id,
+                IAcademyIdentityRepository identities,
+                SecretProtector secrets,
+                IAuditLogRepository audit,
+                HttpContext context,
+                IClock clock,
+                CancellationToken ct) =>
+            {
+                var identity = await identities.GetByIdAsync(id, ct);
+                if (identity is null)
+                {
+                    return Error.NotFound("identity.not_found", "No existe esa marca.").ToProblem();
+                }
+
+                // Sin contraseña en el cuerpo se conserva la guardada. Es lo que permite cambiar
+                // el puerto sin tener que recordar la contraseña del buzón.
+                var password = string.IsNullOrEmpty(body.Password)
+                    ? identity.Mailbox.EncryptedPassword
+                    : secrets.Protect(body.Password);
+
+                var configured = identity.ConfigureMailbox(new MailboxSettings(
+                    (body.Host ?? string.Empty).Trim(),
+                    body.Port,
+                    (body.Username ?? string.Empty).Trim(),
+                    password,
+                    (body.Security ?? "auto").Trim().ToLowerInvariant(),
+                    (body.FromAddress ?? string.Empty).Trim(),
+                    (body.FromName ?? string.Empty).Trim()));
+
+                if (configured.IsFailure)
+                {
+                    return configured.Error.ToProblem();
+                }
+
+                await identities.UpsertAsync(identity, ct);
+
+                // El detalle NO lleva la contraseña ni su longitud: la auditoría se lee para
+                // saber quién tocó el buzón, no para reconstruirlo.
+                await Audit(audit, context, clock, "identity.mailbox", id,
+                    new { body.Host, body.Port, body.FromAddress, PasswordChanged = !string.IsNullOrEmpty(body.Password) },
+                    ct);
+
+                return Results.Ok(ToDto(identity));
+            })
+            .WithSummary("Configura el buzón de salida de una marca. Sin contraseña, conserva la actual.");
+
+        group.MapPost("/{id:guid}/mailbox/test", async (
+                TestBody body,
+                Guid id,
+                IAcademyIdentityRepository identities,
+                IEmailSender email,
+                CancellationToken ct) =>
+            {
+                var identity = await identities.GetByIdAsync(id, ct);
+                if (identity is null)
+                {
+                    return Error.NotFound("identity.not_found", "No existe esa marca.").ToProblem();
+                }
+
+                var sent = await email.SendAsync(
+                    new EmailMessage(
+                        body.To,
+                        $"Prueba de envío · {identity.Name}",
+                        $"<p>Si lees esto, el buzón de <strong>{identity.Name}</strong> funciona.</p>",
+                        $"Si lees esto, el buzón de {identity.Name} funciona.",
+                        Attachments: null,
+                        IdentityId: identity.Id),
+                    ct);
+
+                return sent.ToHttp(_ => Results.Ok(new { sent = true }));
+            })
+            .WithSummary("Manda un correo de prueba desde el buzón de esa marca.");
+
+        // ── principal y estado ─────────────────────────────────────────────────────────
+
+        group.MapPost("/{id:guid}/default", async (
+                Guid id,
+                IAcademyIdentityRepository identities,
+                IAuditLogRepository audit,
+                HttpContext context,
+                IClock clock,
+                CancellationToken ct) =>
+            {
+                if (!await identities.MakeDefaultAsync(id, ct))
+                {
+                    return Error.Conflict(
+                            "identity.cannot_be_default",
+                            "Esa marca no existe o está desactivada.")
+                        .ToProblem();
+                }
+
+                await Audit(audit, context, clock, "identity.make_default", id, null, ct);
+                return Results.NoContent();
+            })
+            .WithSummary("Marca cuál es la principal. Solo puede haber una.");
+
+        group.MapPost("/{id:guid}/active", async (
+                Guid id,
+                ActiveBody body,
+                IAcademyIdentityRepository identities,
+                IAuditLogRepository audit,
+                HttpContext context,
+                IClock clock,
+                CancellationToken ct) =>
+            {
+                var identity = await identities.GetByIdAsync(id, ct);
+                if (identity is null)
+                {
+                    return Error.NotFound("identity.not_found", "No existe esa marca.").ToProblem();
+                }
+
+                var changed = identity.SetActive(body.Active);
+                if (changed.IsFailure)
+                {
+                    return changed.Error.ToProblem();
+                }
+
+                await identities.UpsertAsync(identity, ct);
+                await Audit(audit, context, clock, body.Active ? "identity.activate" : "identity.deactivate", id, null, ct);
+
+                return Results.NoContent();
+            })
+            .WithSummary("Activa o desactiva una marca. La principal no se puede desactivar.");
+
+        // ── plantillas de correo ───────────────────────────────────────────────────────
+
+        group.MapGet("/{id:guid}/templates", async (
+                Guid id,
+                IEmailTemplateStore store,
+                CancellationToken ct) =>
+            {
+                var own = (await store.GetAllAsync(id, ct)).ToDictionary(t => t.Name, StringComparer.Ordinal);
+
+                // Se devuelven TODAS las que la plataforma sabe mandar, marcando cuáles están
+                // reescritas. Una lista con solo las reescritas no dejaría empezar ninguna.
+                return Results.Ok(KnownTemplates.Select(t => new
+                {
+                    name = t.Name,
+                    label = t.Label,
+                    overridden = own.ContainsKey(t.Name),
+                    subject = own.TryGetValue(t.Name, out var stored) ? stored.Subject : null,
+                    html = stored?.Html
+                }));
+            })
+            .WithSummary("Plantillas de correo de una marca y cuáles están reescritas.");
+
+        // Una plantilla concreta, con SU original al lado. El editor arranca de lo que hay hoy
+        // en vez de un cuadro vacío: reescribir un correo entero para cambiarle una frase es la
+        // forma más rápida de perder por el camino el pie legal o el enlace de confirmación.
+        group.MapGet("/{id:guid}/templates/{name}", async (
+                Guid id,
+                string name,
+                IEmailTemplateStore store,
+                IEmailTemplateRenderer renderer,
+                CancellationToken ct) =>
+            {
+                var known = KnownTemplates.FirstOrDefault(t => t.Name == name);
+                if (known.Name is null)
+                {
+                    return Error.NotFound("email.template_unknown", "Esa plantilla no existe.").ToProblem();
+                }
+
+                var original = renderer.GetOriginal(name);
+                if (original.IsFailure)
+                {
+                    return original.Error.ToProblem();
+                }
+
+                var own = await store.GetAsync(id, name, ct);
+
+                return Results.Ok(new
+                {
+                    name,
+                    known.Label,
+                    overridden = own is not null,
+                    // Si no la ha reescrito, se devuelve la original como contenido de partida.
+                    subject = own?.Subject ?? original.Value.Subject,
+                    html = own?.Html ?? original.Value.Html,
+                    originalSubject = original.Value.Subject,
+                    originalHtml = original.Value.Html
+                });
+            })
+            .WithSummary("Una plantilla con su original al lado, para poder editarla y comparar.");
+
+        // Cómo queda lo que se está escribiendo, SIN guardarlo. Se compone con la misma
+        // sustitución y la misma marca que un correo de verdad: lo que se ve es lo que se manda.
+        group.MapPost("/{id:guid}/templates/{name}/preview", async (
+                Guid id,
+                string name,
+                TemplateBody body,
+                IEmailTemplateRenderer renderer,
+                CancellationToken ct) =>
+            {
+                if (!KnownTemplates.Any(t => t.Name == name))
+                {
+                    return Error.NotFound("email.template_unknown", "Esa plantilla no existe.").ToProblem();
+                }
+
+                var rendered = await renderer.RenderContentAsync(
+                    body.Subject ?? string.Empty, body.Html ?? string.Empty, SampleModel, ct, id);
+
+                return Results.Ok(new { rendered.Subject, rendered.Html, rendered.Text });
+            })
+            .WithSummary("Compone la plantilla con datos de ejemplo, sin guardarla.");
+
+        group.MapPut("/{id:guid}/templates/{name}", async (
+                Guid id,
+                string name,
+                TemplateBody body,
+                IEmailTemplateStore store,
+                IAuditLogRepository audit,
+                HttpContext context,
+                IClock clock,
+                CancellationToken ct) =>
+            {
+                if (!KnownTemplates.Any(t => t.Name == name))
+                {
+                    return Error.NotFound("email.template_unknown", "Esa plantilla no existe.").ToProblem();
+                }
+
+                if (string.IsNullOrWhiteSpace(body.Subject) || string.IsNullOrWhiteSpace(body.Html))
+                {
+                    return Error.Validation("email.template_empty", "La plantilla necesita asunto y cuerpo.")
+                        .ToProblem();
+                }
+
+                await store.SaveAsync(
+                    id, new StoredEmailTemplate(name, body.Subject.Trim(), body.Html), context.User.RequireUserId(), ct);
+
+                await Audit(audit, context, clock, "email_template.save", id, new { name }, ct);
+                return Results.NoContent();
+            })
+            .WithSummary("Reescribe una plantilla para esa marca.");
+
+        // ── certificado ────────────────────────────────────────────────────────────────
+        //
+        // Solo cabecera, emisor y colores. El sello, el QR, el código, el hash y el pie los
+        // dibuja el generador y NO se tocan desde aquí: si se pudieran, bastaría con borrar un
+        // trozo para que ese certificado dejara de poder comprobarse, y nadie lo notaría hasta
+        // que alguien intentara verificarlo.
+
+        group.MapGet("/{id:guid}/certificate", async (
+                Guid id,
+                ICertificateStyleStore styles,
+                CancellationToken ct) =>
+                Results.Ok(await styles.GetAsync(id, ct)))
+            .WithSummary("Cabecera, emisor y colores del certificado de esa marca.");
+
+        group.MapPut("/{id:guid}/certificate", async (
+                Guid id,
+                CertificateStyleBody body,
+                ICertificateStyleStore styles,
+                IAcademyIdentityRepository identities,
+                IAuditLogRepository audit,
+                HttpContext context,
+                IClock clock,
+                CancellationToken ct) =>
+            {
+                if (await identities.GetByIdAsync(id, ct) is null)
+                {
+                    return Error.NotFound("identity.not_found", "No existe esa marca.").ToProblem();
+                }
+
+                foreach (var (label, value) in new[]
+                         {
+                             ("principal", body.PrimaryColor),
+                             ("de acento", body.AccentColor),
+                             ("de apoyo", body.SupportColor)
+                         })
+                {
+                    // Se valida aquí además de en el generador. El generador cae en el color de
+                    // siempre ante algo raro, que evita un PDF roto pero deja a quien lo escribió
+                    // pensando que se guardó y no se ve.
+                    if (!string.IsNullOrWhiteSpace(value) && !HexColor.IsMatch(value.Trim()))
+                    {
+                        return Error.Validation(
+                                "certificate.color_invalid",
+                                $"El color {label} debe ser hexadecimal, por ejemplo #1E3A8A.")
+                            .ToProblem();
+                    }
+                }
+
+                await styles.SaveAsync(
+                    id,
+                    new CertificateStyle(
+                        Trim(body.Heading), Trim(body.Subheading),
+                        Trim(body.IssuerName), Trim(body.IssuerNote),
+                        Trim(body.PrimaryColor).ToUpperInvariant(),
+                        Trim(body.AccentColor).ToUpperInvariant(),
+                        Trim(body.SupportColor).ToUpperInvariant()),
+                    context.User.RequireUserId(),
+                    ct);
+
+                await Audit(audit, context, clock, "certificate_style.save", id, null, ct);
+                return Results.NoContent();
+            })
+            .WithSummary("Guarda cabecera, emisor y colores del certificado. El resto no se toca.");
+
+        // Un certificado de mentira con el estilo de esa marca, para revisarlo antes de emitir
+        // uno de verdad. Lleva un código y un hash inventados a propósito: si llevara los de uno
+        // real, quedaría por ahí un PDF con aspecto de certificado válido que no lo es.
+        group.MapGet("/{id:guid}/certificate/preview", async (
+                Guid id,
+                ICertificateStyleStore styles,
+                IAcademyIdentityRepository identities,
+                ICertificatePdfGenerator generator,
+                IClock clock,
+                CancellationToken ct) =>
+            {
+                if (await identities.GetByIdAsync(id, ct) is null)
+                {
+                    return Error.NotFound("identity.not_found", "No existe esa marca.").ToProblem();
+                }
+
+                var style = await styles.GetAsync(id, ct);
+
+                var pdf = generator.Generate(new CertificatePdfModel(
+                    "Nombre de la alumna",
+                    "Título del curso de ejemplo",
+                    "INK-EJEM-PLO0",
+                    "0000000000000000000000000000000000000000000000000000000000000000",
+                    DateOnly.FromDateTime(clock.UtcNow.UtcDateTime),
+                    12,
+                    // Apunta a la verificación, que dirá que no existe. Es lo correcto: este
+                    // documento no es un certificado.
+                    "https://ejemplo.invalid/check-certificate/INK-EJEM-PLO0",
+                    style));
+
+                return Results.File(pdf, "application/pdf", "ejemplo-certificado.pdf");
+            })
+            .WithSummary("PDF de ejemplo con el estilo de esa marca. No es un certificado válido.");
+
+        group.MapDelete("/{id:guid}/templates/{name}", async (
+                Guid id,
+                string name,
+                IEmailTemplateStore store,
+                IAuditLogRepository audit,
+                HttpContext context,
+                IClock clock,
+                CancellationToken ct) =>
+            {
+                await store.RemoveAsync(id, name, ct);
+                await Audit(audit, context, clock, "email_template.reset", id, new { name }, ct);
+
+                return Results.NoContent();
+            })
+            .WithSummary("Descarta la plantilla propia y vuelve a la original.");
+    }
+
+    /// <summary>
+    /// La marca hacia fuera. Sin contraseña: solo si hay una puesta. Es la diferencia entre un
+    /// panel que informa y uno que reparte credenciales.
+    /// </summary>
+    private static object ToDto(AcademyIdentity identity) => new
+    {
+        identity.Id,
+        identity.Slug,
+        identity.Name,
+        identity.Tagline,
+        identity.LogoUrl,
+        identity.PublicDomain,
+        identity.SupportEmail,
+        identity.IsDefault,
+        identity.IsActive,
+        legal = new
+        {
+            legalName = identity.Legal.LegalName,
+            taxId = identity.Legal.TaxId,
+            address = identity.Legal.Address,
+            registryDetails = identity.Legal.RegistryDetails,
+            email = identity.Legal.Email,
+            linkedInUrl = identity.Legal.LinkedInUrl,
+            companyUrl = identity.Legal.CompanyUrl,
+            invoiceType = identity.Legal.InvoiceType,
+            correctiveInvoiceType = identity.Legal.CorrectiveInvoiceType,
+            // Las claves admitidas viajan con la marca para que el panel las pinte desde el
+            // esquema de la AEAT y no desde una lista copiada a mano en el navegador.
+            invoiceTypeOptions = InvoiceTypes.Ordinary.Select(t => new { code = t.Code, description = t.Description }),
+            correctiveInvoiceTypeOptions = InvoiceTypes.Corrective.Select(t => new { code = t.Code, description = t.Description }),
+            // Lo que falta para poder publicar el aviso legal. Se manda calculado y no se
+            // recalcula en la SPA: la regla de qué es obligatorio es del dominio, y duplicarla
+            // en el navegador es garantizar que un día digan cosas distintas.
+            missing = identity.Legal.Missing,
+            isComplete = identity.Legal.IsComplete
+        },
+        mailbox = new
+        {
+            host = identity.Mailbox.Host,
+            port = identity.Mailbox.Port,
+            username = identity.Mailbox.Username,
+            security = identity.Mailbox.Security,
+            fromAddress = identity.Mailbox.FromAddress,
+            fromName = identity.Mailbox.FromName,
+            hasPassword = identity.Mailbox.EncryptedPassword.Length > 0,
+            canSend = identity.Mailbox.CanSend
+        }
+    };
+
+    private static Task Audit(
+        IAuditLogRepository audit,
+        HttpContext context,
+        IClock clock,
+        string action,
+        Guid id,
+        object? details,
+        CancellationToken ct) =>
+        audit.AppendAsync(
+            new AuditEntry(
+                Guid.CreateVersion7(),
+                context.User.RequireUserId(),
+                action,
+                "academy_identity",
+                id.ToString(),
+                details is null ? null : JsonSerializer.Serialize(details),
+                clock.UtcNow),
+            ct);
+
+    public sealed record CreateIdentityBody(
+        string? Slug,
+        string? Name,
+        string? Tagline,
+        string? LogoUrl,
+        string? PublicDomain,
+        string? SupportEmail);
+
+    public sealed record MailboxBody(
+        string? Host,
+        int Port,
+        string? Username,
+        /// <summary>Vacío = conserva la guardada. Nunca se devuelve, solo se recibe.</summary>
+        string? Password,
+        string? Security,
+        string? FromAddress,
+        string? FromName);
+
+    public sealed record LegalBody(
+        string? LegalName,
+        string? TaxId,
+        string? Address,
+        string? RegistryDetails,
+        string? Email,
+        string? LinkedInUrl,
+        string? CompanyUrl,
+        string? InvoiceType,
+        string? CorrectiveInvoiceType);
+
+    public sealed record TestBody(string To);
+
+    public sealed record ActiveBody(bool Active);
+
+    public sealed record TemplateBody(string Subject, string Html);
+
+    /// <summary>
+    /// Datos de ejemplo para la vista previa. Cubre TODOS los marcadores que usan las plantillas
+    /// de esta plataforma: uno sin valor se quedaría escrito tal cual —«{{importe}}»— en medio
+    /// del correo, y quien revisa pensaría que la plantilla está rota cuando lo que falta es el
+    /// ejemplo.
+    ///
+    /// Se ven como ejemplo a propósito («Nombre de la alumna», no «Ana»): así nadie confunde una
+    /// vista previa con un correo real que se ha enviado.
+    /// </summary>
+    private static readonly Dictionary<string, string> SampleModel = new(StringComparer.Ordinal)
+    {
+        ["nombre"] = "Nombre de la alumna",
+        ["enlace"] = "https://ejemplo.invalid/confirmar?token=EJEMPLO",
+        ["producto"] = "Curso de ejemplo",
+        ["pack"] = "Pack de ejemplo",
+        ["version"] = "2.0",
+        ["changelog"] = "Ejemplo de novedades de la versión.",
+        ["horas"] = "12",
+        ["importe"] = "120,00",
+        ["minimo"] = "50,00",
+        ["periodo"] = "08/2026",
+        ["modo_factura"] = "autofactura emitida por Inkoova",
+        ["dias_gracia"] = "3",
+        ["fin_acceso"] = "30/09/2026",
+    };
+
+    public sealed record CertificateStyleBody(
+        string? Heading,
+        string? Subheading,
+        string? IssuerName,
+        string? IssuerNote,
+        string? PrimaryColor,
+        string? AccentColor,
+        string? SupportColor);
+
+    private static readonly System.Text.RegularExpressions.Regex HexColor =
+        new("^#[0-9A-Fa-f]{6}$", System.Text.RegularExpressions.RegexOptions.Compiled);
+
+    private static string Trim(string? value) => (value ?? string.Empty).Trim();
+}

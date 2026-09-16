@@ -1,0 +1,100 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+# Un PR que se actualiza cancela su ejecución anterior: no tiene sentido pagar dos.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  api:
+    name: API (.NET)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Restore
+        run: dotnet restore api/Inkoova.Academy.slnx
+
+      - name: Build
+        run: dotnet build api/Inkoova.Academy.slnx --no-restore -c Release
+
+      - name: Domain tests
+        run: dotnet test api/tests/Inkoova.Academy.Domain.Tests --no-build -c Release
+
+      # Testcontainers necesita el daemon de Docker, que el runner ya trae.
+      - name: Integration tests
+        run: dotnet test api/tests/Inkoova.Academy.Integration.Tests --no-build -c Release
+
+  migrations:
+    name: Migraciones desde cero
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:17-alpine
+        env:
+          POSTGRES_DB: academy
+          POSTGRES_USER: academy
+          POSTGRES_PASSWORD: academy
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd "pg_isready -U academy" --health-interval 5s
+          --health-timeout 3s --health-retries 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Apply migrations
+        run: dotnet run --project api/src/Inkoova.Academy.Migrator
+        env:
+          ConnectionStrings__Academy: Host=localhost;Port=5432;Database=academy;Username=academy;Password=academy
+
+      # Aplicarlas dos veces prueba que son idempotentes (criterio de aceptación de T-01).
+      - name: Re-apply is a no-op
+        run: dotnet run --project api/src/Inkoova.Academy.Migrator
+        env:
+          ConnectionStrings__Academy: Host=localhost;Port=5432;Database=academy;Username=academy;Password=academy
+
+  web:
+    name: Web (React)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: web
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run typecheck
+      - run: npm run build
+
+  content:
+    name: Importador de contenido
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Importer self-test
+        run: python content/tools/test_importer.py

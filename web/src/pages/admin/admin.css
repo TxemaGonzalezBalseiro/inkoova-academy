@@ -1,0 +1,684 @@
+.admin section {
+  margin-bottom: var(--space-12);
+}
+
+.admin__tabs {
+  display: flex;
+  gap: var(--space-1);
+  flex-wrap: wrap;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: var(--space-8);
+}
+
+.admin__tab {
+  padding: var(--space-3) var(--space-4);
+  text-decoration: none;
+  color: var(--text-muted);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+}
+
+.admin__tab:hover {
+  color: var(--text);
+}
+
+.admin__tab.is-active {
+  color: var(--ink-blue);
+  border-bottom-color: var(--ink-blue);
+}
+
+.admin__flag {
+  display: block;
+  font-size: var(--text-xs);
+  white-space: nowrap;
+}
+
+.admin__flag input {
+  width: 16px;
+  height: 16px;
+  min-height: auto;
+  vertical-align: middle;
+}
+
+.admin__panel {
+  padding: var(--space-6);
+  margin-top: var(--space-6);
+}
+
+.admin__panel h3,
+.admin__panel h4 {
+  margin-top: 0;
+  font-size: var(--text-base);
+}
+
+.admin__diff {
+  margin-top: var(--space-8);
+  padding: var(--space-6);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface-muted);
+}
+
+.admin__diff-group {
+  margin-bottom: var(--space-4);
+  padding-left: var(--space-4);
+  border-left: 3px solid var(--border);
+}
+
+.admin__diff-group--add {
+  border-left-color: var(--ink-success);
+}
+
+.admin__diff-group--remove {
+  border-left-color: var(--ink-error);
+}
+
+.admin__diff-group--change {
+  border-left-color: var(--ink-warn);
+}
+
+.admin__diff-group h4 {
+  font-size: var(--text-sm);
+  margin-bottom: var(--space-2);
+}
+
+.admin__diff-group ul {
+  margin: 0;
+  padding-left: var(--space-4);
+  font-size: var(--text-xs);
+  columns: 2;
+}
+
+@media (max-width: 640px) {
+  .admin__diff-group ul {
+    columns: 1;
+  }
+}
+
+.admin__dropoffs {
+  margin: 0;
+  padding-left: var(--space-6);
+  font-size: var(--text-sm);
+}
+
+.admin__dropoffs li {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding: var(--space-1) 0;
+}
+
+.admin__json {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  background: var(--ink-100);
+  padding: var(--space-3);
+  border-radius: var(--radius-sm);
+  overflow-x: auto;
+  margin: var(--space-2) 0 0;
+}
+
+/* ── gestor de contenidos ─────────────────────────────────────────────────── */
+
+.admin__panel-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+  margin-bottom: var(--space-4);
+}
+
+.admin__panel-head h2 {
+  margin: 0;
+  font-size: var(--text-xl);
+}
+
+.admin__form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding: var(--space-6);
+  margin: var(--space-4) 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface-muted);
+  align-items: flex-start;
+}
+
+.admin__form > .field,
+.admin__form > .admin__form-grid,
+.admin__form > .row {
+  width: 100%;
+}
+
+/* Anidado dentro de una sección: se distingue del formulario del curso por el borde. */
+.admin__form--nested {
+  background: var(--surface);
+  border-left: 3px solid var(--ink-blue);
+}
+
+.admin__form-grid {
+  display: grid;
+  gap: var(--space-4);
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+.admin__section {
+  padding: var(--space-4) var(--space-6);
+  margin-bottom: var(--space-4);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+}
+
+.admin__section-head {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.admin__section-head .field {
+  flex: 1;
+  min-width: 12rem;
+  margin: 0;
+}
+
+.admin__lessons {
+  list-style: none;
+  margin: var(--space-4) 0;
+  padding: 0;
+}
+
+.admin__lesson {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-2) 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.admin__lesson-title {
+  flex: 1;
+  min-width: 0;
+}
+
+.admin__lesson-meta {
+  font-size: var(--text-xs);
+  white-space: nowrap;
+}
+
+.admin__inline-form {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.admin__inline-form .field {
+  flex: 1;
+  min-width: 14rem;
+  margin: 0;
+}
+
+.admin__checks {
+  display: flex;
+  gap: var(--space-6);
+  flex-wrap: wrap;
+}
+
+.check {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+/* ── qué incluye un plan ─────────────────────────────────────────────────── */
+
+.plan-picker {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: var(--space-4);
+  margin: 0 0 var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.plan-picker legend {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding-inline: var(--space-2);
+  font-weight: 700;
+  font-size: var(--text-sm);
+}
+
+/*
+ * Las opciones se alinean ARRIBA, no al centro: cada una lleva su línea de ayuda debajo, y con
+ * `center` el círculo del radio se va a la mitad del bloque de dos líneas y deja de leerse como
+ * la marca de esa opción.
+ */
+.plan-picker .check {
+  align-items: flex-start;
+  gap: var(--space-3);
+}
+
+.plan-picker .check input {
+  /* El control se alinea con la primera línea del texto, no con el bloque entero. */
+  margin-top: 0.2em;
+  flex-shrink: 0;
+}
+
+.plan-picker .check span {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.plan-picker .check small {
+  font-size: var(--text-xs);
+}
+
+/*
+ * La lista se sangra bajo su opción y se limita en alto: con veinte cursos, un plan empujaría
+ * el botón de guardar fuera de la pantalla y no se encontraría.
+ */
+.plan-picker__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin-left: var(--space-6);
+  padding-left: var(--space-4);
+  border-left: 2px solid var(--border);
+  max-height: 260px;
+  overflow-y: auto;
+}
+
+/* Borrar se distingue por color, no solo por el icono: es lo único irreversible de aquí. */
+.admin__danger:hover:not(:disabled) {
+  border-color: var(--ink-error);
+  color: var(--ink-error);
+}
+
+@media (max-width: 640px) {
+  .admin__lesson {
+    flex-wrap: wrap;
+  }
+
+  .admin__lesson-meta {
+    white-space: normal;
+  }
+}
+
+/* Ficha de datos de configuración: etiqueta arriba, valor abajo, en rejilla. */
+.admin__facts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: var(--space-6);
+  margin: 0 0 var(--space-6);
+}
+
+.admin__facts dt {
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  margin-bottom: var(--space-2);
+}
+
+.admin__facts dd {
+  margin: 0;
+}
+
+/* Selector de proveedor de correo: tres opciones excluyentes, no tres acciones. */
+.admin__provider-tabs {
+  display: flex;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+  margin-bottom: var(--space-4);
+}
+
+/* Bloque de variables para copiar al entorno. */
+.admin__snippet {
+  margin: var(--space-4) 0;
+  padding: var(--space-4);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface-muted);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  line-height: 1.7;
+  overflow-x: auto;
+  white-space: pre;
+}
+
+/* ── identidad de la academia ─────────────────────────────────────────────── */
+
+/*
+ * El patrón "label.field > span + input" no recibe el estilo de `.field label` de global.css,
+ * porque aquí la etiqueta ES el `.field`. Se corrige solo dentro de esta pantalla para no
+ * tocar el resto del panel.
+ */
+.admin__identity .field > span:not(.hint):not(.admin__field-error) {
+  font-size: var(--text-sm);
+  font-weight: 600;
+}
+
+.admin__field-error {
+  font-size: var(--text-xs);
+  color: var(--ink-error);
+  font-weight: 600;
+}
+
+/* Vista previa: sugiere una cabecera sin pretender ser la de verdad. */
+.admin__preview {
+  position: relative;
+  margin: var(--space-6) 0;
+  padding: var(--space-6) var(--space-4) var(--space-4);
+  border: 1px dashed var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface-muted);
+}
+
+.admin__preview-label {
+  position: absolute;
+  top: var(--space-2);
+  left: var(--space-4);
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+}
+
+.admin__preview-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+.admin__preview-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-width: 0;
+}
+
+/* El mismo cuadrado con degradado que dibuja la cabecera cuando no hay logo. */
+.admin__preview-mark {
+  flex: none;
+  width: 22px;
+  height: 22px;
+  border-radius: var(--radius-sm);
+  background: linear-gradient(135deg, var(--ink-blue), var(--ink-magenta));
+}
+
+.admin__preview-logo {
+  flex: none;
+  width: auto;
+  height: 24px;
+  max-width: 160px;
+  object-fit: contain;
+}
+
+.admin__preview-name {
+  font-size: var(--text-lg);
+  font-weight: 700;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.admin__preview-nav {
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+}
+
+.admin__preview-foot {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+  margin-top: var(--space-3);
+  padding: 0 var(--space-4);
+  font-size: var(--text-sm);
+}
+
+.admin__preview-note {
+  margin: var(--space-3) 0 0;
+  padding: 0 var(--space-4);
+  font-size: var(--text-xs);
+  color: var(--ink-error);
+}
+
+/* La letra pequeña del dominio: separada del formulario, no escondida en un "hint". */
+.admin__domain-notice {
+  margin-top: var(--space-8);
+  padding: var(--space-6);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--ink-warn);
+  border-radius: var(--radius-lg);
+  background: var(--surface-muted);
+}
+
+.admin__domain-notice h3 {
+  margin-top: 0;
+}
+
+.admin__domain-notice .admin__facts {
+  margin-bottom: var(--space-4);
+}
+
+.admin__domain-notice code {
+  word-break: break-all;
+}
+
+/* global.css trae error, éxito e info; este aviso no es ninguno de los tres. */
+.admin__alert-warn {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+  border: 1px solid var(--ink-warn);
+  color: var(--text);
+  background: color-mix(in srgb, var(--ink-warn) 12%, transparent);
+}
+
+@media (max-width: 640px) {
+  .admin__preview-nav {
+    display: none;
+  }
+}
+
+/* ── tutorías ─────────────────────────────────────────────────────────────── */
+
+/*
+ * Pista bajo un campo: qué se guarda de verdad. En el formulario de paquetes se teclean horas
+ * y se guardan minutos, y sin decirlo esa conversión es invisible hasta que algo no cuadra.
+ */
+.admin__hint {
+  font-size: var(--text-xs);
+  margin: 0;
+}
+
+/*
+ * Resultados de una búsqueda de personas.
+ *
+ * Antes esto eran `.chip`, que es una etiqueta informativa: texto de 12 px, sin estado de
+ * hover, sin foco visible y sin sitio donde separar el nombre del correo. Elegir a una persona
+ * de una lista es otra cosa, y necesita ser un control de verdad.
+ */
+.admin__results {
+  list-style: none;
+  margin: 0 0 var(--space-6);
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.admin__result {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  width: 100%;
+  /* 44 px de alto mínimo: es un objetivo táctil, no una etiqueta. */
+  min-height: 44px;
+  padding: var(--space-3);
+  border: 0;
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.15s var(--ease);
+}
+
+.admin__results li + li .admin__result {
+  border-top: 1px solid var(--border);
+}
+
+.admin__result:hover {
+  background: var(--surface-muted);
+}
+
+.admin__result:focus-visible {
+  outline: none;
+  /* Hacia dentro: un anillo por fuera se recortaría contra el `overflow: hidden` de la lista. */
+  box-shadow: inset var(--ring-accent);
+}
+
+/* El seleccionado se marca con fondo y con el check del marcado, no solo con color: el color
+   por sí solo deja fuera a quien no lo distingue. */
+.admin__result[aria-pressed='true'] {
+  background: var(--ink-blue-050);
+}
+
+.admin__result[aria-pressed='true'] > svg {
+  margin-left: auto;
+  color: var(--ink-blue);
+  flex-shrink: 0;
+}
+
+.admin__result-avatar {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  border-radius: var(--radius-full);
+  background: var(--surface-muted);
+  font-size: var(--text-sm);
+  font-weight: 700;
+}
+
+.admin__result[aria-pressed='true'] .admin__result-avatar {
+  background: var(--ink-blue);
+  color: var(--on-brand);
+}
+
+.admin__result-text {
+  display: flex;
+  flex-direction: column;
+  /* Sin esto, un correo largo estira la fila y desborda la tarjeta. */
+  min-width: 0;
+}
+
+.admin__result-text > span {
+  font-size: var(--text-sm);
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/*
+ * Un color: selector nativo y campo de texto juntos. El selector para elegir a ojo, el texto
+ * para pegar un hexadecimal que ya se tiene de la guía de marca.
+ */
+.admin__color {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.admin__color input[type='color'] {
+  /* Sin ancho fijo, el selector nativo ocupa toda la fila en Chrome. */
+  width: 44px;
+  min-width: 44px;
+  height: 44px;
+  padding: 2px;
+  cursor: pointer;
+}
+
+.admin__color input[type='text'],
+.admin__color input:not([type]) {
+  flex: 1;
+  min-width: 0;
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+}
+
+/*
+ * Vista previa de un correo. El cuerpo va dentro de un iframe con `sandbox` vacío: es HTML
+ * escrito a mano en el panel, y pintarlo en la propia página le daría acceso a la sesión de
+ * quien lo está revisando.
+ */
+.admin__preview-mail {
+  margin-top: var(--space-6);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.admin__preview-subject {
+  margin: 0;
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid var(--border);
+  background: var(--surface-muted);
+  font-weight: 600;
+}
+
+.admin__preview-frame {
+  display: block;
+  width: 100%;
+  /* Alto fijo: el iframe está aislado y no puede decir cuánto ocupa su contenido. 520 px
+     enseña la parte que importa de cualquiera de estos correos y el resto se desplaza dentro. */
+  height: 520px;
+  border: 0;
+  /* Blanco siempre, también en oscuro: un correo se lee sobre el fondo del cliente, que es
+     blanco. Enseñarlo sobre fondo oscuro daría una idea falsa de cómo se va a ver. */
+  background: #ffffff;
+}
+
+/* Histórico de tutorías dadas dentro de una bolsa. */
+.admin__history {
+  list-style: none;
+  margin: var(--space-3) 0 0;
+  padding: 0 0 0 var(--space-4);
+  border-left: 2px solid var(--border);
+}
+
+.admin__history-item {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-3) 0;
+  font-size: var(--text-sm);
+}
+
+.admin__history-item + .admin__history-item {
+  border-top: 1px solid var(--border);
+}
+
+.admin__history-item p {
+  margin: var(--space-1) 0 0;
+}

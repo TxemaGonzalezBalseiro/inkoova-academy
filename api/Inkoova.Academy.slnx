@@ -1,0 +1,14 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Inkoova.Academy.Api/Inkoova.Academy.Api.csproj" />
+    <Project Path="src/Inkoova.Academy.Application/Inkoova.Academy.Application.csproj" />
+    <Project Path="src/Inkoova.Academy.Domain/Inkoova.Academy.Domain.csproj" />
+    <Project Path="src/Inkoova.Academy.Infrastructure/Inkoova.Academy.Infrastructure.csproj" />
+    <Project Path="src/Inkoova.Academy.Jobs/Inkoova.Academy.Jobs.csproj" />
+    <Project Path="src/Inkoova.Academy.Migrator/Inkoova.Academy.Migrator.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Inkoova.Academy.Domain.Tests/Inkoova.Academy.Domain.Tests.csproj" />
+    <Project Path="tests/Inkoova.Academy.Integration.Tests/Inkoova.Academy.Integration.Tests.csproj" />
+  </Folder>
+</Solution>

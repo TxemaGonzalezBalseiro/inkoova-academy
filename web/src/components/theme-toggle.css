@@ -1,0 +1,67 @@
+/*
+ * Selector de tema. Control segmentado de tres celdas: los tres estados se ven a la vez, así
+ * que nadie tiene que pulsar dos veces para averiguar cuál es el tercero —que es lo que pasa
+ * con el interruptor de dos posiciones al que se le añade «automático» a escondidas.
+ */
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  /* Celdas pegadas: es un control, no tres botones. Y en móvil cada píxel de la fila cuenta. */
+  gap: 0;
+  /* Un `fieldset` trae borde, padding y `min-inline-size` propios. */
+  min-inline-size: 0;
+  margin: 0;
+  padding: 3px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  background: var(--surface-muted);
+}
+
+.theme-toggle__option {
+  position: relative;
+  display: grid;
+  place-items: center;
+  /* 34 px: cuatro celdas de 30 con iconos de 16 quedaban por debajo de lo que se acierta con
+     el dedo, y sobre todo se leían como una mancha en vez de como cuatro opciones. */
+  width: 34px;
+  height: 34px;
+  /* Reservado desde el principio para que marcar una celda no mueva las otras tres. */
+  border: 1px solid transparent;
+  border-radius: var(--radius-full);
+  /* Las inactivas legibles, no a media luz: si no se distinguen los cuatro iconos, no hay
+     forma de saber cuál es el que se quiere. */
+  color: var(--text);
+  opacity: 0.55;
+  cursor: pointer;
+  transition: background-color 0.15s var(--ease), border-color 0.15s var(--ease),
+    color 0.15s var(--ease), opacity 0.15s var(--ease);
+}
+
+.theme-toggle__option:hover {
+  opacity: 1;
+}
+
+/*
+ * La celda activa va RELLENA, no con un fondo blanco sobre gris claro.
+ *
+ * Antes se marcaba con `--surface` sobre `--surface-muted`, y esa diferencia es de un par de
+ * tonos: en claro no se veía cuál estaba puesto sin acercarse. Relleno en azul de marca se ve
+ * de un vistazo, que es lo único que se le pide a este control.
+ */
+.theme-toggle__option:has(:checked) {
+  background: var(--ink-blue);
+  color: var(--on-brand);
+  border-color: var(--ink-blue);
+  opacity: 1;
+  box-shadow: var(--shadow-sm);
+}
+
+/*
+ * El radio está oculto, así que su foco no se ve: el anillo lo pinta la celda. Con
+ * `:focus-visible` y no `:focus-within`, para que no salte al pulsar con el ratón.
+ */
+.theme-toggle__option:has(:focus-visible) {
+  outline: 3px solid var(--ink-magenta);
+  outline-offset: 2px;
+  z-index: 1;
+}

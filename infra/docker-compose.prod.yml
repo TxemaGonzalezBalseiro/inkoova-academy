@@ -1,0 +1,295 @@
+# Producción: todo en una máquina (T-13, opción A: VPS Hetzner CX22, ~4-5 EUR/mes).
+# Cero Kubernetes, cero Terraform, cero servicios gestionados de pago.
+#
+#   docker compose -f docker-compose.prod.yml --env-file .env pull
+#   docker compose -f docker-compose.prod.yml --env-file .env up -d
+#
+# Las variables vienen de infra/.env (ver .env.example). Ese fichero no se versiona.
+
+name: inkoova-academy
+
+services:
+  caddy:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - web-dist:/srv/web:ro
+      # El contenido de los cursos, en solo lectura: Caddy lo sirve tras preguntarle a la API
+      # si el token lo ampara (ADR-012). Nada de este volumen sale sin pasar por /authorize.
+      - content-data:/srv/content:ro
+      - caddy-data:/data
+      - caddy-config:/config
+    environment:
+      ACADEMY_DOMAIN: ${ACADEMY_DOMAIN}
+      ACME_EMAIL: ${ACME_EMAIL}
+      # Origen de la instancia de Plausible, para abrirle hueco en la CSP. Tiene que valer lo
+      # mismo que VITE_ANALYTICS_HOST del build de la web: si no coinciden, el navegador
+      # bloquea el script sin avisar en la página.
+      ANALYTICS_ORIGIN: ${ANALYTICS_ORIGIN:-}
+    depends_on:
+      - api
+      - web
+
+  web:
+    image: ghcr.io/${GITHUB_REPOSITORY:-inkoova/inkoova-academy}/web:${IMAGE_TAG:-latest}
+    restart: "no"
+    # Copia el build al volumen que sirve Caddy y termina. Un contenedor por despliegue.
+    command: ["sh", "-c", "rm -rf /out/* && cp -r /dist/. /out/"]
+    volumes:
+      - web-dist:/out
+
+  migrator:
+    image: ghcr.io/${GITHUB_REPOSITORY:-inkoova/inkoova-academy}/migrator:${IMAGE_TAG:-latest}
+    restart: "no"
+    environment:
+      # Contra Postgres, no contra PgBouncer. DbUp aplica cada migración dentro de su propia
+      # transacción y algunas llevan DDL; el pooling por transacción no da garantías de que
+      # dos sentencias seguidas caigan en la misma conexión de servidor. Son unos segundos al
+      # desplegar, no es un camino caliente: no hay nada que ganar metiéndolo por el pooler.
+      ConnectionStrings__Academy: "Host=postgres;Port=5432;Database=academy;Username=academy;Password=${POSTGRES_PASSWORD};Maximum Pool Size=4"
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  api:
+    image: ghcr.io/${GITHUB_REPOSITORY:-inkoova/inkoova-academy}/api:${IMAGE_TAG:-latest}
+    restart: unless-stopped
+    environment:
+      ASPNETCORE_ENVIRONMENT: Production
+      ASPNETCORE_HTTP_PORTS: "8080"
+      # Por PgBouncer, y con el pool acotado a mano. El defecto de Npgsql es 100 conexiones
+      # por proceso: con la API y los jobs abiertos a la vez daban 200 contra las 100 que
+      # acepta Postgres, así que el primer pico de carga se saldaba con «too many
+      # connections» en vez de con una cola. Ahora 40 + 8 caben de sobra, y PgBouncer las
+      # multiplexa sobre menos conexiones de servidor todavía.
+      #
+      # «No Reset On Close» porque el reseteo de sesión lo hace ya el pooler; mandarlo dos
+      # veces es un viaje de ida y vuelta por cada conexión devuelta al pool.
+      ConnectionStrings__Academy: "Host=pgbouncer;Port=6432;Database=academy;Username=academy;Password=${POSTGRES_PASSWORD};Maximum Pool Size=40;Minimum Pool Size=4;Connection Idle Lifetime=60;Timeout=10;Command Timeout=30;No Reset On Close=true"
+      Academy__PublicBaseUrl: "https://${ACADEMY_DOMAIN}"
+      Academy__ContentRoot: "/srv/content"
+      Academy__Email__TemplatesPath: "/app/emails"
+      Academy__Cors__Origins__0: "https://${ACADEMY_DOMAIN}"
+      Academy__ContentTokenKey: ${CONTENT_TOKEN_KEY}
+      Academy__Jwt__SigningKey: ${JWT_SIGNING_KEY}
+      Academy__Certificates__SigningSecret: ${CERTIFICATE_SIGNING_SECRET}
+      Academy__Stripe__SecretKey: ${STRIPE_SECRET_KEY}
+      Academy__Stripe__WebhookSecret: ${STRIPE_WEBHOOK_SECRET}
+      Academy__Email__Host: ${SMTP_HOST}
+      Academy__Email__Port: ${SMTP_PORT:-587}
+      Academy__Email__Username: ${SMTP_USERNAME}
+      Academy__Email__Password: ${SMTP_PASSWORD}
+      Academy__Email__From: ${SMTP_FROM}
+      Academy__Invoicing__IssuerName: ${INVOICE_ISSUER_NAME}
+      Academy__Invoicing__IssuerTaxId: ${INVOICE_ISSUER_TAX_ID}
+      Academy__Invoicing__IssuerAddress: ${INVOICE_ISSUER_ADDRESS}
+      # Se activa solo cuando el adaptador Verifactu esté conectado (ver T-14).
+      Academy__Invoicing__SubmitToAeat: ${INVOICE_SUBMIT_TO_AEAT:-false}
+      Academy__Discord__BotToken: ${DISCORD_BOT_TOKEN:-}
+      Academy__Discord__GuildId: ${DISCORD_GUILD_ID:-}
+      Academy__Discord__ClientId: ${DISCORD_CLIENT_ID:-}
+      Academy__Discord__ClientSecret: ${DISCORD_CLIENT_SECRET:-}
+      Academy__Discord__RedirectUri: "https://${ACADEMY_DOMAIN}/comunidad/discord/callback"
+      OTEL_EXPORTER_OTLP_ENDPOINT: ${OTEL_ENDPOINT:-}
+      OTEL_EXPORTER_OTLP_HEADERS: ${OTEL_HEADERS:-}
+    volumes:
+      - content-data:/srv/content
+    depends_on:
+      pgbouncer:
+        condition: service_healthy
+      migrator:
+        condition: service_completed_successfully
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:8080/health/live"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 20s
+    deploy:
+      resources:
+        limits:
+          # En una CX22 (2 vCPU, 4 GB) esto deja sitio a Postgres y al sistema. Baja de 1200M
+          # porque la API ya no mueve los bytes del contenido (ADR-012): lo que se le quita
+          # aquí se le da a los buffers de Postgres, que es donde ahora rinde más.
+          memory: 1000M
+
+  jobs:
+    image: ghcr.io/${GITHUB_REPOSITORY:-inkoova/inkoova-academy}/jobs:${IMAGE_TAG:-latest}
+    restart: unless-stopped
+    environment:
+      DOTNET_ENVIRONMENT: Production
+      # Los jobs no atienden a nadie: ocho conexiones les sobran y así no le comen sitio a la
+      # API cuando el de liquidaciones se pone a recorrer meses.
+      ConnectionStrings__Academy: "Host=pgbouncer;Port=6432;Database=academy;Username=academy;Password=${POSTGRES_PASSWORD};Maximum Pool Size=8;Minimum Pool Size=1;Connection Idle Lifetime=60;Timeout=10;Command Timeout=120;No Reset On Close=true"
+      Academy__PublicBaseUrl: "https://${ACADEMY_DOMAIN}"
+      Academy__ContentRoot: "/srv/content"
+      Academy__Email__TemplatesPath: "/app/emails"
+      Academy__ContentTokenKey: ${CONTENT_TOKEN_KEY}
+      Academy__Jwt__SigningKey: ${JWT_SIGNING_KEY}
+      Academy__Certificates__SigningSecret: ${CERTIFICATE_SIGNING_SECRET}
+      Academy__Stripe__SecretKey: ${STRIPE_SECRET_KEY}
+      Academy__Stripe__WebhookSecret: ${STRIPE_WEBHOOK_SECRET}
+      Academy__Email__Host: ${SMTP_HOST}
+      Academy__Email__Username: ${SMTP_USERNAME}
+      Academy__Email__Password: ${SMTP_PASSWORD}
+      Academy__Email__From: ${SMTP_FROM}
+      Academy__Discord__BotToken: ${DISCORD_BOT_TOKEN:-}
+      Academy__Discord__GuildId: ${DISCORD_GUILD_ID:-}
+    volumes:
+      - content-data:/srv/content
+    depends_on:
+      pgbouncer:
+        condition: service_healthy
+    deploy:
+      resources:
+        limits:
+          memory: 384M
+
+  # PgBouncer en modo transacción. No está aquí para arreglar el número de conexiones —eso ya
+  # lo arreglan los pools acotados de arriba— sino para que abrir una segunda instancia de la
+  # API no obligue a rehacer el cálculo: los pools de la aplicación pueden crecer sin que el
+  # número de conexiones reales contra Postgres se mueva.
+  #
+  # El modo transacción es seguro aquí porque ninguna consulta depende del estado de la
+  # sesión: no hay LISTEN/NOTIFY, ni advisory locks, ni cursores entre transacciones, ni
+  # sentencias preparadas del lado del servidor (Npgsql trae `Max Auto Prepare` a cero).
+  pgbouncer:
+    image: edoburu/pgbouncer:v1.23.1-p3
+    restart: unless-stopped
+    environment:
+      DB_HOST: postgres
+      DB_PORT: "5432"
+      DB_NAME: academy
+      DB_USER: academy
+      DB_PASSWORD: ${POSTGRES_PASSWORD}
+      LISTEN_PORT: "6432"
+      AUTH_TYPE: scram-sha-256
+      POOL_MODE: transaction
+      # Clientes que puede aceptar: sobra para la API y los jobs, y deja sitio a una segunda
+      # instancia de la API sin tocar nada.
+      MAX_CLIENT_CONN: "500"
+      # Conexiones reales contra Postgres. Es el número que importa: 25 backends sirven a los
+      # 48 clientes de arriba porque una transacción ocupa el backend milisegundos.
+      DEFAULT_POOL_SIZE: "25"
+      MIN_POOL_SIZE: "5"
+      RESERVE_POOL_SIZE: "5"
+      RESERVE_POOL_TIMEOUT: "3"
+      MAX_DB_CONNECTIONS: "45"
+      SERVER_IDLE_TIMEOUT: "120"
+      SERVER_LIFETIME: "1800"
+      # Una consulta que tarda un minuto en un camino de petición es un fallo, no una espera.
+      QUERY_WAIT_TIMEOUT: "20"
+      IGNORE_STARTUP_PARAMETERS: extra_float_digits,options,search_path
+      LOG_POOLER_ERRORS: "1"
+      STATS_PERIOD: "60"
+      # Para poder mirar el pooler desde dentro cuando algo va lento. `cl_waiting` por encima
+      # de cero de forma sostenida es la señal de que DEFAULT_POOL_SIZE se ha quedado corto:
+      #   docker compose exec -e PGPASSWORD="$POSTGRES_PASSWORD" pgbouncer \
+      #     psql "postgresql://academy@127.0.0.1:6432/pgbouncer?sslmode=disable" -c "SHOW POOLS;"
+      # Sin esto la consola de administración contesta «not allowed» y hay que adivinar.
+      ADMIN_USERS: academy
+      STATS_USERS: academy
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -h 127.0.0.1 -p 6432 -U academy -d academy"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+    deploy:
+      resources:
+        limits:
+          memory: 96M
+
+  postgres:
+    image: postgres:17-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: academy
+      POSTGRES_USER: academy
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    # Ajuste para una CX22 compartida con la API. La imagen viene con los valores de
+    # arranque de Postgres —shared_buffers de 128 MB, planificador de disco giratorio— que
+    # están pensados para poder arrancar en cualquier sitio, no para servir a nadie.
+    #
+    # El reparto de los 4 GB: 384 MB de buffers propios, ~1,2 GB que el planificador puede
+    # dar por cacheados entre buffers y caché del sistema, y el resto para la API, los jobs y
+    # el sistema. Subir shared_buffers por encima de esto le quita caché de fichero al kernel,
+    # que en una máquina compartida trabaja para todos y no solo para Postgres.
+    command:
+      - postgres
+      - -c
+      - shared_buffers=384MB
+      - -c
+      - effective_cache_size=1200MB
+      - -c
+      - maintenance_work_mem=128MB
+      # Por operación de orden o hash, no por conexión: con 25 backends reales y consultas de
+      # catálogo, 8 MB es holgado sin arriesgar la memoria de la máquina.
+      - -c
+      - work_mem=8MB
+      - -c
+      - max_connections=100
+      # NVMe: leer una página al azar no cuesta cuatro veces leer la siguiente, y el disco
+      # atiende muchas peticiones a la vez. Con los valores de fábrica el planificador
+      # descarta índices que sí compensan.
+      - -c
+      - random_page_cost=1.1
+      - -c
+      - effective_io_concurrency=200
+      # Checkpoints espaciados y repartidos: con los 1 GB de fábrica, una importación de
+      # contenido dispara checkpoints seguidos y la escritura se nota en las lecturas.
+      - -c
+      - max_wal_size=2GB
+      - -c
+      - min_wal_size=512MB
+      - -c
+      - checkpoint_completion_target=0.9
+      - -c
+      - wal_compression=on
+      # Consultas cortas y repetidas: compilar cada plan cuesta más de lo que ahorra.
+      - -c
+      - jit=off
+      # Para saber qué optimizar en vez de suponerlo. pg_stat_statements ordena por tiempo
+      # acumulado, y track_io_timing distingue esperar al disco de esperar a la CPU.
+      - -c
+      - shared_preload_libraries=pg_stat_statements
+      - -c
+      - pg_stat_statements.max=5000
+      - -c
+      - pg_stat_statements.track=top
+      - -c
+      - track_io_timing=on
+      - -c
+      - log_min_duration_statement=500
+      - -c
+      - log_checkpoints=on
+      - -c
+      - log_lock_waits=on
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - ./backups:/backups
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U academy -d academy"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    # Sin puertos publicados: la base solo es accesible desde la red de compose.
+    deploy:
+      resources:
+        limits:
+          memory: 1400M
+
+volumes:
+  postgres-data:
+  content-data:
+  web-dist:
+  caddy-data:
+  caddy-config:

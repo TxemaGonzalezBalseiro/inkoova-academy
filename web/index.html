@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!--
+      El tema se aplica aquí, antes del primer pintado, y no desde React: esperar al primer
+      render significa pintar la página en claro y corregirla después, que es el parpadeo
+      blanco que ve todo el que tiene el oscuro puesto.
+
+      En «automático» no se pone atributo a propósito: sin `data-theme`, mandan los tokens de
+      `prefers-color-scheme` de tokens.css.
+
+      La clave está duplicada en `src/lib/theme.ts`; este script corre antes que el bundle y no
+      puede importarla. Es otra clave que la del contenido de curso del iframe del player
+      (`agent-engineering-v3-theme`): son dos temas independientes por diseño.
+    -->
+    <script>
+      (function () {
+        try {
+          var preference = localStorage.getItem('inkoova-academy-theme');
+
+          // 'glass' entra aquí igual que los otros dos: es un aspecto elegido a mano, y sin
+          // esto la primera pintada saldría con el tema propio antes de que cargue el bundle.
+          if (preference === 'light' || preference === 'dark' || preference === 'glass') {
+            document.documentElement.setAttribute('data-theme', preference);
+          }
+        } catch (error) {
+          // Almacenamiento bloqueado (navegación privada, políticas del navegador): se queda
+          // en automático, que es el estado por defecto y no necesita atributo.
+        }
+      })();
+    </script>
+
+    <title>Inkoova Academy · Ingeniería de agentes y prompts</title>
+    <meta
+      name="description"
+      content="Cursos de ingeniería de agentes y prompt engineering para builders senior en entornos regulados. Del prototipo a producción, con gobernanza europea."
+    />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Inkoova Academy" />
+    <meta property="og:title" content="Inkoova Academy · Ingeniería de agentes y prompts" />
+    <meta
+      property="og:description"
+      content="Cursos de ingeniería de agentes y prompt engineering para builders senior en entornos regulados."
+    />
+    <meta property="og:image" content="/og.png" />
+    <meta property="og:locale" content="es_ES" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="canonical" href="https://academy.inkoova.com/" />
+
+    <!-- Manrope is the brand face. preconnect first so the swap happens in one paint. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

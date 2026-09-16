@@ -1,0 +1,655 @@
+{
+  "manifestVersion": 1,
+  "courseSlug": "prompt-engineering",
+  "title": "Prompt Engineering Profesional",
+  "shortDescription": "Prompt engineering profesional: de cómo procesa un LLM tu prompt a evals, guardarraíles y coste.",
+  "longDescription": "Curso de prompt engineering para quien construye software con LLMs. Cubre fundamentos, técnicas, reglas antialucinación, guardarraíles, evaluación y control de coste.",
+  "level": "intermediate",
+  "sections": [
+    {
+      "title": "Módulo 1 · Fundamentos: cómo procesa un LLM tu prompt",
+      "order": 0,
+      "lessons": [
+        {
+          "slug": "1-1-que-es-realmente-un-prompt",
+          "title": "Qué es realmente un prompt",
+          "type": "slides",
+          "durationMinutes": 15,
+          "contentRef": "prompt-engineering/panes/pane-m0-l0.html",
+          "isFreePreview": true,
+          "isRequired": true,
+          "sha256": null
+        },
+        {
+          "slug": "1-2-anatomia-de-un-prompt-profesional",
+          "title": "Anatomía de un prompt profesional",
+          "type": "slides",
+          "durationMinutes": 20,
+          "contentRef": "prompt-engineering/panes/pane-m0-l1.html",
+          "isFreePreview": true,
+          "isRequired": true,
+          "sha256": null
+        },
+        {
+          "slug": "1-3-parametros-de-muestreo",
+          "title": "Parámetros de muestreo",
+          "type": "slides",
+          "durationMinutes": 12,
+          "contentRef": "prompt-engineering/panes/pane-m0-l2.html",
+          "isFreePreview": true,
+          "isRequired": true,
+          "sha256": null
+        },
+        {
+          "slug": "1-4-los-siete-errores-del-principiante",
+          "title": "Los siete errores del principiante",
+          "type": "slides",
+          "durationMinutes": 15,
+          "contentRef": "prompt-engineering/panes/pane-m0-l3.html",
+          "isFreePreview": true,
+          "isRequired": true,
+          "sha256": null
+        },
+        {
+          "slug": "1-5-practica-refactorizar-un-prompt-real",
+          "title": "Práctica: refactorizar un prompt real",
+          "type": "lab",
+          "durationMinutes": 30,
+          "contentRef": "prompt-engineering/panes/pane-m0-l4.html",
+          "isFreePreview": true,
+          "isRequired": true,
+          "sha256": null
+        }
+      ]
+    },
+    {
+      "title": "Módulo 2 · Técnicas core",
+      "order": 1,
+      "lessons": [
+        {
+          "slug": "2-1-zero-shot-few-shot-y-seleccion-de-ejemplos",
+          "title": "Zero-shot, few-shot y selección de ejemplos",
+          "type": "slides",
+          "durationMinutes": 18,
+          "contentRef": "prompt-engineering/panes/pane-m1-l0.html",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": null
+        },
+        {
+          "slug": "2-2-chain-of-thought-y-razonamiento-explicito",
+          "title": "Chain of Thought y razonamiento explícito",
+          "type": "slides",
+          "durationMinutes": 20,
+          "contentRef": "prompt-engineering/panes/pane-m1-l1.html",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": null
+        },
+        {
+          "slug": "2-3-delimitadores-xml-y-estructura",
+          "title": "Delimitadores, XML y estructura",
+          "type": "slides",
+          "durationMinutes": 12,
+          "contentRef": "prompt-engineering/panes/pane-m1-l2.html",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": null
+        },
+        {
+          "slug": "2-4-prompt-chaining-descomponer",
+          "title": "Prompt chaining: descomponer",
+          "type": "slides",
+          "durationMinutes": 18,
+          "contentRef": "prompt-engineering/panes/pane-m1-l3.html",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": null
+        },
+        {
+          "slug": "2-5-controlar-el-formato-de-salida",
+          "title": "Controlar el formato de salida",
+          "type": "slides",
+          "durationMinutes": 15,
+          "contentRef": "prompt-engineering/panes/pane-m1-l4.html",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": null
+        },
+        {
+          "slug": "2-6-prompting-de-modelos-de-razonamiento",
+          "title": "Prompting de modelos de razonamiento",
+          "type": "slides",
+          "durationMinutes": 22,
+          "contentRef": "prompt-engineering/panes/pane-m1-l5.html",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": null
+        },
+        {
+          "slug": "2-7-mapa-de-tecnicas-de-razonamiento-avanzadas",
+          "title": "Mapa de técnicas de razonamiento avanzadas",
+          "type": "slides",
+          "durationMinutes": 18,
+          "contentRef": "prompt-engineering/panes/pane-m1-l6.html",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": null
+        },
+        {
+          "slug": "2-8-que-funciona-de-verdad-y-que-es-folclore",
+          "title": "Qué funciona de verdad y qué es folclore",
+          "type": "slides",
+          "durationMinutes": 20,
+          "contentRef": "prompt-engineering/panes/pane-m1-l7.html",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": null
+        },
+        {
+          "slug": "2-9-en-que-idioma-escribo-el-prompt",
+          "title": "¿En qué idioma escribo el prompt?",
+          "type": "slides",
+          "durationMinutes": 10,
+          "contentRef": "prompt-engineering/panes/pane-m1-l8.html",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": null
+        },
+        {
+          "slug": "2-10-practica-pipeline-de-3-eslabones",
+          "title": "Práctica: pipeline de 3 eslabones",
+          "type": "lab",
+          "durationMinutes": 45,
+          "contentRef": "prompt-engineering/panes/pane-m1-l9.html",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": null
+        }
+      ]
+    },
+    {
+      "title": "Módulo 3 · Reglas antialucinación",
+      "order": 2,
+      "lessons": [
+        {
+          "slug": "3-1-por-que-alucinan-los-modelos",
+          "title": "Por qué alucinan los modelos",
+          "type": "slides",
+          "durationMinutes": 18,
+          "contentRef": "prompt-engineering/panes/pane-m2-l0.html",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": null
+        },
+        {
+          "slug": "3-2-grounding-anclar-a-fuentes",
+          "title": "Grounding: anclar a fuentes",
+          "type": "slides",
+          "durationMinutes": 22,
+          "contentRef": "prompt-engineering/panes/pane-m2-l1.html",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": null
+        },
+        {
+          "slug": "3-3-permiso-explicito-para-no-saber",
+          "title": "Permiso explícito para no saber",
+          "type": "slides",
+          "durationMinutes": 15,
+          "contentRef": "prompt-engineering/panes/pane-m2-l2.html",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": null
+        },
+        {
+          "slug": "3-4-verificacion-la-segunda-pasada",
+          "title": "Verificación: la segunda pasada",
+          "type": "slides",
+          "durationMinutes": 25,
+          "contentRef": "prompt-engineering/panes/pane-m2-l3.html",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": null
+        },
+        {
+          "slug": "3-5-bloque-antialucinacion-reutilizable",
+          "title": "Bloque antialucinación reutilizable",
+          "type": "slides",
+          "durationMinutes": 10,
+          "contentRef": "prompt-engineering/panes/pane-m2-l4.html",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": null
+        },
+        {
+          "slug": "3-6-detectar-alucinaciones-en-produccion",
+          "title": "Detectar alucinaciones en producción",
+          "type": "lab",
+          "durationMinutes": 30,
+          "contentRef": "prompt-engineering/panes/pane-m2-l5.html",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": null
+        }
+      ]
+    },
+    {
+      "title": "Módulo 4 · Guardarraíles y seguridad",
+      "order": 3,
+      "lessons": [
+        {
+          "slug": "4-1-que-es-un-guardarrail-y-que-no",
+          "title": "Qué es un guardarraíl (y qué no)",
+          "type": "slides",
+          "durationMinutes": 15,
+          "contentRef": "prompt-engineering/panes/pane-m3-l0.html",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": null
+        },
+        {
+          "slug": "4-2-guardarrailes-de-entrada",
+          "title": "Guardarraíles de entrada",
+          "type": "slides",
+          "durationMinutes": 20,
+          "contentRef": "prompt-engineering/panes/pane-m3-l1.html",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": null
+        },
+        {
+          "slug": "4-3-prompt-injection-en-rag-y-agentes",
+          "title": "Prompt injection en RAG y agentes",
+          "type": "slides",
+          "durationMinutes": 25,
+          "contentRef": "prompt-engineering/panes/pane-m3-l2.html",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": null
+        },
+        {
+          "slug": "4-4-guardarrailes-de-salida",
+          "title": "Guardarraíles de salida",
+          "type": "slides",
+          "durationMinutes": 20,
+          "contentRef": "prompt-engineering/panes/pane-m3-l3.html",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": null
+        },
+        {
+          "slug": "4-5-guardarrailes-de-coste-y-latencia",
+          "title": "Guardarraíles de coste y latencia",
+          "type": "slides",
+          "durationMinutes": 12,
+          "contentRef": "prompt-engineering/panes/pane-m3-l4.html",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": null
+        },
+        {
+          "slug": "4-6-mas-alla-de-la-injection-jailbreaks-extraccion-y-envenenamiento",
+          "title": "Más allá de la injection: jailbreaks, extracción y envenenamiento",
+          "type": "slides",
+          "durationMinutes": 20,
+          "contentRef": "prompt-engineering/panes/pane-m3-l5.html",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": null
+        },
+        {
+          "slug": "4-7-red-teaming-sistematico",
+          "title": "Red teaming sistemático",
+          "type": "slides",
+          "durationMinutes": 25,
+          "contentRef": "prompt-engineering/panes/pane-m3-l6.html",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": null
+        },
+        {
+          "slug": "4-8-practica-construir-la-capa-de-guardarrailes",
+          "title": "Práctica: construir la capa de guardarraíles",
+          "type": "lab",
+          "durationMinutes": 60,
+          "contentRef": "prompt-engineering/panes/pane-m3-l7.html",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": null
+        }
+      ]
+    },
+    {
+      "title": "Módulo 5 · Evaluación, observabilidad y cumplimiento",
+      "order": 4,
+      "lessons": [
+        {
+          "slug": "5-1-sin-evals-no-hay-ingenieria",
+          "title": "Sin evals no hay ingeniería",
+          "type": "slides",
+          "durationMinutes": 15,
+          "contentRef": "prompt-engineering/panes/pane-m4-l0.html",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": null
+        },
+        {
+          "slug": "5-2-metricas-segun-el-tipo-de-tarea",
+          "title": "Métricas según el tipo de tarea",
+          "type": "slides",
+          "durationMinutes": 20,
+          "contentRef": "prompt-engineering/panes/pane-m4-l1.html",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": null
+        },
+        {
+          "slug": "5-3-llm-as-judge",
+          "title": "LLM-as-judge",
+          "type": "slides",
+          "durationMinutes": 20,
+          "contentRef": "prompt-engineering/panes/pane-m4-l2.html",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": null
+        },
+        {
+          "slug": "5-4-regresion-y-versionado",
+          "title": "Regresión y versionado",
+          "type": "slides",
+          "durationMinutes": 15,
+          "contentRef": "prompt-engineering/panes/pane-m4-l3.html",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": null
+        },
+        {
+          "slug": "5-5-observabilidad-y-gestion-de-prompts-en-produccion",
+          "title": "Observabilidad y gestión de prompts en producción",
+          "type": "slides",
+          "durationMinutes": 20,
+          "contentRef": "prompt-engineering/panes/pane-m4-l4.html",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": null
+        },
+        {
+          "slug": "5-6-cumplimiento-el-eu-ai-act-para-quien-despliega",
+          "title": "Cumplimiento: el EU AI Act para quien despliega",
+          "type": "slides",
+          "durationMinutes": 20,
+          "contentRef": "prompt-engineering/panes/pane-m4-l5.html",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": null
+        },
+        {
+          "slug": "5-7-practica-montar-tu-primer-eval",
+          "title": "Práctica: montar tu primer eval",
+          "type": "lab",
+          "durationMinutes": 45,
+          "contentRef": "prompt-engineering/panes/pane-m4-l6.html",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": null
+        }
+      ]
+    },
+    {
+      "title": "Módulo 6 · Reutilización, escala y coste",
+      "order": 5,
+      "lessons": [
+        {
+          "slug": "6-1-prompts-como-codigo",
+          "title": "Prompts como código",
+          "type": "slides",
+          "durationMinutes": 18,
+          "contentRef": "prompt-engineering/panes/pane-m5-l0.html",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": null
+        },
+        {
+          "slug": "6-2-plantillas-parametrizadas",
+          "title": "Plantillas parametrizadas",
+          "type": "slides",
+          "durationMinutes": 20,
+          "contentRef": "prompt-engineering/panes/pane-m5-l1.html",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": null
+        },
+        {
+          "slug": "6-3-caching-coste-y-organizacion-del-contexto",
+          "title": "Caching, coste y organización del contexto",
+          "type": "slides",
+          "durationMinutes": 15,
+          "contentRef": "prompt-engineering/panes/pane-m5-l2.html",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": null
+        },
+        {
+          "slug": "6-4-portabilidad-entre-proveedores",
+          "title": "Portabilidad entre proveedores",
+          "type": "slides",
+          "durationMinutes": 18,
+          "contentRef": "prompt-engineering/panes/pane-m5-l3.html",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": null
+        },
+        {
+          "slug": "6-5-agent-skills-instrucciones-persistentes-empaquetadas",
+          "title": "Agent Skills: instrucciones persistentes empaquetadas",
+          "type": "slides",
+          "durationMinutes": 20,
+          "contentRef": "prompt-engineering/panes/pane-m5-l4.html",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": null
+        },
+        {
+          "slug": "6-6-meta-prompting-que-la-ia-escriba-tus-prompts",
+          "title": "Meta-prompting: que la IA escriba tus prompts",
+          "type": "slides",
+          "durationMinutes": 10,
+          "contentRef": "prompt-engineering/panes/pane-m5-l5.html",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": null
+        },
+        {
+          "slug": "6-7-practica-monta-tu-libreria",
+          "title": "Práctica: monta tu librería",
+          "type": "lab",
+          "durationMinutes": 40,
+          "contentRef": "prompt-engineering/panes/pane-m5-l6.html",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": null
+        }
+      ]
+    },
+    {
+      "title": "Módulo 7 · Contexto largo y agentes",
+      "order": 6,
+      "lessons": [
+        {
+          "slug": "7-1-presupuesto-de-contexto-que-entra-y-que-sale",
+          "title": "Presupuesto de contexto: qué entra y qué sale",
+          "type": "slides",
+          "durationMinutes": 18,
+          "contentRef": "prompt-engineering/panes/pane-m6-l0.html",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": null
+        },
+        {
+          "slug": "7-2-compactacion-notas-y-sub-agentes",
+          "title": "Compactación, notas y sub-agentes",
+          "type": "slides",
+          "durationMinutes": 25,
+          "contentRef": "prompt-engineering/panes/pane-m6-l1.html",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": null
+        },
+        {
+          "slug": "7-3-disenar-herramientas-el-prompt-que-mas-se-olvida",
+          "title": "Diseñar herramientas: el prompt que más se olvida",
+          "type": "slides",
+          "durationMinutes": 22,
+          "contentRef": "prompt-engineering/panes/pane-m6-l2.html",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": null
+        },
+        {
+          "slug": "7-4-patrones-de-bucle-de-agente",
+          "title": "Patrones de bucle de agente",
+          "type": "slides",
+          "durationMinutes": 20,
+          "contentRef": "prompt-engineering/panes/pane-m6-l3.html",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": null
+        },
+        {
+          "slug": "7-5-proyecto-final",
+          "title": "Proyecto final",
+          "type": "lab",
+          "durationMinutes": 10,
+          "contentRef": "prompt-engineering/panes/pane-m6-l4.html",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": null
+        }
+      ]
+    },
+    {
+      "title": "Anexos y referencia",
+      "order": 7,
+      "lessons": [
+        {
+          "slug": "anexo-a-biblioteca-de-bloques-copiables",
+          "title": "Anexo A · Biblioteca de bloques copiables",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "prompt-engineering/panes/pane-m7-l0.html",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": null
+        },
+        {
+          "slug": "anexo-b-plantilla-maestra",
+          "title": "Anexo B · Plantilla maestra",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "prompt-engineering/panes/pane-m7-l1.html",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": null
+        },
+        {
+          "slug": "anexo-c-checklist-antes-de-produccion",
+          "title": "Anexo C · Checklist antes de producción",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "prompt-engineering/panes/pane-m7-l2.html",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": null
+        },
+        {
+          "slug": "anexo-d-diagnostico-rapido-de-fallos",
+          "title": "Anexo D · Diagnóstico rápido de fallos",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "prompt-engineering/panes/pane-m7-l3.html",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": null
+        },
+        {
+          "slug": "anexo-e-mitos-con-la-evidencia-al-lado",
+          "title": "Anexo E · Mitos, con la evidencia al lado",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "prompt-engineering/panes/pane-m7-l4.html",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": null
+        },
+        {
+          "slug": "cierre",
+          "title": "Cierre",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "prompt-engineering/panes/pane-m7-l5.html",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": null
+        }
+      ]
+    }
+  ],
+  "quizzes": [],
+  "assets": [
+    "prompt-engineering/panes/pane-m0-l0.html",
+    "prompt-engineering/panes/pane-m0-l1.html",
+    "prompt-engineering/panes/pane-m0-l2.html",
+    "prompt-engineering/panes/pane-m0-l3.html",
+    "prompt-engineering/panes/pane-m0-l4.html",
+    "prompt-engineering/panes/pane-m1-l0.html",
+    "prompt-engineering/panes/pane-m1-l1.html",
+    "prompt-engineering/panes/pane-m1-l2.html",
+    "prompt-engineering/panes/pane-m1-l3.html",
+    "prompt-engineering/panes/pane-m1-l4.html",
+    "prompt-engineering/panes/pane-m1-l5.html",
+    "prompt-engineering/panes/pane-m1-l6.html",
+    "prompt-engineering/panes/pane-m1-l7.html",
+    "prompt-engineering/panes/pane-m1-l8.html",
+    "prompt-engineering/panes/pane-m1-l9.html",
+    "prompt-engineering/panes/pane-m2-l0.html",
+    "prompt-engineering/panes/pane-m2-l1.html",
+    "prompt-engineering/panes/pane-m2-l2.html",
+    "prompt-engineering/panes/pane-m2-l3.html",
+    "prompt-engineering/panes/pane-m2-l4.html",
+    "prompt-engineering/panes/pane-m2-l5.html",
+    "prompt-engineering/panes/pane-m3-l0.html",
+    "prompt-engineering/panes/pane-m3-l1.html",
+    "prompt-engineering/panes/pane-m3-l2.html",
+    "prompt-engineering/panes/pane-m3-l3.html",
+    "prompt-engineering/panes/pane-m3-l4.html",
+    "prompt-engineering/panes/pane-m3-l5.html",
+    "prompt-engineering/panes/pane-m3-l6.html",
+    "prompt-engineering/panes/pane-m3-l7.html",
+    "prompt-engineering/panes/pane-m4-l0.html",
+    "prompt-engineering/panes/pane-m4-l1.html",
+    "prompt-engineering/panes/pane-m4-l2.html",
+    "prompt-engineering/panes/pane-m4-l3.html",
+    "prompt-engineering/panes/pane-m4-l4.html",
+    "prompt-engineering/panes/pane-m4-l5.html",
+    "prompt-engineering/panes/pane-m4-l6.html",
+    "prompt-engineering/panes/pane-m5-l0.html",
+    "prompt-engineering/panes/pane-m5-l1.html",
+    "prompt-engineering/panes/pane-m5-l2.html",
+    "prompt-engineering/panes/pane-m5-l3.html",
+    "prompt-engineering/panes/pane-m5-l4.html",
+    "prompt-engineering/panes/pane-m5-l5.html",
+    "prompt-engineering/panes/pane-m5-l6.html",
+    "prompt-engineering/panes/pane-m6-l0.html",
+    "prompt-engineering/panes/pane-m6-l1.html",
+    "prompt-engineering/panes/pane-m6-l2.html",
+    "prompt-engineering/panes/pane-m6-l3.html",
+    "prompt-engineering/panes/pane-m6-l4.html",
+    "prompt-engineering/panes/pane-m7-l0.html",
+    "prompt-engineering/panes/pane-m7-l1.html",
+    "prompt-engineering/panes/pane-m7-l2.html",
+    "prompt-engineering/panes/pane-m7-l3.html",
+    "prompt-engineering/panes/pane-m7-l4.html",
+    "prompt-engineering/panes/pane-m7-l5.html"
+  ]
+}

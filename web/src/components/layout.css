@@ -1,0 +1,357 @@
+.layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.site-main {
+  flex: 1;
+}
+
+/* ── cabecera ────────────────────────────────────────────────────────────── */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background: color-mix(in srgb, var(--surface) 88%, transparent);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+
+/*
+ * Sin `space-between`: al entrar el selector de tema como tercer hijo, el reparto uniforme
+ * dejaba la navegación flotando en mitad de la cabecera. La marca empuja y todo lo demás se
+ * agrupa a la derecha, que es como estaba antes con dos hijos.
+ */
+.site-header__inner {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  min-height: var(--header-height);
+}
+
+.brand {
+  margin-right: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--text);
+  text-decoration: none;
+  font-size: var(--text-lg);
+  white-space: nowrap;
+}
+
+.brand__mark {
+  width: 22px;
+  height: 22px;
+  border-radius: var(--radius-sm);
+  background: linear-gradient(135deg, var(--ink-blue), var(--ink-magenta));
+}
+
+/*
+ * Logo subido desde el panel. Se limita por altura y no por anchura: quien lo sube no sabe
+ * qué proporción espera la cabecera, y fijar el ancho deformaría un logotipo apaisado o
+ * empujaría hacia abajo el resto de la barra.
+ */
+.brand__logo {
+  height: 28px;
+  width: auto;
+  max-width: 160px;
+  object-fit: contain;
+}
+
+.brand__text strong {
+  font-weight: 800;
+}
+
+.site-header__toggle {
+  display: none;
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text);
+  font-size: var(--text-lg);
+  width: 44px;
+  height: 44px;
+  cursor: pointer;
+}
+
+.site-nav {
+  display: flex;
+  align-items: center;
+  gap: var(--space-6);
+}
+
+.site-nav ul {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/*
+ * Solo los enlaces del MENÚ, no los botones de al lado.
+ *
+ * Antes era `.site-nav a` a secas, y como gana en especificidad a `.btn--sm`, les quitaba el
+ * relleno horizontal —el texto quedaba pegado a los bordes— y les pintaba el borde inferior
+ * transparente, con lo que «Entrar» salía como un rectángulo abierto por abajo. Se veía como
+ * un botón a medio dibujar sin que nada estuviera roto en su CSS.
+ */
+.site-nav > ul a {
+  color: var(--text);
+  text-decoration: none;
+  font-size: var(--text-sm);
+  font-weight: 500;
+  padding: var(--space-2) 0;
+  border-bottom: 2px solid transparent;
+}
+
+.site-nav > ul a:hover,
+.site-nav > ul a.is-active {
+  color: var(--ink-blue);
+  border-bottom-color: var(--ink-blue);
+}
+
+.site-nav__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding-left: var(--space-3);
+  margin-left: var(--space-1);
+  border-left: 1px solid var(--border);
+}
+
+/*
+ * Admin se distingue del resto: es la única acción que no todo el mundo ve y confundirla con
+ * "Mi cuenta" lleva a tocar configuración sin querer.
+ */
+.site-nav__admin {
+  border-color: var(--ink-magenta);
+  color: var(--ink-magenta);
+}
+
+.site-nav__admin:hover:not(:disabled) {
+  background: var(--ink-magenta-050);
+  border-color: var(--ink-magenta);
+  color: var(--ink-magenta);
+}
+
+/* Salir es de solo icono: no compite con "Mi cuenta" pero sigue estando a un clic. */
+.site-nav__logout {
+  background: transparent;
+  color: var(--text-muted);
+  border-color: transparent;
+}
+
+.site-nav__logout:hover:not(:disabled) {
+  background: var(--ink-100);
+  color: var(--ink-error);
+}
+
+@media (max-width: 900px) {
+  /* Marca, selector de tema y botón de menú en la misma fila: a 375 px va justa. */
+  .site-header__inner {
+    gap: var(--space-2);
+  }
+
+  .site-header__toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    /*
+     * El botón de menú es el último de la fila aunque en el DOM vaya antes del `<nav>`, que es
+     * donde tiene que ir para que el teclado entre al menú justo después de abrirlo.
+     */
+    order: 1;
+  }
+
+  .site-nav {
+    display: none;
+    position: absolute;
+    inset: var(--header-height) 0 auto 0;
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-4);
+    padding: var(--space-4);
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    box-shadow: var(--shadow);
+  }
+
+  .site-nav--open {
+    display: flex;
+  }
+
+  .site-nav ul {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+  }
+
+  .site-nav li {
+    border-bottom: 1px solid var(--border);
+  }
+
+  .site-nav a {
+    display: block;
+    padding: var(--space-3) 0;
+    border-bottom: none;
+  }
+
+  .site-nav__actions {
+    flex-wrap: wrap;
+    padding-left: 0;
+    margin-left: 0;
+    border-left: 0;
+    border-top: 1px solid var(--border);
+    padding-top: var(--space-3);
+  }
+
+  .site-nav__actions > * {
+    flex: 1 1 140px;
+  }
+
+  /* En el menú desplegado hay sitio: "Salir" recupera su texto y deja de ser un icono suelto. */
+  .site-nav__logout {
+    border-color: var(--border);
+  }
+
+  .site-nav__logout::after {
+    content: 'Salir';
+    font-weight: 600;
+  }
+
+  .btn--icon.site-nav__logout {
+    width: auto;
+    min-width: 0;
+    padding: var(--space-2) var(--space-4);
+    gap: var(--space-2);
+  }
+}
+
+/* ── pie ─────────────────────────────────────────────────────────────────── */
+
+.site-footer {
+  position: relative;
+  margin-top: var(--space-24);
+  border-top: 1px solid var(--border);
+  background: var(--surface-muted);
+  padding-top: var(--space-12);
+}
+
+/* Filete de marca en el canto: cierra la página con el mismo gesto que abre cada sección. */
+.site-footer::before {
+  content: '';
+  position: absolute;
+  inset: -1px 0 auto;
+  height: 2px;
+  background: linear-gradient(90deg, var(--ink-blue), var(--ink-magenta), var(--ink-teal));
+}
+
+.site-footer__inner {
+  display: grid;
+  grid-template-columns: 2fr repeat(3, 1fr);
+  gap: var(--space-8);
+}
+
+@media (max-width: 820px) {
+  .site-footer__inner {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 520px) {
+  .site-footer__inner {
+    grid-template-columns: 1fr;
+  }
+}
+
+.site-footer__brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-lg);
+  margin-bottom: var(--space-2);
+}
+
+/* La misma marca de color que la cabecera, para que el pie no parezca de otro sitio. */
+.site-footer__brand::before {
+  content: '';
+  width: 1.1rem;
+  height: 1.1rem;
+  border-radius: 5px;
+  background: linear-gradient(135deg, var(--ink-blue), var(--ink-magenta));
+}
+
+.site-footer__tagline {
+  max-width: 34ch;
+  font-size: var(--text-sm);
+}
+
+.site-footer h2 {
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  margin-bottom: var(--space-3);
+}
+
+.site-footer ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.site-footer a {
+  color: var(--text);
+  text-decoration: none;
+  font-size: var(--text-sm);
+}
+
+.site-footer a:hover {
+  color: var(--ink-blue);
+  text-decoration: underline;
+}
+
+.site-footer__legal {
+  border-top: 1px solid var(--border);
+  margin-top: var(--space-8);
+  padding-block: var(--space-4);
+  font-size: var(--text-xs);
+}
+
+/* ── banner de cookies ───────────────────────────────────────────────────── */
+
+.cookie-banner {
+  position: fixed;
+  inset: auto var(--space-4) var(--space-4) var(--space-4);
+  z-index: 60;
+  max-width: 560px;
+  margin-inline: auto;
+  padding: var(--space-4);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+}
+
+.cookie-banner p {
+  font-size: var(--text-sm);
+  margin-bottom: var(--space-3);
+}
+
+.cookie-banner__actions {
+  display: flex;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.cookie-banner__actions .btn {
+  flex: 1 1 auto;
+}

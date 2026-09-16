@@ -1,0 +1,34 @@
+# API .NET 10. Multi-stage: el SDK no llega a la imagen final.
+FROM mcr.microsoft.com/dotnet/sdk:10.0-alpine AS build
+WORKDIR /src
+
+# Los csproj primero: así el restore se cachea y solo se repite cuando cambian dependencias.
+COPY api/Directory.Build.props api/
+COPY api/src/Inkoova.Academy.Domain/*.csproj          api/src/Inkoova.Academy.Domain/
+COPY api/src/Inkoova.Academy.Application/*.csproj     api/src/Inkoova.Academy.Application/
+COPY api/src/Inkoova.Academy.Infrastructure/*.csproj  api/src/Inkoova.Academy.Infrastructure/
+COPY api/src/Inkoova.Academy.Api/*.csproj             api/src/Inkoova.Academy.Api/
+RUN dotnet restore api/src/Inkoova.Academy.Api/Inkoova.Academy.Api.csproj
+
+COPY api/ api/
+RUN dotnet publish api/src/Inkoova.Academy.Api/Inkoova.Academy.Api.csproj \
+    -c Release -o /app/publish --no-restore
+
+FROM mcr.microsoft.com/dotnet/aspnet:10.0-alpine AS final
+WORKDIR /app
+
+# QuestPDF renderiza texto con SkiaSharp, que necesita fontconfig y una familia instalada.
+# Sin esto los PDFs de certificado salen con los glifos vacíos.
+RUN apk add --no-cache icu-libs fontconfig ttf-dejavu \
+    && addgroup -S academy && adduser -S academy -G academy \
+    && mkdir -p /srv/content && chown -R academy:academy /srv/content
+
+COPY --from=build /app/publish .
+COPY emails/ /app/emails/
+
+USER academy
+EXPOSE 8080
+ENV ASPNETCORE_HTTP_PORTS=8080 \
+    DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=false
+
+ENTRYPOINT ["dotnet", "Inkoova.Academy.Api.dll"]

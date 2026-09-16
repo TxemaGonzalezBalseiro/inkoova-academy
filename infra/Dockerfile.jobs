@@ -1,0 +1,30 @@
+# Jobs programados: revocación diaria, aprobación de comisiones, roles de Discord y
+# liquidación mensual. Contenedor aparte para que un job largo nunca compita con la API.
+FROM mcr.microsoft.com/dotnet/sdk:10.0-alpine AS build
+WORKDIR /src
+
+COPY api/Directory.Build.props api/
+COPY api/src/Inkoova.Academy.Domain/*.csproj          api/src/Inkoova.Academy.Domain/
+COPY api/src/Inkoova.Academy.Application/*.csproj     api/src/Inkoova.Academy.Application/
+COPY api/src/Inkoova.Academy.Infrastructure/*.csproj  api/src/Inkoova.Academy.Infrastructure/
+COPY api/src/Inkoova.Academy.Jobs/*.csproj            api/src/Inkoova.Academy.Jobs/
+RUN dotnet restore api/src/Inkoova.Academy.Jobs/Inkoova.Academy.Jobs.csproj
+
+COPY api/ api/
+RUN dotnet publish api/src/Inkoova.Academy.Jobs/Inkoova.Academy.Jobs.csproj \
+    -c Release -o /app/publish --no-restore
+
+FROM mcr.microsoft.com/dotnet/runtime:10.0-alpine AS final
+WORKDIR /app
+
+RUN apk add --no-cache icu-libs fontconfig ttf-dejavu \
+    && addgroup -S academy && adduser -S academy -G academy \
+    && mkdir -p /srv/content && chown -R academy:academy /srv/content
+
+COPY --from=build /app/publish .
+COPY emails/ /app/emails/
+
+USER academy
+ENV DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=false
+
+ENTRYPOINT ["dotnet", "Inkoova.Academy.Jobs.dll"]

@@ -1,0 +1,214 @@
+.loading {
+  color: var(--text-muted);
+  font-size: var(--text-sm);
+  padding: var(--space-8) 0;
+  text-align: center;
+}
+
+.empty-state {
+  text-align: center;
+  padding: var(--space-12) var(--space-4);
+  border: 1px dashed var(--border);
+  border-radius: var(--radius-lg);
+  color: var(--text-muted);
+  /* El punteado marca "aquí no hay nada todavía"; el fondo lo separa del hueco de la página. */
+  background: var(--surface-muted);
+}
+
+.empty-state h3 {
+  color: var(--text);
+  margin-bottom: var(--space-2);
+}
+
+/* ── progreso ────────────────────────────────────────────────────────────── */
+
+.progress {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-top: var(--space-3);
+}
+
+.progress__track {
+  flex: 1;
+  height: 6px;
+  border-radius: var(--radius-full);
+  background: var(--ink-100);
+  overflow: hidden;
+}
+
+.progress__fill {
+  height: 100%;
+  border-radius: var(--radius-full);
+  background: linear-gradient(90deg, var(--ink-blue), var(--ink-teal));
+  transition: width 0.3s ease;
+}
+
+.progress__value {
+  font-size: var(--text-xs);
+  font-weight: 700;
+  color: var(--text-muted);
+  min-width: 3ch;
+  text-align: right;
+}
+
+/* ── tarjeta de curso ────────────────────────────────────────────────────── */
+
+.course-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+}
+
+.course-card:hover,
+.course-card:focus-within {
+  border-color: var(--ink-blue);
+  box-shadow: var(--shadow);
+  transform: translateY(-2px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .course-card:hover,
+  .course-card:focus-within {
+    transform: none;
+  }
+}
+
+.course-card--soon {
+  opacity: 0.9;
+}
+
+.course-card__cover {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  background: linear-gradient(135deg, var(--ink-blue), var(--ink-magenta));
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+/*
+ * Trama sobre la portada generada. Sin ella, un curso sin imagen es un rectángulo de color
+ * plano y las tres tarjetas de la rejilla se ven idénticas.
+ */
+/* La portada generada ocupa toda la caja; la trama va dentro del propio SVG. */
+.course-cover {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.course-card__cover:has(.course-cover)::after {
+  display: none;
+}
+
+.course-card__cover::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(to right, rgb(255 255 255 / 0.09) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(255 255 255 / 0.09) 1px, transparent 1px);
+  background-size: 24px 24px;
+  mask-image: linear-gradient(135deg, #000, transparent 70%);
+}
+
+.course-card__cover img {
+  position: relative;
+  z-index: 1;
+}
+
+/* Con imagen real la trama sobra: taparía la foto. */
+.course-card__cover:has(img)::after {
+  display: none;
+}
+
+.course-card__cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.course-card__placeholder {
+  font-size: var(--text-3xl);
+  font-weight: 800;
+  color: rgb(255 255 255 / 0.85);
+  letter-spacing: 0.05em;
+}
+
+.course-card__body {
+  padding: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  flex: 1;
+}
+
+.course-card__badges:empty {
+  display: none;
+}
+
+.course-card__title {
+  font-size: var(--text-lg);
+  margin: 0;
+}
+
+.course-card__title a {
+  color: var(--text);
+  text-decoration: none;
+}
+
+.course-card__title a:hover {
+  color: var(--ink-blue);
+}
+
+/* El enlace del título cubre la tarjeta: un solo destino, un solo nombre accesible. */
+.course-card__title a::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+}
+
+.course-card {
+  position: relative;
+}
+
+.course-card__description {
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+  margin: 0;
+  flex: 1;
+}
+
+.course-card__meta {
+  margin: var(--space-1) 0 0;
+}
+
+.course-card__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  padding-top: var(--space-2);
+  border-top: 1px solid var(--border);
+  font-size: var(--text-xs);
+}
+
+.course-card__rating {
+  color: var(--ink-warn);
+  font-weight: 600;
+}
+
+.course-card__members {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  color: var(--ink-magenta);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}

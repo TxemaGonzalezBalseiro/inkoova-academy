@@ -1,0 +1,2372 @@
+{
+  "manifestVersion": 1,
+  "courseSlug": "gobernanza-eu",
+  "title": "Gobernanza EU de sistemas con IA",
+  "shortDescription": "Construye agentes de IA que sobreviven en producción.",
+  "longDescription": "Programa de capacitación en sistemas LLM para builders senior. Agnóstico de framework: se aprenden los invariantes, no la librería de moda.",
+  "level": "advanced",
+  "sections": [
+    {
+      "title": "B1 · EU AI Act: mapa y calendario",
+      "order": 0,
+      "lessons": [
+        {
+          "slug": "b1-slide-0-que-es-el-ai-act-y-que-no-es",
+          "title": "Qué es el AI Act y qué no es",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "gobernanza-eu/bloques/B1-eu-ai-act-mapa-y-calendario.html#slide-0",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "85b590655d7691f632a8bc9cff410801738198c662d178579d56f4ad6b7c4b56"
+        },
+        {
+          "slug": "b1-slide-1-por-que-es-un-reglamento-de-producto-y-no-de-datos",
+          "title": "Por qué es un reglamento de producto y no de datos",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "gobernanza-eu/bloques/B1-eu-ai-act-mapa-y-calendario.html#slide-1",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "85b590655d7691f632a8bc9cff410801738198c662d178579d56f4ad6b7c4b56"
+        },
+        {
+          "slug": "b1-slide-2-relacion-con-el-rgpd",
+          "title": "Relación con el RGPD",
+          "type": "slides",
+          "durationMinutes": 3,
+          "contentRef": "gobernanza-eu/bloques/B1-eu-ai-act-mapa-y-calendario.html#slide-2",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "85b590655d7691f632a8bc9cff410801738198c662d178579d56f4ad6b7c4b56"
+        },
+        {
+          "slug": "b1-slide-3-ambito-de-aplicacion",
+          "title": "Ámbito de aplicación",
+          "type": "slides",
+          "durationMinutes": 3,
+          "contentRef": "gobernanza-eu/bloques/B1-eu-ai-act-mapa-y-calendario.html#slide-3",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "85b590655d7691f632a8bc9cff410801738198c662d178579d56f4ad6b7c4b56"
+        },
+        {
+          "slug": "b1-slide-4-definicion-de-sistema-de-ia-y-por-que-la-definicion-importa-mas-de-lo-que-parece",
+          "title": "Definición de sistema de IA y por qué la definición importa más de lo que parece",
+          "type": "slides",
+          "durationMinutes": 3,
+          "contentRef": "gobernanza-eu/bloques/B1-eu-ai-act-mapa-y-calendario.html#slide-4",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "85b590655d7691f632a8bc9cff410801738198c662d178579d56f4ad6b7c4b56"
+        },
+        {
+          "slug": "b1-slide-5-los-cuatro-niveles-de-riesgo-en-un-vistazo",
+          "title": "Los cuatro niveles de riesgo, en un vistazo",
+          "type": "slides",
+          "durationMinutes": 3,
+          "contentRef": "gobernanza-eu/bloques/B1-eu-ai-act-mapa-y-calendario.html#slide-5",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "85b590655d7691f632a8bc9cff410801738198c662d178579d56f4ad6b7c4b56"
+        },
+        {
+          "slug": "b1-slide-6-practicas-prohibidas",
+          "title": "Prácticas prohibidas",
+          "type": "slides",
+          "durationMinutes": 5,
+          "contentRef": "gobernanza-eu/bloques/B1-eu-ai-act-mapa-y-calendario.html#slide-6",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "85b590655d7691f632a8bc9cff410801738198c662d178579d56f4ad6b7c4b56"
+        },
+        {
+          "slug": "b1-slide-7-alto-riesgo",
+          "title": "Alto riesgo",
+          "type": "slides",
+          "durationMinutes": 5,
+          "contentRef": "gobernanza-eu/bloques/B1-eu-ai-act-mapa-y-calendario.html#slide-7",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "85b590655d7691f632a8bc9cff410801738198c662d178579d56f4ad6b7c4b56"
+        },
+        {
+          "slug": "b1-slide-8-riesgo-limitado-y-obligaciones-de-transparencia",
+          "title": "Riesgo limitado y obligaciones de transparencia",
+          "type": "slides",
+          "durationMinutes": 3,
+          "contentRef": "gobernanza-eu/bloques/B1-eu-ai-act-mapa-y-calendario.html#slide-8",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "85b590655d7691f632a8bc9cff410801738198c662d178579d56f4ad6b7c4b56"
+        },
+        {
+          "slug": "b1-slide-9-modelos-de-proposito-general",
+          "title": "Modelos de propósito general",
+          "type": "slides",
+          "durationMinutes": 4,
+          "contentRef": "gobernanza-eu/bloques/B1-eu-ai-act-mapa-y-calendario.html#slide-9",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "85b590655d7691f632a8bc9cff410801738198c662d178579d56f4ad6b7c4b56"
+        },
+        {
+          "slug": "b1-slide-10-calendario-de-aplicacion-por-bloques-de-obligaciones",
+          "title": "Calendario de aplicación por bloques de obligaciones",
+          "type": "slides",
+          "durationMinutes": 5,
+          "contentRef": "gobernanza-eu/bloques/B1-eu-ai-act-mapa-y-calendario.html#slide-10",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "85b590655d7691f632a8bc9cff410801738198c662d178579d56f4ad6b7c4b56"
+        },
+        {
+          "slug": "b1-slide-11-que-obligaciones-ya-estan-vigentes-al-escribir-esto",
+          "title": "Qué obligaciones ya están vigentes al escribir esto",
+          "type": "slides",
+          "durationMinutes": 3,
+          "contentRef": "gobernanza-eu/bloques/B1-eu-ai-act-mapa-y-calendario.html#slide-11",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "85b590655d7691f632a8bc9cff410801738198c662d178579d56f4ad6b7c4b56"
+        },
+        {
+          "slug": "b1-slide-12-autoridades",
+          "title": "Autoridades",
+          "type": "slides",
+          "durationMinutes": 3,
+          "contentRef": "gobernanza-eu/bloques/B1-eu-ai-act-mapa-y-calendario.html#slide-12",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "85b590655d7691f632a8bc9cff410801738198c662d178579d56f4ad6b7c4b56"
+        },
+        {
+          "slug": "b1-slide-13-la-autoridad-espanola-y-su-papel",
+          "title": "La autoridad española y su papel",
+          "type": "slides",
+          "durationMinutes": 3,
+          "contentRef": "gobernanza-eu/bloques/B1-eu-ai-act-mapa-y-calendario.html#slide-13",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "85b590655d7691f632a8bc9cff410801738198c662d178579d56f4ad6b7c4b56"
+        },
+        {
+          "slug": "b1-slide-14-sanciones",
+          "title": "Sanciones",
+          "type": "slides",
+          "durationMinutes": 4,
+          "contentRef": "gobernanza-eu/bloques/B1-eu-ai-act-mapa-y-calendario.html#slide-14",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "85b590655d7691f632a8bc9cff410801738198c662d178579d56f4ad6b7c4b56"
+        },
+        {
+          "slug": "b1-slide-15-como-leer-el-reglamento-sin-perderse",
+          "title": "Cómo leer el reglamento sin perderse",
+          "type": "slides",
+          "durationMinutes": 5,
+          "contentRef": "gobernanza-eu/bloques/B1-eu-ai-act-mapa-y-calendario.html#slide-15",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "85b590655d7691f632a8bc9cff410801738198c662d178579d56f4ad6b7c4b56"
+        },
+        {
+          "slug": "b1-slide-16-errores-frecuentes-al-interpretar-el-ambito",
+          "title": "Errores frecuentes al interpretar el ámbito",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "gobernanza-eu/bloques/B1-eu-ai-act-mapa-y-calendario.html#slide-16",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "85b590655d7691f632a8bc9cff410801738198c662d178579d56f4ad6b7c4b56"
+        },
+        {
+          "slug": "b1-slide-17-donde-encaja-meridiana-en-este-mapa",
+          "title": "Dónde encaja Meridiana en este mapa",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "gobernanza-eu/bloques/B1-eu-ai-act-mapa-y-calendario.html#slide-17",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "85b590655d7691f632a8bc9cff410801738198c662d178579d56f4ad6b7c4b56"
+        },
+        {
+          "slug": "b1-slide-18-aviso",
+          "title": "Aviso",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "gobernanza-eu/bloques/B1-eu-ai-act-mapa-y-calendario.html#slide-18",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "85b590655d7691f632a8bc9cff410801738198c662d178579d56f4ad6b7c4b56"
+        },
+        {
+          "slug": "b1-slide-19-excepciones-del-ambito",
+          "title": "Excepciones del ámbito",
+          "type": "slides",
+          "durationMinutes": 3,
+          "contentRef": "gobernanza-eu/bloques/B1-eu-ai-act-mapa-y-calendario.html#slide-19",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "85b590655d7691f632a8bc9cff410801738198c662d178579d56f4ad6b7c4b56"
+        },
+        {
+          "slug": "b1-slide-20-sistemas-ya-en-el-mercado-antes-de-la-entrada-en-vigor",
+          "title": "Sistemas ya en el mercado antes de la entrada en vigor",
+          "type": "slides",
+          "durationMinutes": 4,
+          "contentRef": "gobernanza-eu/bloques/B1-eu-ai-act-mapa-y-calendario.html#slide-20",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "85b590655d7691f632a8bc9cff410801738198c662d178579d56f4ad6b7c4b56"
+        },
+        {
+          "slug": "b1-slide-21-bancos-de-pruebas-regulatorios",
+          "title": "Bancos de pruebas regulatorios",
+          "type": "slides",
+          "durationMinutes": 4,
+          "contentRef": "gobernanza-eu/bloques/B1-eu-ai-act-mapa-y-calendario.html#slide-21",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "85b590655d7691f632a8bc9cff410801738198c662d178579d56f4ad6b7c4b56"
+        },
+        {
+          "slug": "b1-slide-22-codigos-de-conducta-voluntarios",
+          "title": "Códigos de conducta voluntarios",
+          "type": "slides",
+          "durationMinutes": 4,
+          "contentRef": "gobernanza-eu/bloques/B1-eu-ai-act-mapa-y-calendario.html#slide-22",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "85b590655d7691f632a8bc9cff410801738198c662d178579d56f4ad6b7c4b56"
+        },
+        {
+          "slug": "b1-slide-23-interaccion-con-la-legislacion-sectorial-de-producto",
+          "title": "Interacción con la legislación sectorial de producto",
+          "type": "slides",
+          "durationMinutes": 4,
+          "contentRef": "gobernanza-eu/bloques/B1-eu-ai-act-mapa-y-calendario.html#slide-23",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "85b590655d7691f632a8bc9cff410801738198c662d178579d56f4ad6b7c4b56"
+        },
+        {
+          "slug": "b1-slide-24-quien-vigila-el-mercado-y-que-puede-pedir",
+          "title": "Quién vigila el mercado y qué puede pedir",
+          "type": "slides",
+          "durationMinutes": 4,
+          "contentRef": "gobernanza-eu/bloques/B1-eu-ai-act-mapa-y-calendario.html#slide-24",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "85b590655d7691f632a8bc9cff410801738198c662d178579d56f4ad6b7c4b56"
+        },
+        {
+          "slug": "b1-slide-25-bloque-de-cambios-recientes-actualizable-sin-tocar-el-resto",
+          "title": "Bloque de cambios recientes, actualizable sin tocar el resto",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "gobernanza-eu/bloques/B1-eu-ai-act-mapa-y-calendario.html#slide-25",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "85b590655d7691f632a8bc9cff410801738198c662d178579d56f4ad6b7c4b56"
+        },
+        {
+          "slug": "b1-slide-26-como-mantenerse-al-dia-sin-depender-de-resumenes-de-terceros",
+          "title": "Cómo mantenerse al día sin depender de resúmenes de terceros",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "gobernanza-eu/bloques/B1-eu-ai-act-mapa-y-calendario.html#slide-26",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "85b590655d7691f632a8bc9cff410801738198c662d178579d56f4ad6b7c4b56"
+        },
+        {
+          "slug": "b1-slide-27-ejercicio-practico-1",
+          "title": "Ejercicio práctico 1",
+          "type": "lab",
+          "durationMinutes": 10,
+          "contentRef": "gobernanza-eu/bloques/B1-eu-ai-act-mapa-y-calendario.html#slide-27",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "85b590655d7691f632a8bc9cff410801738198c662d178579d56f4ad6b7c4b56"
+        },
+        {
+          "slug": "b1-slide-28-ejercicio-practico-2",
+          "title": "Ejercicio práctico 2",
+          "type": "lab",
+          "durationMinutes": 10,
+          "contentRef": "gobernanza-eu/bloques/B1-eu-ai-act-mapa-y-calendario.html#slide-28",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "85b590655d7691f632a8bc9cff410801738198c662d178579d56f4ad6b7c4b56"
+        },
+        {
+          "slug": "b1-slide-29-mini-quiz-de-comprension-b1",
+          "title": "Mini-quiz de comprensión — B1",
+          "type": "quiz",
+          "durationMinutes": 5,
+          "contentRef": "gobernanza-eu/bloques/B1-eu-ai-act-mapa-y-calendario.html#slide-29",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "85b590655d7691f632a8bc9cff410801738198c662d178579d56f4ad6b7c4b56"
+        }
+      ]
+    },
+    {
+      "title": "B2 · Clasificación de riesgo",
+      "order": 1,
+      "lessons": [
+        {
+          "slug": "b2-slide-0-clasificar-no-es-opinar",
+          "title": "Clasificar no es opinar",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "gobernanza-eu/bloques/B2-clasificacion-de-riesgo.html#slide-0",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "bb4122e01f154c62cbfb079b63f1760fb6f9f1122b6ea345a17479c65df4e271"
+        },
+        {
+          "slug": "b2-slide-1-el-arbol-de-decision-paso-a-paso",
+          "title": "El árbol de decisión, paso a paso",
+          "type": "slides",
+          "durationMinutes": 4,
+          "contentRef": "gobernanza-eu/bloques/B2-clasificacion-de-riesgo.html#slide-1",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "bb4122e01f154c62cbfb079b63f1760fb6f9f1122b6ea345a17479c65df4e271"
+        },
+        {
+          "slug": "b2-slide-2-anexo-iii",
+          "title": "Anexo III",
+          "type": "slides",
+          "durationMinutes": 5,
+          "contentRef": "gobernanza-eu/bloques/B2-clasificacion-de-riesgo.html#slide-2",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "bb4122e01f154c62cbfb079b63f1760fb6f9f1122b6ea345a17479c65df4e271"
+        },
+        {
+          "slug": "b2-slide-3-seguros-y-evaluacion-de-riesgos",
+          "title": "Seguros y evaluación de riesgos",
+          "type": "slides",
+          "durationMinutes": 4,
+          "contentRef": "gobernanza-eu/bloques/B2-clasificacion-de-riesgo.html#slide-3",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "bb4122e01f154c62cbfb079b63f1760fb6f9f1122b6ea345a17479c65df4e271"
+        },
+        {
+          "slug": "b2-slide-4-la-excepcion-por-tarea-accesoria-y-sus-condiciones",
+          "title": "La excepción por tarea accesoria y sus condiciones",
+          "type": "slides",
+          "durationMinutes": 5,
+          "contentRef": "gobernanza-eu/bloques/B2-clasificacion-de-riesgo.html#slide-4",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "bb4122e01f154c62cbfb079b63f1760fb6f9f1122b6ea345a17479c65df4e271"
+        },
+        {
+          "slug": "b2-slide-5-el-papel-del-humano-en-la-clasificacion",
+          "title": "El papel del humano en la clasificación",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "gobernanza-eu/bloques/B2-clasificacion-de-riesgo.html#slide-5",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "bb4122e01f154c62cbfb079b63f1760fb6f9f1122b6ea345a17479c65df4e271"
+        },
+        {
+          "slug": "b2-slide-6-que-cuenta-como-supervision-humana-efectiva",
+          "title": "Qué cuenta como supervisión humana efectiva",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "gobernanza-eu/bloques/B2-clasificacion-de-riesgo.html#slide-6",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "bb4122e01f154c62cbfb079b63f1760fb6f9f1122b6ea345a17479c65df4e271"
+        },
+        {
+          "slug": "b2-slide-7-el-error-de-creer-que-hay-un-humano-resuelve-la-clasificacion",
+          "title": "El error de creer que «hay un humano» resuelve la clasificación",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "gobernanza-eu/bloques/B2-clasificacion-de-riesgo.html#slide-7",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "bb4122e01f154c62cbfb079b63f1760fb6f9f1122b6ea345a17479c65df4e271"
+        },
+        {
+          "slug": "b2-slide-8-clasificar-meridiana",
+          "title": "Clasificar Meridiana",
+          "type": "slides",
+          "durationMinutes": 4,
+          "contentRef": "gobernanza-eu/bloques/B2-clasificacion-de-riesgo.html#slide-8",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "bb4122e01f154c62cbfb079b63f1760fb6f9f1122b6ea345a17479c65df4e271"
+        },
+        {
+          "slug": "b2-slide-9-clasificar-meridiana",
+          "title": "Clasificar Meridiana",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "gobernanza-eu/bloques/B2-clasificacion-de-riesgo.html#slide-9",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "bb4122e01f154c62cbfb079b63f1760fb6f9f1122b6ea345a17479c65df4e271"
+        },
+        {
+          "slug": "b2-slide-10-la-decision-y-su-justificacion-escrita",
+          "title": "La decisión y su justificación escrita",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "gobernanza-eu/bloques/B2-clasificacion-de-riesgo.html#slide-10",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "bb4122e01f154c62cbfb079b63f1760fb6f9f1122b6ea345a17479c65df4e271"
+        },
+        {
+          "slug": "b2-slide-11-que-cambiaria-la-clasificacion",
+          "title": "Qué cambiaría la clasificación",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "gobernanza-eu/bloques/B2-clasificacion-de-riesgo.html#slide-11",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "bb4122e01f154c62cbfb079b63f1760fb6f9f1122b6ea345a17479c65df4e271"
+        },
+        {
+          "slug": "b2-slide-12-documentar-la-clasificacion",
+          "title": "Documentar la clasificación",
+          "type": "slides",
+          "durationMinutes": 4,
+          "contentRef": "gobernanza-eu/bloques/B2-clasificacion-de-riesgo.html#slide-12",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "bb4122e01f154c62cbfb079b63f1760fb6f9f1122b6ea345a17479c65df4e271"
+        },
+        {
+          "slug": "b2-slide-13-revisar-la-clasificacion",
+          "title": "Revisar la clasificación",
+          "type": "slides",
+          "durationMinutes": 4,
+          "contentRef": "gobernanza-eu/bloques/B2-clasificacion-de-riesgo.html#slide-13",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "bb4122e01f154c62cbfb079b63f1760fb6f9f1122b6ea345a17479c65df4e271"
+        },
+        {
+          "slug": "b2-slide-14-cambios-que-reclasifican-sin-que-nadie-se-de-cuenta",
+          "title": "Cambios que reclasifican sin que nadie se dé cuenta",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "gobernanza-eu/bloques/B2-clasificacion-de-riesgo.html#slide-14",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "bb4122e01f154c62cbfb079b63f1760fb6f9f1122b6ea345a17479c65df4e271"
+        },
+        {
+          "slug": "b2-slide-15-consecuencias-practicas-de-cada-categoria",
+          "title": "Consecuencias prácticas de cada categoría",
+          "type": "slides",
+          "durationMinutes": 4,
+          "contentRef": "gobernanza-eu/bloques/B2-clasificacion-de-riesgo.html#slide-15",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "bb4122e01f154c62cbfb079b63f1760fb6f9f1122b6ea345a17479c65df4e271"
+        },
+        {
+          "slug": "b2-slide-16-plantilla-de-clasificacion-ejercicio",
+          "title": "Plantilla de clasificación (ejercicio)",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "gobernanza-eu/bloques/B2-clasificacion-de-riesgo.html#slide-16",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "bb4122e01f154c62cbfb079b63f1760fb6f9f1122b6ea345a17479c65df4e271"
+        },
+        {
+          "slug": "b2-slide-17-sistemas-compuestos",
+          "title": "Sistemas compuestos",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "gobernanza-eu/bloques/B2-clasificacion-de-riesgo.html#slide-17",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "bb4122e01f154c62cbfb079b63f1760fb6f9f1122b6ea345a17479c65df4e271"
+        },
+        {
+          "slug": "b2-slide-18-un-mismo-modelo-en-dos-productos-con-clasificaciones-distintas",
+          "title": "Un mismo modelo en dos productos con clasificaciones distintas",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "gobernanza-eu/bloques/B2-clasificacion-de-riesgo.html#slide-18",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "bb4122e01f154c62cbfb079b63f1760fb6f9f1122b6ea345a17479c65df4e271"
+        },
+        {
+          "slug": "b2-slide-19-obligaciones-de-transparencia-cuando-no-hay-alto-riesgo",
+          "title": "Obligaciones de transparencia cuando no hay alto riesgo",
+          "type": "slides",
+          "durationMinutes": 4,
+          "contentRef": "gobernanza-eu/bloques/B2-clasificacion-de-riesgo.html#slide-19",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "bb4122e01f154c62cbfb079b63f1760fb6f9f1122b6ea345a17479c65df4e271"
+        },
+        {
+          "slug": "b2-slide-20-contenido-generado",
+          "title": "Contenido generado",
+          "type": "slides",
+          "durationMinutes": 4,
+          "contentRef": "gobernanza-eu/bloques/B2-clasificacion-de-riesgo.html#slide-20",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "bb4122e01f154c62cbfb079b63f1760fb6f9f1122b6ea345a17479c65df4e271"
+        },
+        {
+          "slug": "b2-slide-21-practicas-prohibidas-que-aparecen-sin-querer-en-seguros",
+          "title": "Prácticas prohibidas que aparecen sin querer en seguros",
+          "type": "slides",
+          "durationMinutes": 5,
+          "contentRef": "gobernanza-eu/bloques/B2-clasificacion-de-riesgo.html#slide-21",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "bb4122e01f154c62cbfb079b63f1760fb6f9f1122b6ea345a17479c65df4e271"
+        },
+        {
+          "slug": "b2-slide-22-el-registro-de-sistemas-de-alto-riesgo",
+          "title": "El registro de sistemas de alto riesgo",
+          "type": "slides",
+          "durationMinutes": 4,
+          "contentRef": "gobernanza-eu/bloques/B2-clasificacion-de-riesgo.html#slide-22",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "bb4122e01f154c62cbfb079b63f1760fb6f9f1122b6ea345a17479c65df4e271"
+        },
+        {
+          "slug": "b2-slide-23-evaluacion-de-conformidad",
+          "title": "Evaluación de conformidad",
+          "type": "slides",
+          "durationMinutes": 5,
+          "contentRef": "gobernanza-eu/bloques/B2-clasificacion-de-riesgo.html#slide-23",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "bb4122e01f154c62cbfb079b63f1760fb6f9f1122b6ea345a17479c65df4e271"
+        },
+        {
+          "slug": "b2-slide-24-errores-frecuentes-al-autoclasificarse-a-la-baja",
+          "title": "Errores frecuentes al autoclasificarse a la baja",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "gobernanza-eu/bloques/B2-clasificacion-de-riesgo.html#slide-24",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "bb4122e01f154c62cbfb079b63f1760fb6f9f1122b6ea345a17479c65df4e271"
+        },
+        {
+          "slug": "b2-slide-25-revision-por-pares-de-una-clasificacion",
+          "title": "Revisión por pares de una clasificación",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "gobernanza-eu/bloques/B2-clasificacion-de-riesgo.html#slide-25",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "bb4122e01f154c62cbfb079b63f1760fb6f9f1122b6ea345a17479c65df4e271"
+        },
+        {
+          "slug": "b2-slide-26-ejercicio-practico-1",
+          "title": "Ejercicio práctico 1",
+          "type": "lab",
+          "durationMinutes": 10,
+          "contentRef": "gobernanza-eu/bloques/B2-clasificacion-de-riesgo.html#slide-26",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "bb4122e01f154c62cbfb079b63f1760fb6f9f1122b6ea345a17479c65df4e271"
+        },
+        {
+          "slug": "b2-slide-27-ejercicio-practico-2",
+          "title": "Ejercicio práctico 2",
+          "type": "lab",
+          "durationMinutes": 10,
+          "contentRef": "gobernanza-eu/bloques/B2-clasificacion-de-riesgo.html#slide-27",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "bb4122e01f154c62cbfb079b63f1760fb6f9f1122b6ea345a17479c65df4e271"
+        },
+        {
+          "slug": "b2-slide-28-mini-quiz-de-comprension-b2",
+          "title": "Mini-quiz de comprensión — B2",
+          "type": "quiz",
+          "durationMinutes": 5,
+          "contentRef": "gobernanza-eu/bloques/B2-clasificacion-de-riesgo.html#slide-28",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "bb4122e01f154c62cbfb079b63f1760fb6f9f1122b6ea345a17479c65df4e271"
+        }
+      ]
+    },
+    {
+      "title": "B3 · Proveedor y responsable del despliegue",
+      "order": 2,
+      "lessons": [
+        {
+          "slug": "b3-slide-0-los-roles-del-reglamento-y-por-que-importan",
+          "title": "Los roles del reglamento y por qué importan",
+          "type": "slides",
+          "durationMinutes": 3,
+          "contentRef": "gobernanza-eu/bloques/B3-proveedor-y-responsable-del-despliegue.html#slide-0",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "0040a59eca88d41ebf8fa70f2eafa691f93177cd54f0d3cfe5228df14a9f711c"
+        },
+        {
+          "slug": "b3-slide-1-proveedor",
+          "title": "Proveedor",
+          "type": "slides",
+          "durationMinutes": 4,
+          "contentRef": "gobernanza-eu/bloques/B3-proveedor-y-responsable-del-despliegue.html#slide-1",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "0040a59eca88d41ebf8fa70f2eafa691f93177cd54f0d3cfe5228df14a9f711c"
+        },
+        {
+          "slug": "b3-slide-2-responsable-del-despliegue",
+          "title": "Responsable del despliegue",
+          "type": "slides",
+          "durationMinutes": 4,
+          "contentRef": "gobernanza-eu/bloques/B3-proveedor-y-responsable-del-despliegue.html#slide-2",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "0040a59eca88d41ebf8fa70f2eafa691f93177cd54f0d3cfe5228df14a9f711c"
+        },
+        {
+          "slug": "b3-slide-3-importador-y-distribuidor-en-una-slide",
+          "title": "Importador y distribuidor, en una slide",
+          "type": "slides",
+          "durationMinutes": 4,
+          "contentRef": "gobernanza-eu/bloques/B3-proveedor-y-responsable-del-despliegue.html#slide-3",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "0040a59eca88d41ebf8fa70f2eafa691f93177cd54f0d3cfe5228df14a9f711c"
+        },
+        {
+          "slug": "b3-slide-4-el-caso-habitual",
+          "title": "El caso habitual",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "gobernanza-eu/bloques/B3-proveedor-y-responsable-del-despliegue.html#slide-4",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "0040a59eca88d41ebf8fa70f2eafa691f93177cd54f0d3cfe5228df14a9f711c"
+        },
+        {
+          "slug": "b3-slide-5-cuando-el-que-despliega-se-convierte-en-proveedor",
+          "title": "Cuándo el que despliega se convierte en proveedor",
+          "type": "slides",
+          "durationMinutes": 4,
+          "contentRef": "gobernanza-eu/bloques/B3-proveedor-y-responsable-del-despliegue.html#slide-5",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "0040a59eca88d41ebf8fa70f2eafa691f93177cd54f0d3cfe5228df14a9f711c"
+        },
+        {
+          "slug": "b3-slide-6-modificacion-sustancial",
+          "title": "Modificación sustancial",
+          "type": "slides",
+          "durationMinutes": 4,
+          "contentRef": "gobernanza-eu/bloques/B3-proveedor-y-responsable-del-despliegue.html#slide-6",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "0040a59eca88d41ebf8fa70f2eafa691f93177cd54f0d3cfe5228df14a9f711c"
+        },
+        {
+          "slug": "b3-slide-7-poner-tu-marca-sobre-un-sistema-ajeno",
+          "title": "Poner tu marca sobre un sistema ajeno",
+          "type": "slides",
+          "durationMinutes": 3,
+          "contentRef": "gobernanza-eu/bloques/B3-proveedor-y-responsable-del-despliegue.html#slide-7",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "0040a59eca88d41ebf8fa70f2eafa691f93177cd54f0d3cfe5228df14a9f711c"
+        },
+        {
+          "slug": "b3-slide-8-cambiar-la-finalidad-prevista",
+          "title": "Cambiar la finalidad prevista",
+          "type": "slides",
+          "durationMinutes": 4,
+          "contentRef": "gobernanza-eu/bloques/B3-proveedor-y-responsable-del-despliegue.html#slide-8",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "0040a59eca88d41ebf8fa70f2eafa691f93177cd54f0d3cfe5228df14a9f711c"
+        },
+        {
+          "slug": "b3-slide-9-meridiana",
+          "title": "Meridiana",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "gobernanza-eu/bloques/B3-proveedor-y-responsable-del-despliegue.html#slide-9",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "0040a59eca88d41ebf8fa70f2eafa691f93177cd54f0d3cfe5228df14a9f711c"
+        },
+        {
+          "slug": "b3-slide-10-meridiana",
+          "title": "Meridiana",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "gobernanza-eu/bloques/B3-proveedor-y-responsable-del-despliegue.html#slide-10",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "0040a59eca88d41ebf8fa70f2eafa691f93177cd54f0d3cfe5228df14a9f711c"
+        },
+        {
+          "slug": "b3-slide-11-obligaciones-que-se-heredan-y-obligaciones-que-no",
+          "title": "Obligaciones que se heredan y obligaciones que no",
+          "type": "slides",
+          "durationMinutes": 3,
+          "contentRef": "gobernanza-eu/bloques/B3-proveedor-y-responsable-del-despliegue.html#slide-11",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "0040a59eca88d41ebf8fa70f2eafa691f93177cd54f0d3cfe5228df14a9f711c"
+        },
+        {
+          "slug": "b3-slide-12-que-exigir-por-contrato-al-proveedor-del-modelo",
+          "title": "Qué exigir por contrato al proveedor del modelo",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "gobernanza-eu/bloques/B3-proveedor-y-responsable-del-despliegue.html#slide-12",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "0040a59eca88d41ebf8fa70f2eafa691f93177cd54f0d3cfe5228df14a9f711c"
+        },
+        {
+          "slug": "b3-slide-13-clausulas-modelo",
+          "title": "Cláusulas modelo",
+          "type": "slides",
+          "durationMinutes": 4,
+          "contentRef": "gobernanza-eu/bloques/B3-proveedor-y-responsable-del-despliegue.html#slide-13",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "0040a59eca88d41ebf8fa70f2eafa691f93177cd54f0d3cfe5228df14a9f711c"
+        },
+        {
+          "slug": "b3-slide-14-repartir-responsabilidades-por-escrito",
+          "title": "Repartir responsabilidades por escrito",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "gobernanza-eu/bloques/B3-proveedor-y-responsable-del-despliegue.html#slide-14",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "0040a59eca88d41ebf8fa70f2eafa691f93177cd54f0d3cfe5228df14a9f711c"
+        },
+        {
+          "slug": "b3-slide-15-el-punto-ciego",
+          "title": "El punto ciego",
+          "type": "slides",
+          "durationMinutes": 4,
+          "contentRef": "gobernanza-eu/bloques/B3-proveedor-y-responsable-del-despliegue.html#slide-15",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "0040a59eca88d41ebf8fa70f2eafa691f93177cd54f0d3cfe5228df14a9f711c"
+        },
+        {
+          "slug": "b3-slide-16-ejercicio",
+          "title": "Ejercicio",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "gobernanza-eu/bloques/B3-proveedor-y-responsable-del-despliegue.html#slide-16",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "0040a59eca88d41ebf8fa70f2eafa691f93177cd54f0d3cfe5228df14a9f711c"
+        },
+        {
+          "slug": "b3-slide-17-modelos-de-proposito-general",
+          "title": "Modelos de propósito general",
+          "type": "slides",
+          "durationMinutes": 4,
+          "contentRef": "gobernanza-eu/bloques/B3-proveedor-y-responsable-del-despliegue.html#slide-17",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "0040a59eca88d41ebf8fa70f2eafa691f93177cd54f0d3cfe5228df14a9f711c"
+        },
+        {
+          "slug": "b3-slide-18-que-informacion-debe-darte-el-proveedor-del-modelo",
+          "title": "Qué información debe darte el proveedor del modelo",
+          "type": "slides",
+          "durationMinutes": 4,
+          "contentRef": "gobernanza-eu/bloques/B3-proveedor-y-responsable-del-despliegue.html#slide-18",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "0040a59eca88d41ebf8fa70f2eafa691f93177cd54f0d3cfe5228df14a9f711c"
+        },
+        {
+          "slug": "b3-slide-19-ajuste-fino",
+          "title": "Ajuste fino",
+          "type": "slides",
+          "durationMinutes": 4,
+          "contentRef": "gobernanza-eu/bloques/B3-proveedor-y-responsable-del-despliegue.html#slide-19",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "0040a59eca88d41ebf8fa70f2eafa691f93177cd54f0d3cfe5228df14a9f711c"
+        },
+        {
+          "slug": "b3-slide-20-sistemas-de-codigo-abierto-y-sus-matices",
+          "title": "Sistemas de código abierto y sus matices",
+          "type": "slides",
+          "durationMinutes": 4,
+          "contentRef": "gobernanza-eu/bloques/B3-proveedor-y-responsable-del-despliegue.html#slide-20",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "0040a59eca88d41ebf8fa70f2eafa691f93177cd54f0d3cfe5228df14a9f711c"
+        },
+        {
+          "slug": "b3-slide-21-cadena-de-suministro",
+          "title": "Cadena de suministro",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "gobernanza-eu/bloques/B3-proveedor-y-responsable-del-despliegue.html#slide-21",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "0040a59eca88d41ebf8fa70f2eafa691f93177cd54f0d3cfe5228df14a9f711c"
+        },
+        {
+          "slug": "b3-slide-22-auditar-a-un-proveedor-de-modelo",
+          "title": "Auditar a un proveedor de modelo",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "gobernanza-eu/bloques/B3-proveedor-y-responsable-del-despliegue.html#slide-22",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "0040a59eca88d41ebf8fa70f2eafa691f93177cd54f0d3cfe5228df14a9f711c"
+        },
+        {
+          "slug": "b3-slide-23-salida-del-proveedor",
+          "title": "Salida del proveedor",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "gobernanza-eu/bloques/B3-proveedor-y-responsable-del-despliegue.html#slide-23",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "0040a59eca88d41ebf8fa70f2eafa691f93177cd54f0d3cfe5228df14a9f711c"
+        },
+        {
+          "slug": "b3-slide-24-responsabilidad-civil-frente-a-responsabilidad-regulatoria",
+          "title": "Responsabilidad civil frente a responsabilidad regulatoria",
+          "type": "slides",
+          "durationMinutes": 4,
+          "contentRef": "gobernanza-eu/bloques/B3-proveedor-y-responsable-del-despliegue.html#slide-24",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "0040a59eca88d41ebf8fa70f2eafa691f93177cd54f0d3cfe5228df14a9f711c"
+        },
+        {
+          "slug": "b3-slide-25-documentar-el-reparto",
+          "title": "Documentar el reparto",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "gobernanza-eu/bloques/B3-proveedor-y-responsable-del-despliegue.html#slide-25",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "0040a59eca88d41ebf8fa70f2eafa691f93177cd54f0d3cfe5228df14a9f711c"
+        },
+        {
+          "slug": "b3-slide-26-ejercicio-practico-1",
+          "title": "Ejercicio práctico 1",
+          "type": "lab",
+          "durationMinutes": 10,
+          "contentRef": "gobernanza-eu/bloques/B3-proveedor-y-responsable-del-despliegue.html#slide-26",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "0040a59eca88d41ebf8fa70f2eafa691f93177cd54f0d3cfe5228df14a9f711c"
+        },
+        {
+          "slug": "b3-slide-27-ejercicio-practico-2",
+          "title": "Ejercicio práctico 2",
+          "type": "lab",
+          "durationMinutes": 10,
+          "contentRef": "gobernanza-eu/bloques/B3-proveedor-y-responsable-del-despliegue.html#slide-27",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "0040a59eca88d41ebf8fa70f2eafa691f93177cd54f0d3cfe5228df14a9f711c"
+        },
+        {
+          "slug": "b3-slide-28-mini-quiz-de-comprension-b3",
+          "title": "Mini-quiz de comprensión — B3",
+          "type": "quiz",
+          "durationMinutes": 5,
+          "contentRef": "gobernanza-eu/bloques/B3-proveedor-y-responsable-del-despliegue.html#slide-28",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "0040a59eca88d41ebf8fa70f2eafa691f93177cd54f0d3cfe5228df14a9f711c"
+        }
+      ]
+    },
+    {
+      "title": "B4 · Documentación técnica y registros",
+      "order": 3,
+      "lessons": [
+        {
+          "slug": "b4-slide-0-que-es-el-expediente-tecnico-y-para-quien-se-escribe",
+          "title": "Qué es el expediente técnico y para quién se escribe",
+          "type": "slides",
+          "durationMinutes": 4,
+          "contentRef": "gobernanza-eu/bloques/B4-documentacion-tecnica-y-registros.html#slide-0",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "021466e2d96dddd890ab4f2f4812f1165e18b7f1e876a2b221e14440a30fdc2d"
+        },
+        {
+          "slug": "b4-slide-1-el-indice-del-expediente-seccion-por-seccion",
+          "title": "El índice del expediente, sección por sección",
+          "type": "slides",
+          "durationMinutes": 5,
+          "contentRef": "gobernanza-eu/bloques/B4-documentacion-tecnica-y-registros.html#slide-1",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "021466e2d96dddd890ab4f2f4812f1165e18b7f1e876a2b221e14440a30fdc2d"
+        },
+        {
+          "slug": "b4-slide-2-descripcion-del-sistema-y-finalidad-prevista",
+          "title": "Descripción del sistema y finalidad prevista",
+          "type": "slides",
+          "durationMinutes": 4,
+          "contentRef": "gobernanza-eu/bloques/B4-documentacion-tecnica-y-registros.html#slide-2",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "021466e2d96dddd890ab4f2f4812f1165e18b7f1e876a2b221e14440a30fdc2d"
+        },
+        {
+          "slug": "b4-slide-3-datos",
+          "title": "Datos",
+          "type": "slides",
+          "durationMinutes": 4,
+          "contentRef": "gobernanza-eu/bloques/B4-documentacion-tecnica-y-registros.html#slide-3",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "021466e2d96dddd890ab4f2f4812f1165e18b7f1e876a2b221e14440a30fdc2d"
+        },
+        {
+          "slug": "b4-slide-4-arquitectura-y-decisiones-de-diseno",
+          "title": "Arquitectura y decisiones de diseño",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "gobernanza-eu/bloques/B4-documentacion-tecnica-y-registros.html#slide-4",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "021466e2d96dddd890ab4f2f4812f1165e18b7f1e876a2b221e14440a30fdc2d"
+        },
+        {
+          "slug": "b4-slide-5-metricas-de-rendimiento-y-como-se-obtuvieron",
+          "title": "Métricas de rendimiento y cómo se obtuvieron",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "gobernanza-eu/bloques/B4-documentacion-tecnica-y-registros.html#slide-5",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "021466e2d96dddd890ab4f2f4812f1165e18b7f1e876a2b221e14440a30fdc2d"
+        },
+        {
+          "slug": "b4-slide-6-los-evals-del-curso-3-como-evidencia",
+          "title": "Los evals del curso 3 como evidencia",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "gobernanza-eu/bloques/B4-documentacion-tecnica-y-registros.html#slide-6",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "021466e2d96dddd890ab4f2f4812f1165e18b7f1e876a2b221e14440a30fdc2d"
+        },
+        {
+          "slug": "b4-slide-7-gestion-de-riesgos",
+          "title": "Gestión de riesgos",
+          "type": "slides",
+          "durationMinutes": 4,
+          "contentRef": "gobernanza-eu/bloques/B4-documentacion-tecnica-y-registros.html#slide-7",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "021466e2d96dddd890ab4f2f4812f1165e18b7f1e876a2b221e14440a30fdc2d"
+        },
+        {
+          "slug": "b4-slide-8-supervision-humana",
+          "title": "Supervisión humana",
+          "type": "slides",
+          "durationMinutes": 4,
+          "contentRef": "gobernanza-eu/bloques/B4-documentacion-tecnica-y-registros.html#slide-8",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "021466e2d96dddd890ab4f2f4812f1165e18b7f1e876a2b221e14440a30fdc2d"
+        },
+        {
+          "slug": "b4-slide-9-robustez-exactitud-y-ciberseguridad",
+          "title": "Robustez, exactitud y ciberseguridad",
+          "type": "slides",
+          "durationMinutes": 4,
+          "contentRef": "gobernanza-eu/bloques/B4-documentacion-tecnica-y-registros.html#slide-9",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "021466e2d96dddd890ab4f2f4812f1165e18b7f1e876a2b221e14440a30fdc2d"
+        },
+        {
+          "slug": "b4-slide-10-registro-automatico-de-eventos",
+          "title": "Registro automático de eventos",
+          "type": "slides",
+          "durationMinutes": 5,
+          "contentRef": "gobernanza-eu/bloques/B4-documentacion-tecnica-y-registros.html#slide-10",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "021466e2d96dddd890ab4f2f4812f1165e18b7f1e876a2b221e14440a30fdc2d"
+        },
+        {
+          "slug": "b4-slide-11-las-trazas-del-curso-3-como-registro",
+          "title": "Las trazas del curso 3 como registro",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "gobernanza-eu/bloques/B4-documentacion-tecnica-y-registros.html#slide-11",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "021466e2d96dddd890ab4f2f4812f1165e18b7f1e876a2b221e14440a30fdc2d"
+        },
+        {
+          "slug": "b4-slide-12-retencion-de-registros-y-su-justificacion",
+          "title": "Retención de registros y su justificación",
+          "type": "slides",
+          "durationMinutes": 7,
+          "contentRef": "gobernanza-eu/bloques/B4-documentacion-tecnica-y-registros.html#slide-12",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "021466e2d96dddd890ab4f2f4812f1165e18b7f1e876a2b221e14440a30fdc2d"
+        },
+        {
+          "slug": "b4-slide-13-instrucciones-de-uso-para-el-responsable-del-despliegue",
+          "title": "Instrucciones de uso para el responsable del despliegue",
+          "type": "slides",
+          "durationMinutes": 4,
+          "contentRef": "gobernanza-eu/bloques/B4-documentacion-tecnica-y-registros.html#slide-13",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "021466e2d96dddd890ab4f2f4812f1165e18b7f1e876a2b221e14440a30fdc2d"
+        },
+        {
+          "slug": "b4-slide-14-declaracion-de-conformidad-y-marcado-si-aplica",
+          "title": "Declaración de conformidad y marcado, si aplica",
+          "type": "slides",
+          "durationMinutes": 5,
+          "contentRef": "gobernanza-eu/bloques/B4-documentacion-tecnica-y-registros.html#slide-14",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "021466e2d96dddd890ab4f2f4812f1165e18b7f1e876a2b221e14440a30fdc2d"
+        },
+        {
+          "slug": "b4-slide-15-mantener-el-expediente-vivo",
+          "title": "Mantener el expediente vivo",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "gobernanza-eu/bloques/B4-documentacion-tecnica-y-registros.html#slide-15",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "021466e2d96dddd890ab4f2f4812f1165e18b7f1e876a2b221e14440a30fdc2d"
+        },
+        {
+          "slug": "b4-slide-16-el-expediente-de-meridiana",
+          "title": "El expediente de Meridiana",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "gobernanza-eu/bloques/B4-documentacion-tecnica-y-registros.html#slide-16",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "021466e2d96dddd890ab4f2f4812f1165e18b7f1e876a2b221e14440a30fdc2d"
+        },
+        {
+          "slug": "b4-slide-17-ejercicio",
+          "title": "Ejercicio",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "gobernanza-eu/bloques/B4-documentacion-tecnica-y-registros.html#slide-17",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "021466e2d96dddd890ab4f2f4812f1165e18b7f1e876a2b221e14440a30fdc2d"
+        },
+        {
+          "slug": "b4-slide-18-trazabilidad-de-datos-de-entrenamiento-y-de-ajuste-si-aplica",
+          "title": "Trazabilidad de datos de entrenamiento y de ajuste, si aplica",
+          "type": "slides",
+          "durationMinutes": 4,
+          "contentRef": "gobernanza-eu/bloques/B4-documentacion-tecnica-y-registros.html#slide-18",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "021466e2d96dddd890ab4f2f4812f1165e18b7f1e876a2b221e14440a30fdc2d"
+        },
+        {
+          "slug": "b4-slide-19-limitaciones-conocidas",
+          "title": "Limitaciones conocidas",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "gobernanza-eu/bloques/B4-documentacion-tecnica-y-registros.html#slide-19",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "021466e2d96dddd890ab4f2f4812f1165e18b7f1e876a2b221e14440a30fdc2d"
+        },
+        {
+          "slug": "b4-slide-20-casos-en-los-que-el-sistema-no-debe-usarse",
+          "title": "Casos en los que el sistema no debe usarse",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "gobernanza-eu/bloques/B4-documentacion-tecnica-y-registros.html#slide-20",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "021466e2d96dddd890ab4f2f4812f1165e18b7f1e876a2b221e14440a30fdc2d"
+        },
+        {
+          "slug": "b4-slide-21-versionar-el-expediente-junto-al-codigo",
+          "title": "Versionar el expediente junto al código",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "gobernanza-eu/bloques/B4-documentacion-tecnica-y-registros.html#slide-21",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "021466e2d96dddd890ab4f2f4812f1165e18b7f1e876a2b221e14440a30fdc2d"
+        },
+        {
+          "slug": "b4-slide-22-generar-partes-del-expediente-automaticamente-desde-ci",
+          "title": "Generar partes del expediente automáticamente desde CI",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "gobernanza-eu/bloques/B4-documentacion-tecnica-y-registros.html#slide-22",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "021466e2d96dddd890ab4f2f4812f1165e18b7f1e876a2b221e14440a30fdc2d"
+        },
+        {
+          "slug": "b4-slide-23-que-pasa-cuando-el-proveedor-no-da-la-informacion-que-necesitas",
+          "title": "Qué pasa cuando el proveedor no da la información que necesitas",
+          "type": "slides",
+          "durationMinutes": 5,
+          "contentRef": "gobernanza-eu/bloques/B4-documentacion-tecnica-y-registros.html#slide-23",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "021466e2d96dddd890ab4f2f4812f1165e18b7f1e876a2b221e14440a30fdc2d"
+        },
+        {
+          "slug": "b4-slide-24-conservar-evidencias",
+          "title": "Conservar evidencias",
+          "type": "slides",
+          "durationMinutes": 3,
+          "contentRef": "gobernanza-eu/bloques/B4-documentacion-tecnica-y-registros.html#slide-24",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "021466e2d96dddd890ab4f2f4812f1165e18b7f1e876a2b221e14440a30fdc2d"
+        },
+        {
+          "slug": "b4-slide-25-preparar-el-expediente-para-que-lo-lea-alguien-de-fuera",
+          "title": "Preparar el expediente para que lo lea alguien de fuera",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "gobernanza-eu/bloques/B4-documentacion-tecnica-y-registros.html#slide-25",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "021466e2d96dddd890ab4f2f4812f1165e18b7f1e876a2b221e14440a30fdc2d"
+        },
+        {
+          "slug": "b4-slide-26-revision-anual-del-expediente",
+          "title": "Revisión anual del expediente",
+          "type": "slides",
+          "durationMinutes": 4,
+          "contentRef": "gobernanza-eu/bloques/B4-documentacion-tecnica-y-registros.html#slide-26",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "021466e2d96dddd890ab4f2f4812f1165e18b7f1e876a2b221e14440a30fdc2d"
+        },
+        {
+          "slug": "b4-slide-27-ejercicio-practico-1",
+          "title": "Ejercicio práctico 1",
+          "type": "lab",
+          "durationMinutes": 10,
+          "contentRef": "gobernanza-eu/bloques/B4-documentacion-tecnica-y-registros.html#slide-27",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "021466e2d96dddd890ab4f2f4812f1165e18b7f1e876a2b221e14440a30fdc2d"
+        },
+        {
+          "slug": "b4-slide-28-ejercicio-practico-2",
+          "title": "Ejercicio práctico 2",
+          "type": "lab",
+          "durationMinutes": 10,
+          "contentRef": "gobernanza-eu/bloques/B4-documentacion-tecnica-y-registros.html#slide-28",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "021466e2d96dddd890ab4f2f4812f1165e18b7f1e876a2b221e14440a30fdc2d"
+        },
+        {
+          "slug": "b4-slide-29-mini-quiz-de-comprension-b4",
+          "title": "Mini-quiz de comprensión — B4",
+          "type": "quiz",
+          "durationMinutes": 5,
+          "contentRef": "gobernanza-eu/bloques/B4-documentacion-tecnica-y-registros.html#slide-29",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "021466e2d96dddd890ab4f2f4812f1165e18b7f1e876a2b221e14440a30fdc2d"
+        }
+      ]
+    },
+    {
+      "title": "B5 · RGPD y datos en sistemas con LLM",
+      "order": 4,
+      "lessons": [
+        {
+          "slug": "b5-slide-0-que-cambia-y-que-no-cuando-hay-un-llm-de-por-medio",
+          "title": "Qué cambia y qué no cuando hay un LLM de por medio",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "gobernanza-eu/bloques/B5-rgpd-y-datos-en-sistemas-con-llm.html#slide-0",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "3fd11853b48081f3230bba67d44aa84158a1f6f705cf32a5b83159e5c26bb022"
+        },
+        {
+          "slug": "b5-slide-1-base-juridica-del-tratamiento-en-meridiana",
+          "title": "Base jurídica del tratamiento en Meridiana",
+          "type": "slides",
+          "durationMinutes": 3,
+          "contentRef": "gobernanza-eu/bloques/B5-rgpd-y-datos-en-sistemas-con-llm.html#slide-1",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "3fd11853b48081f3230bba67d44aa84158a1f6f705cf32a5b83159e5c26bb022"
+        },
+        {
+          "slug": "b5-slide-2-minimizacion",
+          "title": "Minimización",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "gobernanza-eu/bloques/B5-rgpd-y-datos-en-sistemas-con-llm.html#slide-2",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "3fd11853b48081f3230bba67d44aa84158a1f6f705cf32a5b83159e5c26bb022"
+        },
+        {
+          "slug": "b5-slide-3-seudonimizacion-antes-de-la-llamada",
+          "title": "Seudonimización antes de la llamada",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "gobernanza-eu/bloques/B5-rgpd-y-datos-en-sistemas-con-llm.html#slide-3",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "3fd11853b48081f3230bba67d44aa84158a1f6f705cf32a5b83159e5c26bb022"
+        },
+        {
+          "slug": "b5-slide-4-el-prompt-como-tratamiento",
+          "title": "El prompt como tratamiento",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "gobernanza-eu/bloques/B5-rgpd-y-datos-en-sistemas-con-llm.html#slide-4",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "3fd11853b48081f3230bba67d44aa84158a1f6f705cf32a5b83159e5c26bb022"
+        },
+        {
+          "slug": "b5-slide-5-el-proveedor-del-modelo-como-encargado",
+          "title": "El proveedor del modelo como encargado",
+          "type": "slides",
+          "durationMinutes": 3,
+          "contentRef": "gobernanza-eu/bloques/B5-rgpd-y-datos-en-sistemas-con-llm.html#slide-5",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "3fd11853b48081f3230bba67d44aa84158a1f6f705cf32a5b83159e5c26bb022"
+        },
+        {
+          "slug": "b5-slide-6-transferencias-internacionales-y-sus-garantias",
+          "title": "Transferencias internacionales y sus garantías",
+          "type": "slides",
+          "durationMinutes": 3,
+          "contentRef": "gobernanza-eu/bloques/B5-rgpd-y-datos-en-sistemas-con-llm.html#slide-6",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "3fd11853b48081f3230bba67d44aa84158a1f6f705cf32a5b83159e5c26bb022"
+        },
+        {
+          "slug": "b5-slide-7-retencion-de-prompts-y-salidas-por-parte-del-proveedor",
+          "title": "Retención de prompts y salidas por parte del proveedor",
+          "type": "slides",
+          "durationMinutes": 3,
+          "contentRef": "gobernanza-eu/bloques/B5-rgpd-y-datos-en-sistemas-con-llm.html#slide-7",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "3fd11853b48081f3230bba67d44aa84158a1f6f705cf32a5b83159e5c26bb022"
+        },
+        {
+          "slug": "b5-slide-8-que-preguntar-a-un-proveedor-antes-de-firmar",
+          "title": "Qué preguntar a un proveedor antes de firmar",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "gobernanza-eu/bloques/B5-rgpd-y-datos-en-sistemas-con-llm.html#slide-8",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "3fd11853b48081f3230bba67d44aa84158a1f6f705cf32a5b83159e5c26bb022"
+        },
+        {
+          "slug": "b5-slide-9-decisiones-automatizadas",
+          "title": "Decisiones automatizadas",
+          "type": "slides",
+          "durationMinutes": 4,
+          "contentRef": "gobernanza-eu/bloques/B5-rgpd-y-datos-en-sistemas-con-llm.html#slide-9",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "3fd11853b48081f3230bba67d44aa84158a1f6f705cf32a5b83159e5c26bb022"
+        },
+        {
+          "slug": "b5-slide-10-cuando-la-propuesta-de-meridiana-entra-en-el-articulo-22",
+          "title": "Cuándo la propuesta de Meridiana entra en el artículo 22",
+          "type": "slides",
+          "durationMinutes": 3,
+          "contentRef": "gobernanza-eu/bloques/B5-rgpd-y-datos-en-sistemas-con-llm.html#slide-10",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "3fd11853b48081f3230bba67d44aa84158a1f6f705cf32a5b83159e5c26bb022"
+        },
+        {
+          "slug": "b5-slide-11-derecho-a-explicacion",
+          "title": "Derecho a explicación",
+          "type": "slides",
+          "durationMinutes": 3,
+          "contentRef": "gobernanza-eu/bloques/B5-rgpd-y-datos-en-sistemas-con-llm.html#slide-11",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "3fd11853b48081f3230bba67d44aa84158a1f6f705cf32a5b83159e5c26bb022"
+        },
+        {
+          "slug": "b5-slide-12-derechos-del-interesado-cuando-los-datos-pasaron-por-un-modelo",
+          "title": "Derechos del interesado cuando los datos pasaron por un modelo",
+          "type": "slides",
+          "durationMinutes": 3,
+          "contentRef": "gobernanza-eu/bloques/B5-rgpd-y-datos-en-sistemas-con-llm.html#slide-12",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "3fd11853b48081f3230bba67d44aa84158a1f6f705cf32a5b83159e5c26bb022"
+        },
+        {
+          "slug": "b5-slide-13-supresion",
+          "title": "Supresión",
+          "type": "slides",
+          "durationMinutes": 3,
+          "contentRef": "gobernanza-eu/bloques/B5-rgpd-y-datos-en-sistemas-con-llm.html#slide-13",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "3fd11853b48081f3230bba67d44aa84158a1f6f705cf32a5b83159e5c26bb022"
+        },
+        {
+          "slug": "b5-slide-14-evaluacion-de-impacto",
+          "title": "Evaluación de impacto",
+          "type": "slides",
+          "durationMinutes": 4,
+          "contentRef": "gobernanza-eu/bloques/B5-rgpd-y-datos-en-sistemas-con-llm.html#slide-14",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "3fd11853b48081f3230bba67d44aa84158a1f6f705cf32a5b83159e5c26bb022"
+        },
+        {
+          "slug": "b5-slide-15-la-eipd-de-meridiana",
+          "title": "La EIPD de Meridiana",
+          "type": "slides",
+          "durationMinutes": 3,
+          "contentRef": "gobernanza-eu/bloques/B5-rgpd-y-datos-en-sistemas-con-llm.html#slide-15",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "3fd11853b48081f3230bba67d44aa84158a1f6f705cf32a5b83159e5c26bb022"
+        },
+        {
+          "slug": "b5-slide-16-registro-de-actividades-de-tratamiento",
+          "title": "Registro de actividades de tratamiento",
+          "type": "slides",
+          "durationMinutes": 4,
+          "contentRef": "gobernanza-eu/bloques/B5-rgpd-y-datos-en-sistemas-con-llm.html#slide-16",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "3fd11853b48081f3230bba67d44aa84158a1f6f705cf32a5b83159e5c26bb022"
+        },
+        {
+          "slug": "b5-slide-17-brechas-de-seguridad-con-datos-en-prompts",
+          "title": "Brechas de seguridad con datos en prompts",
+          "type": "slides",
+          "durationMinutes": 4,
+          "contentRef": "gobernanza-eu/bloques/B5-rgpd-y-datos-en-sistemas-con-llm.html#slide-17",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "3fd11853b48081f3230bba67d44aa84158a1f6f705cf32a5b83159e5c26bb022"
+        },
+        {
+          "slug": "b5-slide-18-ejercicio",
+          "title": "Ejercicio",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "gobernanza-eu/bloques/B5-rgpd-y-datos-en-sistemas-con-llm.html#slide-18",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "3fd11853b48081f3230bba67d44aa84158a1f6f705cf32a5b83159e5c26bb022"
+        },
+        {
+          "slug": "b5-slide-19-categorias-especiales-de-datos-en-un-relato-de-siniestro",
+          "title": "Categorías especiales de datos en un relato de siniestro",
+          "type": "slides",
+          "durationMinutes": 4,
+          "contentRef": "gobernanza-eu/bloques/B5-rgpd-y-datos-en-sistemas-con-llm.html#slide-19",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "3fd11853b48081f3230bba67d44aa84158a1f6f705cf32a5b83159e5c26bb022"
+        },
+        {
+          "slug": "b5-slide-20-datos-de-terceros-que-aparecen-sin-que-nadie-los-pidiera",
+          "title": "Datos de terceros que aparecen sin que nadie los pidiera",
+          "type": "slides",
+          "durationMinutes": 3,
+          "contentRef": "gobernanza-eu/bloques/B5-rgpd-y-datos-en-sistemas-con-llm.html#slide-20",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "3fd11853b48081f3230bba67d44aa84158a1f6f705cf32a5b83159e5c26bb022"
+        },
+        {
+          "slug": "b5-slide-21-plazos-de-conservacion-por-finalidad-no-por-comodidad",
+          "title": "Plazos de conservación por finalidad, no por comodidad",
+          "type": "slides",
+          "durationMinutes": 4,
+          "contentRef": "gobernanza-eu/bloques/B5-rgpd-y-datos-en-sistemas-con-llm.html#slide-21",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "3fd11853b48081f3230bba67d44aa84158a1f6f705cf32a5b83159e5c26bb022"
+        },
+        {
+          "slug": "b5-slide-22-trazas-y-registros",
+          "title": "Trazas y registros",
+          "type": "slides",
+          "durationMinutes": 4,
+          "contentRef": "gobernanza-eu/bloques/B5-rgpd-y-datos-en-sistemas-con-llm.html#slide-22",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "3fd11853b48081f3230bba67d44aa84158a1f6f705cf32a5b83159e5c26bb022"
+        },
+        {
+          "slug": "b5-slide-23-el-conflicto-entre-supresion-y-registro-obligatorio",
+          "title": "El conflicto entre supresión y registro obligatorio",
+          "type": "slides",
+          "durationMinutes": 4,
+          "contentRef": "gobernanza-eu/bloques/B5-rgpd-y-datos-en-sistemas-con-llm.html#slide-23",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "3fd11853b48081f3230bba67d44aa84158a1f6f705cf32a5b83159e5c26bb022"
+        },
+        {
+          "slug": "b5-slide-24-informacion-al-interesado",
+          "title": "Información al interesado",
+          "type": "slides",
+          "durationMinutes": 4,
+          "contentRef": "gobernanza-eu/bloques/B5-rgpd-y-datos-en-sistemas-con-llm.html#slide-24",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "3fd11853b48081f3230bba67d44aa84158a1f6f705cf32a5b83159e5c26bb022"
+        },
+        {
+          "slug": "b5-slide-25-contrato-de-encargo-con-el-proveedor",
+          "title": "Contrato de encargo con el proveedor",
+          "type": "slides",
+          "durationMinutes": 3,
+          "contentRef": "gobernanza-eu/bloques/B5-rgpd-y-datos-en-sistemas-con-llm.html#slide-25",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "3fd11853b48081f3230bba67d44aa84158a1f6f705cf32a5b83159e5c26bb022"
+        },
+        {
+          "slug": "b5-slide-26-auditar-el-cumplimiento-del-encargado",
+          "title": "Auditar el cumplimiento del encargado",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "gobernanza-eu/bloques/B5-rgpd-y-datos-en-sistemas-con-llm.html#slide-26",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "3fd11853b48081f3230bba67d44aa84158a1f6f705cf32a5b83159e5c26bb022"
+        },
+        {
+          "slug": "b5-slide-27-coordinar-rgpd-y-ai-act-sin-duplicar-documentacion",
+          "title": "Coordinar RGPD y AI Act sin duplicar documentación",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "gobernanza-eu/bloques/B5-rgpd-y-datos-en-sistemas-con-llm.html#slide-27",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "3fd11853b48081f3230bba67d44aa84158a1f6f705cf32a5b83159e5c26bb022"
+        },
+        {
+          "slug": "b5-slide-28-ejercicio-practico-1",
+          "title": "Ejercicio práctico 1",
+          "type": "lab",
+          "durationMinutes": 10,
+          "contentRef": "gobernanza-eu/bloques/B5-rgpd-y-datos-en-sistemas-con-llm.html#slide-28",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "3fd11853b48081f3230bba67d44aa84158a1f6f705cf32a5b83159e5c26bb022"
+        },
+        {
+          "slug": "b5-slide-29-ejercicio-practico-2",
+          "title": "Ejercicio práctico 2",
+          "type": "lab",
+          "durationMinutes": 10,
+          "contentRef": "gobernanza-eu/bloques/B5-rgpd-y-datos-en-sistemas-con-llm.html#slide-29",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "3fd11853b48081f3230bba67d44aa84158a1f6f705cf32a5b83159e5c26bb022"
+        },
+        {
+          "slug": "b5-slide-30-mini-quiz-de-comprension-b5",
+          "title": "Mini-quiz de comprensión — B5",
+          "type": "quiz",
+          "durationMinutes": 5,
+          "contentRef": "gobernanza-eu/bloques/B5-rgpd-y-datos-en-sistemas-con-llm.html#slide-30",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "3fd11853b48081f3230bba67d44aa84158a1f6f705cf32a5b83159e5c26bb022"
+        }
+      ]
+    },
+    {
+      "title": "B6 · Gobernanza, normas y auditoría",
+      "order": 5,
+      "lessons": [
+        {
+          "slug": "b6-slide-0-gobernanza",
+          "title": "Gobernanza",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "gobernanza-eu/bloques/B6-gobernanza-normas-y-auditoria.html#slide-0",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "7faa95e19d49af1f4f35636d2983b18b8ba62564041641ca05655bcefa5c3d4b"
+        },
+        {
+          "slug": "b6-slide-1-roles-y-responsabilidades-escritas",
+          "title": "Roles y responsabilidades escritas",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "gobernanza-eu/bloques/B6-gobernanza-normas-y-auditoria.html#slide-1",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "7faa95e19d49af1f4f35636d2983b18b8ba62564041641ca05655bcefa5c3d4b"
+        },
+        {
+          "slug": "b6-slide-2-politica-de-ia-de-la-organizacion",
+          "title": "Política de IA de la organización",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "gobernanza-eu/bloques/B6-gobernanza-normas-y-auditoria.html#slide-2",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "7faa95e19d49af1f4f35636d2983b18b8ba62564041641ca05655bcefa5c3d4b"
+        },
+        {
+          "slug": "b6-slide-3-inventario-de-sistemas-de-ia-y-por-que-se-descuadra-siempre",
+          "title": "Inventario de sistemas de IA y por qué se descuadra siempre",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "gobernanza-eu/bloques/B6-gobernanza-normas-y-auditoria.html#slide-3",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "7faa95e19d49af1f4f35636d2983b18b8ba62564041641ca05655bcefa5c3d4b"
+        },
+        {
+          "slug": "b6-slide-4-ciclo-de-vida",
+          "title": "Ciclo de vida",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "gobernanza-eu/bloques/B6-gobernanza-normas-y-auditoria.html#slide-4",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "7faa95e19d49af1f4f35636d2983b18b8ba62564041641ca05655bcefa5c3d4b"
+        },
+        {
+          "slug": "b6-slide-5-comite-de-riesgos",
+          "title": "Comité de riesgos",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "gobernanza-eu/bloques/B6-gobernanza-normas-y-auditoria.html#slide-5",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "7faa95e19d49af1f4f35636d2983b18b8ba62564041641ca05655bcefa5c3d4b"
+        },
+        {
+          "slug": "b6-slide-6-iso-iec-42001-como-marco-de-gestion",
+          "title": "ISO/IEC 42001 como marco de gestión",
+          "type": "slides",
+          "durationMinutes": 3,
+          "contentRef": "gobernanza-eu/bloques/B6-gobernanza-normas-y-auditoria.html#slide-6",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "7faa95e19d49af1f4f35636d2983b18b8ba62564041641ca05655bcefa5c3d4b"
+        },
+        {
+          "slug": "b6-slide-7-relacion-entre-iso-42001-y-las-obligaciones-del-ai-act",
+          "title": "Relación entre ISO 42001 y las obligaciones del AI Act",
+          "type": "slides",
+          "durationMinutes": 3,
+          "contentRef": "gobernanza-eu/bloques/B6-gobernanza-normas-y-auditoria.html#slide-7",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "7faa95e19d49af1f4f35636d2983b18b8ba62564041641ca05655bcefa5c3d4b"
+        },
+        {
+          "slug": "b6-slide-8-normas-armonizadas",
+          "title": "Normas armonizadas",
+          "type": "slides",
+          "durationMinutes": 3,
+          "contentRef": "gobernanza-eu/bloques/B6-gobernanza-normas-y-auditoria.html#slide-8",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "7faa95e19d49af1f4f35636d2983b18b8ba62564041641ca05655bcefa5c3d4b"
+        },
+        {
+          "slug": "b6-slide-9-auditoria-interna",
+          "title": "Auditoría interna",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "gobernanza-eu/bloques/B6-gobernanza-normas-y-auditoria.html#slide-9",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "7faa95e19d49af1f4f35636d2983b18b8ba62564041641ca05655bcefa5c3d4b"
+        },
+        {
+          "slug": "b6-slide-10-preparar-una-auditoria-externa",
+          "title": "Preparar una auditoría externa",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "gobernanza-eu/bloques/B6-gobernanza-normas-y-auditoria.html#slide-10",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "7faa95e19d49af1f4f35636d2983b18b8ba62564041641ca05655bcefa5c3d4b"
+        },
+        {
+          "slug": "b6-slide-11-las-preguntas-que-hace-un-auditor-y-las-respuestas-que-no-valen",
+          "title": "Las preguntas que hace un auditor y las respuestas que no valen",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "gobernanza-eu/bloques/B6-gobernanza-normas-y-auditoria.html#slide-11",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "7faa95e19d49af1f4f35636d2983b18b8ba62564041641ca05655bcefa5c3d4b"
+        },
+        {
+          "slug": "b6-slide-12-formacion-del-personal",
+          "title": "Formación del personal",
+          "type": "slides",
+          "durationMinutes": 5,
+          "contentRef": "gobernanza-eu/bloques/B6-gobernanza-normas-y-auditoria.html#slide-12",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "7faa95e19d49af1f4f35636d2983b18b8ba62564041641ca05655bcefa5c3d4b"
+        },
+        {
+          "slug": "b6-slide-13-gestion-de-proveedores-de-ia",
+          "title": "Gestión de proveedores de IA",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "gobernanza-eu/bloques/B6-gobernanza-normas-y-auditoria.html#slide-13",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "7faa95e19d49af1f4f35636d2983b18b8ba62564041641ca05655bcefa5c3d4b"
+        },
+        {
+          "slug": "b6-slide-14-incidentes-graves",
+          "title": "Incidentes graves",
+          "type": "slides",
+          "durationMinutes": 3,
+          "contentRef": "gobernanza-eu/bloques/B6-gobernanza-normas-y-auditoria.html#slide-14",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "7faa95e19d49af1f4f35636d2983b18b8ba62564041641ca05655bcefa5c3d4b"
+        },
+        {
+          "slug": "b6-slide-15-vigilancia-poscomercializacion",
+          "title": "Vigilancia poscomercialización",
+          "type": "slides",
+          "durationMinutes": 3,
+          "contentRef": "gobernanza-eu/bloques/B6-gobernanza-normas-y-auditoria.html#slide-15",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "7faa95e19d49af1f4f35636d2983b18b8ba62564041641ca05655bcefa5c3d4b"
+        },
+        {
+          "slug": "b6-slide-16-la-gobernanza-de-meridiana-en-una-pagina",
+          "title": "La gobernanza de Meridiana en una página",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "gobernanza-eu/bloques/B6-gobernanza-normas-y-auditoria.html#slide-16",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "7faa95e19d49af1f4f35636d2983b18b8ba62564041641ca05655bcefa5c3d4b"
+        },
+        {
+          "slug": "b6-slide-17-ejercicio",
+          "title": "Ejercicio",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "gobernanza-eu/bloques/B6-gobernanza-normas-y-auditoria.html#slide-17",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "7faa95e19d49af1f4f35636d2983b18b8ba62564041641ca05655bcefa5c3d4b"
+        },
+        {
+          "slug": "b6-slide-18-gobernanza-proporcionada",
+          "title": "Gobernanza proporcionada",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "gobernanza-eu/bloques/B6-gobernanza-normas-y-auditoria.html#slide-18",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "7faa95e19d49af1f4f35636d2983b18b8ba62564041641ca05655bcefa5c3d4b"
+        },
+        {
+          "slug": "b6-slide-19-indicadores-de-gobernanza-que-se-pueden-medir-de-verdad",
+          "title": "Indicadores de gobernanza que se pueden medir de verdad",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "gobernanza-eu/bloques/B6-gobernanza-normas-y-auditoria.html#slide-19",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "7faa95e19d49af1f4f35636d2983b18b8ba62564041641ca05655bcefa5c3d4b"
+        },
+        {
+          "slug": "b6-slide-20-aprobar-un-caso-de-uso-nuevo",
+          "title": "Aprobar un caso de uso nuevo",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "gobernanza-eu/bloques/B6-gobernanza-normas-y-auditoria.html#slide-20",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "7faa95e19d49af1f4f35636d2983b18b8ba62564041641ca05655bcefa5c3d4b"
+        },
+        {
+          "slug": "b6-slide-21-retirar-un-sistema",
+          "title": "Retirar un sistema",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "gobernanza-eu/bloques/B6-gobernanza-normas-y-auditoria.html#slide-21",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "7faa95e19d49af1f4f35636d2983b18b8ba62564041641ca05655bcefa5c3d4b"
+        },
+        {
+          "slug": "b6-slide-22-relacion-con-auditoria-interna-y-con-cumplimiento",
+          "title": "Relación con auditoría interna y con cumplimiento",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "gobernanza-eu/bloques/B6-gobernanza-normas-y-auditoria.html#slide-22",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "7faa95e19d49af1f4f35636d2983b18b8ba62564041641ca05655bcefa5c3d4b"
+        },
+        {
+          "slug": "b6-slide-23-presupuesto-de-cumplimiento",
+          "title": "Presupuesto de cumplimiento",
+          "type": "slides",
+          "durationMinutes": 3,
+          "contentRef": "gobernanza-eu/bloques/B6-gobernanza-normas-y-auditoria.html#slide-23",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "7faa95e19d49af1f4f35636d2983b18b8ba62564041641ca05655bcefa5c3d4b"
+        },
+        {
+          "slug": "b6-slide-24-el-error-de-externalizar-la-gobernanza-entera",
+          "title": "El error de externalizar la gobernanza entera",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "gobernanza-eu/bloques/B6-gobernanza-normas-y-auditoria.html#slide-24",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "7faa95e19d49af1f4f35636d2983b18b8ba62564041641ca05655bcefa5c3d4b"
+        },
+        {
+          "slug": "b6-slide-25-madurez",
+          "title": "Madurez",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "gobernanza-eu/bloques/B6-gobernanza-normas-y-auditoria.html#slide-25",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "7faa95e19d49af1f4f35636d2983b18b8ba62564041641ca05655bcefa5c3d4b"
+        },
+        {
+          "slug": "b6-slide-26-que-hacer-el-primer-trimestre-si-no-hay-nada-montado",
+          "title": "Qué hacer el primer trimestre si no hay nada montado",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "gobernanza-eu/bloques/B6-gobernanza-normas-y-auditoria.html#slide-26",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "7faa95e19d49af1f4f35636d2983b18b8ba62564041641ca05655bcefa5c3d4b"
+        },
+        {
+          "slug": "b6-slide-27-ejercicio-practico-1",
+          "title": "Ejercicio práctico 1",
+          "type": "lab",
+          "durationMinutes": 10,
+          "contentRef": "gobernanza-eu/bloques/B6-gobernanza-normas-y-auditoria.html#slide-27",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "7faa95e19d49af1f4f35636d2983b18b8ba62564041641ca05655bcefa5c3d4b"
+        },
+        {
+          "slug": "b6-slide-28-ejercicio-practico-2",
+          "title": "Ejercicio práctico 2",
+          "type": "lab",
+          "durationMinutes": 10,
+          "contentRef": "gobernanza-eu/bloques/B6-gobernanza-normas-y-auditoria.html#slide-28",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "7faa95e19d49af1f4f35636d2983b18b8ba62564041641ca05655bcefa5c3d4b"
+        },
+        {
+          "slug": "b6-slide-29-mini-quiz-de-comprension-b6",
+          "title": "Mini-quiz de comprensión — B6",
+          "type": "quiz",
+          "durationMinutes": 5,
+          "contentRef": "gobernanza-eu/bloques/B6-gobernanza-normas-y-auditoria.html#slide-29",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "7faa95e19d49af1f4f35636d2983b18b8ba62564041641ca05655bcefa5c3d4b"
+        }
+      ]
+    }
+  ],
+  "quizzes": [
+    {
+      "slug": "gobernanza-eu-b1",
+      "title": "Comprobación B1",
+      "kind": "blockcheck",
+      "questions": [
+        {
+          "category": "Qué distingue un sistema de alto riesgo de uno de riesgo limitado",
+          "text": "Dos sistemas de Meridiana: un chat que responde dudas generales sobre la póliza y un componente que decide la vía de tramitación de un siniestro. ¿Qué es lo que determina que puedan caer en categorías distintas?",
+          "explanation": "La categoría depende del uso y del contexto, no de la tecnología. La (a) confunde potencia con riesgo: un modelo pequeño en un uso sensible puede ser alto riesgo y uno enorme en un buscador interno no. La (c) describe las obligaciones de transparencia, que son otra cosa: interactuar con personas obliga a decirlo, no convierte el sistema en alto riesgo. La (d) invierte la lógica: la clasificación se justifica, no se elige.",
+          "options": [
+            {
+              "index": 0,
+              "text": "El tamaño del modelo y la cantidad de datos con los que se entrenó.",
+              "isCorrect": false
+            },
+            {
+              "index": 1,
+              "text": "El uso previsto y el contexto en el que se emplea, no la tecnología ni su complejidad.",
+              "isCorrect": true
+            },
+            {
+              "index": 2,
+              "text": "Que uno hable con el cliente y el otro no: interactuar con personas es siempre lo que eleva la categoría.",
+              "isCorrect": false
+            },
+            {
+              "index": 3,
+              "text": "Que el equipo que lo construyó lo declare como tal en su documentación interna.",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "category": "Qué relación tiene el AI Act con el RGPD en un mismo sistema",
+          "text": "El delegado de protección de datos de Meridiana dice que la evaluación de impacto ya hecha para el agente de siniestros cubre el AI Act. ¿Cómo se responde?",
+          "explanation": "El RGPD pregunta si puedes tratar esos datos personales y con qué garantías; el AI Act pregunta si el sistema es apto para ponerse en el mercado y usarse, y qué puedes demostrar. Se cumplen los dos o se incumple alguno. La (b) es falsa: ninguno desplaza al otro. La (a) y la (d) reducen el AI Act a una cuestión de datos, que es justamente el error que este bloque combate. Lo que sí es cierto, y está en la (c), es que el inventario, el análisis de riesgos y el registro de proveedores se reutilizan en vez de duplicarse.",
+          "options": [
+            {
+              "index": 0,
+              "text": "Es correcto: si el tratamiento de datos es lícito, el sistema es conforme.",
+              "isCorrect": false
+            },
+            {
+              "index": 1,
+              "text": "Es incorrecto, porque el AI Act sustituye al RGPD para los sistemas que caen en su ámbito.",
+              "isCorrect": false
+            },
+            {
+              "index": 2,
+              "text": "Es incorrecto: son marcos acumulativos que responden a preguntas distintas, aunque el análisis del RGPD sea un insumo reutilizable del expediente.",
+              "isCorrect": true
+            },
+            {
+              "index": 3,
+              "text": "Es correcto siempre que no se traten categorías especiales de datos.",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "category": "Sobre qué base se sostiene una afirmación normativa defendible",
+          "text": "En el expediente de Meridiana aparece la frase «los registros de funcionamiento deben conservarse durante el plazo legalmente previsto». ¿Qué le falta para ser utilizable ante una autoridad?",
+          "explanation": "Una afirmación normativa sin fuente, precepto y fecha de comprobación no se puede defender ni mantener: nadie sabe si sigue siendo cierta. La (a) confunde vaguedad con prudencia; lo prudente es marcar el dato como pendiente de verificar, no redactarlo de forma que no se pueda comprobar. La (c) añade responsabilidad sin añadir evidencia. La (d) es el hábito que este bloque desmonta: un resumen de terceros sirve como alerta, nunca como fuente citable.",
+          "options": [
+            {
+              "index": 0,
+              "text": "Nada: es prudente precisamente por no comprometerse con un plazo concreto.",
+              "isCorrect": false
+            },
+            {
+              "index": 1,
+              "text": "La fuente concreta, el precepto que la sostiene y la fecha en que se comprobó en la fuente primaria.",
+              "isCorrect": true
+            },
+            {
+              "index": 2,
+              "text": "La firma del director de tecnología, que es quien responde del sistema.",
+              "isCorrect": false
+            },
+            {
+              "index": 3,
+              "text": "Una referencia al boletín jurídico donde el equipo leyó la obligación.",
+              "isCorrect": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "gobernanza-eu-b2",
+      "title": "Comprobación B2",
+      "kind": "blockcheck",
+      "questions": [
+        {
+          "category": "Qué condiciones debe cumplir la excepción por tarea accesoria",
+          "text": "El equipo quiere invocar la excepción por tarea accesoria para la etapa de triaje de Meridiana. ¿Cuál de estas situaciones haría que la excepción **no** pudiera sostenerse?",
+          "explanation": "La excepción se apoya en que el sistema no influya materialmente en el resultado; si cambiar su salida cambia lo que le pasa a la persona, hay influencia material y la excepción decae. La (a) describe justamente el tipo de tarea preparatoria compatible con la excepción. La (c) confunde tecnología con riesgo: la categoría depende del uso y del efecto, no de si hay un modelo detrás. La (d) señala un incumplimiento documental real —la excepción hay que documentarla— pero no es lo que determina si la excepción es invocable: primero se cumple la condición de fondo, después se prueba.",
+          "options": [
+            {
+              "index": 0,
+              "text": "Que el sistema realice una tarea preparatoria cuyo resultado revisa una persona antes de que produzca efecto.",
+              "isCorrect": false
+            },
+            {
+              "index": 1,
+              "text": "Que cambiar la salida del sistema cambie el resultado para el asegurado, es decir, que influya materialmente en la decisión.",
+              "isCorrect": true
+            },
+            {
+              "index": 2,
+              "text": "Que el sistema use un modelo de lenguaje en lugar de reglas escritas a mano.",
+              "isCorrect": false
+            },
+            {
+              "index": 3,
+              "text": "Que el equipo no haya redactado todavía la documentación que justifica la excepción.",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "category": "Qué haría que Meridiana pasara a alto riesgo",
+          "text": "¿Cuál de estos cambios tiene más probabilidad de alterar la clasificación del agente de siniestros?",
+          "explanation": "La (c) elimina la revisión humana previa al efecto sobre el asegurado y convierte una propuesta en una decisión sobre un derecho económico, que es exactamente lo que sostenía la clasificación anterior. Y no toca una línea del modelo: es un parámetro de producto. La (a) y la (b) cambian la implementación sin cambiar quién decide ni sobre quién se produce el efecto. La (d) mejora la evidencia disponible, que refuerza el expediente en vez de alterarlo.",
+          "options": [
+            {
+              "index": 0,
+              "text": "Cambiar el proveedor del modelo por otro de mayor tamaño y mejor rendimiento en las evals.",
+              "isCorrect": false
+            },
+            {
+              "index": 1,
+              "text": "Migrar la infraestructura a otro proveedor de nube dentro de la Unión.",
+              "isCorrect": false
+            },
+            {
+              "index": 2,
+              "text": "Permitir que los siniestros por debajo de un umbral se resuelvan y se paguen sin intervención humana previa.",
+              "isCorrect": true
+            },
+            {
+              "index": 3,
+              "text": "Añadir trazas más detalladas y ampliar el conjunto de evals que corre en CI.",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "category": "Cuándo hay que rehacer una clasificación",
+          "text": "¿Cuál es la señal más fiable de que una clasificación necesita rehacerse antes de la revisión periódica prevista?",
+          "explanation": "Lo que invalida una clasificación es un cambio en los hechos sobre los que se construyó: qué hace el sistema, sobre quién, quién decide y con qué margen. Por eso la lista de disparadores debe estar enganchada al proceso de desarrollo y no a un documento de política. La (a) describe la revisión por calendario, que también debe existir pero es la red de seguridad, no la señal. La (b) es un insumo del expediente que rara vez cambia el uso. La (c) es un problema de continuidad y de formación, no de clasificación.",
+          "options": [
+            {
+              "index": 0,
+              "text": "Que haya pasado tiempo desde la última firma, aunque nada del sistema haya cambiado.",
+              "isCorrect": false
+            },
+            {
+              "index": 1,
+              "text": "Que el proveedor del modelo haya publicado una nueva versión de su documentación.",
+              "isCorrect": false
+            },
+            {
+              "index": 2,
+              "text": "Que el equipo haya crecido y haya personas nuevas que no participaron en la clasificación original.",
+              "isCorrect": false
+            },
+            {
+              "index": 3,
+              "text": "Que se haya modificado un elemento de la lista de disparadores: el alcance del sistema, quién decide, el margen de intervención humana o el conjunto de acciones que el agente puede ejecutar.",
+              "isCorrect": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "gobernanza-eu-b3",
+      "title": "Comprobación B3",
+      "kind": "blockcheck",
+      "questions": [
+        {
+          "category": "Qué convierte a un deployer en proveedor",
+          "text": "Meridiana contrata una herramienta de un tercero cuya finalidad declarada es resumir documentos adjuntos para lectura humana. Seis meses después conecta su salida a la decisión de vía del triaje y rotula la pantalla como «Asistente Meridiana». ¿Qué ha ocurrido con su rol?",
+          "explanation": "El rol se determina por hechos —qué se hace con el sistema y bajo qué nombre se presenta—, no por lo que diga un contrato ni por si se ha modificado el código. Usar el sistema fuera de la finalidad que su fabricante declaró y rotularlo con marca propia son dos supuestos independientes, y basta con uno. La (a) confunde modificar con reutilizar. La (c) confunde reparto civil de responsabilidades con determinación del rol frente al regulador. La (d) inventa un rol: distribuir es comercializar hacia fuera, no desplegar internamente.",
+          "options": [
+            {
+              "index": 0,
+              "text": "Nada: sigue siendo responsable del despliegue porque no ha tocado el código del tercero.",
+              "isCorrect": false
+            },
+            {
+              "index": 1,
+              "text": "Ha cruzado dos de las puertas que la hacen asumir el rol de proveedor: ha cambiado la finalidad prevista y ha puesto su marca sobre un sistema ajeno.",
+              "isCorrect": true
+            },
+            {
+              "index": 2,
+              "text": "Nada, porque el contrato firmado con el tercero dice que él es el proveedor a todos los efectos.",
+              "isCorrect": false
+            },
+            {
+              "index": 3,
+              "text": "Pasa a ser distribuidora, porque está poniendo el sistema a disposición de sus tramitadores.",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "category": "Qué obligaciones no se pueden trasladar por contrato",
+          "text": "El integrador propone una cláusula: «El proveedor del modelo asume todas las obligaciones regulatorias derivadas del sistema». ¿Qué efecto tiene esa cláusula?",
+          "explanation": "El rol frente al regulador se determina por criterios objetivos —quién diseña, quién pone en servicio, bajo qué nombre— y no es disponible por pacto. Lo que un contrato sí hace, y es valioso, es asignar quién ejecuta cada tarea, con qué plazos y quién paga si un incumplimiento ajeno te cuesta dinero. La (a) y la (d) suponen que las obligaciones son negociables. La (b) se pasa al otro extremo: un buen contrato es exactamente lo que evita el punto ciego en el que nadie asume la evaluación de conformidad.",
+          "options": [
+            {
+              "index": 0,
+              "text": "Traslada las obligaciones, siempre que el proveedor del modelo la firme expresamente.",
+              "isCorrect": false
+            },
+            {
+              "index": 1,
+              "text": "No tiene ningún efecto de ninguna clase, porque los contratos no afectan al cumplimiento.",
+              "isCorrect": false
+            },
+            {
+              "index": 2,
+              "text": "No cambia quién responde ante la autoridad, pero sí puede repartir el trabajo y el coste económico entre las partes.",
+              "isCorrect": true
+            },
+            {
+              "index": 3,
+              "text": "Traslada las obligaciones de documentación pero no las de supervisión humana.",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "category": "Qué rol ocupa Meridiana y respecto a qué",
+          "text": "Meridiana consume por API un modelo de propósito general de un tercero y construye con él un agente de siniestros que despliega para sus 24 tramitadores. No lo vende a nadie. ¿Cómo se describe correctamente su situación?",
+          "explanation": "Son dos objetos regulados distintos y hay que nombrarlos por separado. Sobre el modelo, Meridiana es cliente: no lo diseñó ni puede documentarlo por dentro. Sobre su agente —prompts, reglas de triaje, tools con efectos sobre expedientes reales— es fabricante, y el rol se gana por poner en servicio, no por facturar. La (a) confunde no entrenar con no construir, y vender con poner en servicio. La (b) borra la distinción entre las dos capas. La (d) confunde usar un modelo con modificarlo: prompting y recuperación de contexto dejan el modelo intacto.",
+          "options": [
+            {
+              "index": 0,
+              "text": "Solo responsable del despliegue, porque no ha entrenado ningún modelo y no vende el agente.",
+              "isCorrect": false
+            },
+            {
+              "index": 1,
+              "text": "Solo proveedora, porque cualquiera que use IA en un proceso regulado lo es.",
+              "isCorrect": false
+            },
+            {
+              "index": 2,
+              "text": "Responsable del despliegue respecto al modelo del tercero, y proveedora respecto al agente que ella misma pone en servicio bajo su nombre.",
+              "isCorrect": true
+            },
+            {
+              "index": 3,
+              "text": "Proveedora del modelo, porque los prompts y la recuperación de contexto que ha escrito lo modifican.",
+              "isCorrect": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "gobernanza-eu-b4",
+      "title": "Comprobación B4",
+      "kind": "blockcheck",
+      "questions": [
+        {
+          "category": "Qué secciones del expediente puede alimentar la observabilidad",
+          "text": "El equipo quiere reducir el trabajo manual de mantener el expediente técnico. ¿Qué parte es la mejor candidata a generarse automáticamente desde lo que el sistema ya produce?",
+          "explanation": "El rendimiento medido es un dato que el sistema produce en cada ejecución del conjunto de evaluación, y es además la sección que caduca antes; generarla y archivarla fechada resuelve la parte del expediente que más envejece. La (a) y la (c) son criterio humano: describir el perímetro y justificar que un resultado es aceptable no se automatiza. La (d) confunde «requiere criterio» con «requiere teclear»: si más de la mitad del expediente es manual, no se mantendrá.",
+          "options": [
+            {
+              "index": 0,
+              "text": "La descripción del sistema y su finalidad prevista, porque son las secciones más largas.",
+              "isCorrect": false
+            },
+            {
+              "index": 1,
+              "text": "Los informes de rendimiento por caso y por segmento, con la versión de código, prompt y modelo con la que se obtuvieron.",
+              "isCorrect": true
+            },
+            {
+              "index": 2,
+              "text": "La justificación de por qué el nivel de exactitud alcanzado es aceptable para el caso de uso.",
+              "isCorrect": false
+            },
+            {
+              "index": 3,
+              "text": "Ninguna: la documentación técnica exige redacción humana en todas sus secciones.",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "category": "Qué exige el registro automático de eventos",
+          "text": "¿Cuál de estas afirmaciones describe correctamente la función del registro de eventos frente a otras cosas que el sistema ya guarda?",
+          "explanation": "La finalidad es la trazabilidad de una ejecución concreta, y eso exige vincular entrada, versión del sistema, camino de decisión y resultado. Los logs sirven para depurar y se rotan; la base de datos guarda el resultado pero no cómo se llegó a él ni con qué versión. La (b) confunde trazabilidad con acumulación: guardarlo todo es caro, es un problema de protección de datos y hace el registro inútil para buscar.",
+          "options": [
+            {
+              "index": 0,
+              "text": "Es equivalente a los logs de aplicación, así que basta con subir el nivel de detalle y alargar la rotación.",
+              "isCorrect": false
+            },
+            {
+              "index": 1,
+              "text": "Obliga a conservar absolutamente toda la información que atraviesa el sistema, sin excepción.",
+              "isCorrect": false
+            },
+            {
+              "index": 2,
+              "text": "Sirve para poder reconstruir qué ocurrió en un caso concreto: con qué entradas, qué versión y qué camino se llegó a la decisión, cosa que ni los logs ni la base de datos de negocio contestan por separado.",
+              "isCorrect": true
+            },
+            {
+              "index": 3,
+              "text": "Lo cubre la base de datos del expediente del siniestro, porque ahí queda registrado lo que se decidió.",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "category": "Quién mantiene el expediente y con qué frecuencia",
+          "text": "El expediente se terminó en marzo. ¿Cuál es el modelo de mantenimiento que tiene alguna probabilidad de funcionar?",
+          "explanation": "El expediente envejece al ritmo del sistema, no al del calendario, así que el mantenimiento tiene que engancharse al flujo de cambios; y la parte que caduca cada semana solo sobrevive si se genera sola. La revisión periódica sigue haciendo falta para detectar la deriva acumulada, y la hace otra persona porque el autor no ve sus propios huecos. La (a) llega tarde y con el conocimiento equivocado. La (c) compra un documento, no un proceso. La (d) confunde la clasificación con el contenido: el sistema cambia aunque su categoría no.",
+          "options": [
+            {
+              "index": 0,
+              "text": "Una revisión completa anual a cargo de cumplimiento, que es quien responde ante la autoridad.",
+              "isCorrect": false
+            },
+            {
+              "index": 1,
+              "text": "Actualización en cada cambio relevante por quien lo hace, regeneración automática de lo generable en cada despliegue, y una revisión completa periódica hecha por alguien que no lo escribió.",
+              "isCorrect": true
+            },
+            {
+              "index": 2,
+              "text": "Un encargo externo anual a una consultora, que aporta independencia y descarga al equipo.",
+              "isCorrect": false
+            },
+            {
+              "index": 3,
+              "text": "Ninguno hace falta mientras no cambie la clasificación de riesgo del sistema.",
+              "isCorrect": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "gobernanza-eu-b5",
+      "title": "Comprobación B5",
+      "kind": "blockcheck",
+      "questions": [
+        {
+          "category": "Cuándo la propuesta de resolución entra en el ámbito del artículo 22",
+          "text": "En Meridiana, los expedientes por debajo del umbral se aprueban con un clic sobre un botón preseleccionado, y la tasa de propuestas modificadas por el tramitador en ese tramo es del 0,4 %. ¿Qué conclusión es la correcta?",
+          "explanation": "Lo que importa no es que exista un humano, sino que su intervención sea sustantiva: información suficiente, tiempo, autoridad y consecuencias asumibles al discrepar. La tasa de modificación es la métrica que distingue una revisión real de un trámite. La (a) confunde forma con sustancia. La (c) informa de un tratamiento sin cambiarlo. La (d) describe un cambio de arquitectura que puede ser buena idea, pero no responde a la pregunta de si la supervisión actual es efectiva.",
+          "options": [
+            {
+              "index": 0,
+              "text": "No hay problema: existe un humano en el flujo y eso descarta la decisión automatizada.",
+              "isCorrect": false
+            },
+            {
+              "index": 1,
+              "text": "Hay indicios de que la supervisión es aparente en ese tramo, y la tasa de modificación es la evidencia que hay que analizar.",
+              "isCorrect": true
+            },
+            {
+              "index": 2,
+              "text": "El problema desaparece añadiendo una advertencia en la política de privacidad.",
+              "isCorrect": false
+            },
+            {
+              "index": 3,
+              "text": "Basta con quitar el LLM del cálculo del importe y dejarlo solo en la redacción del texto de la propuesta.",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "category": "Qué hay que preguntar a un proveedor de modelo sobre retención",
+          "text": "Vas a contratar un proveedor de modelo para el FNOL. ¿Cuál de estas respuestas del proveedor te sirve como evidencia utilizable?",
+          "explanation": "Solo la (c) es un compromiso contractual verificable y datable, que es lo que tendrás que enseñar si alguien pregunta qué sabías el día que enviaste el primer relato. La (a) no obliga a nadie. La (b) describe intenciones y cambia sin aviso. La (d) es reputación, no una obligación sobre tus datos.",
+          "options": [
+            {
+              "index": 0,
+              "text": "Un correo del comercial diciendo que «no guardan nada de los clientes empresariales».",
+              "isCorrect": false
+            },
+            {
+              "index": 1,
+              "text": "Una entrada de su blog de ingeniería sobre privacidad, muy detallada.",
+              "isCorrect": false
+            },
+            {
+              "index": 2,
+              "text": "La cláusula de la adenda de tratamiento de datos que fija qué se retiene, dónde, cuánto y cómo se desactiva, archivada con fecha de consulta.",
+              "isCorrect": true
+            },
+            {
+              "index": 3,
+              "text": "Que el proveedor sea una empresa grande con certificaciones conocidas.",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "category": "Qué se puede minimizar en el FNOL antes de llamar al modelo",
+          "text": "El prompt de extracción de FNOL incluye el relato, la fecha declarada, la póliza serializada entera (con NIF e IBAN) y el histórico de siniestros del asegurado. ¿Cuál es el criterio correcto para decidir qué se queda?",
+          "explanation": "La minimización se demuestra, no se opina, y los evals convierten la discusión en un experimento reproducible que además sirve como justificación documentada de proporcionalidad. La (a) es el hábito que llevó el IBAN al prompt. La (c) es una regla ciega: algunos campos de la póliza sí mejoran la extracción y su envío está justificado. La (d) es falsa: los datos seudonimizados siguen siendo datos personales y la minimización se sigue aplicando.",
+          "options": [
+            {
+              "index": 0,
+              "text": "Enviarlo todo: cuanto más contexto tenga el modelo, mejor extraerá.",
+              "isCorrect": false
+            },
+            {
+              "index": 1,
+              "text": "Retirar cada campo y medir con los evals si la extracción empeora; lo que no mueve la métrica no vuelve al prompt.",
+              "isCorrect": true
+            },
+            {
+              "index": 2,
+              "text": "Dejar solo el relato, porque cualquier otro dato es siempre innecesario.",
+              "isCorrect": false
+            },
+            {
+              "index": 3,
+              "text": "Mantener todos los campos pero seudonimizarlos, con lo que la minimización deja de aplicar.",
+              "isCorrect": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "gobernanza-eu-b6",
+      "title": "Comprobación B6",
+      "kind": "blockcheck",
+      "questions": [
+        {
+          "category": "Qué presunción aporta una norma armonizada",
+          "text": "El equipo propone aplicar una norma armonizada publicada bajo el reglamento y dar por cerrado el cumplimiento. ¿Cuál es la lectura correcta?",
+          "explanation": "La presunción es parcial —alcanza a los requisitos abordados por esa norma— y rebatible: una autoridad puede constatar el incumplimiento pese a su aplicación. La (a) confunde una parte con el todo. La (c) niega el mecanismo, que opera por aplicación de la norma y no por certificación obligatoria. La (d) confunde comprar el documento con aplicarlo y evidenciarlo.",
+          "options": [
+            {
+              "index": 0,
+              "text": "Aplicarla acredita el cumplimiento del reglamento completo y cierra el asunto.",
+              "isCorrect": false
+            },
+            {
+              "index": 1,
+              "text": "Aporta presunción de conformidad solo respecto de los requisitos que la norma cubre, y es rebatible: hay que poder demostrar que se aplica.",
+              "isCorrect": true
+            },
+            {
+              "index": 2,
+              "text": "No sirve de nada mientras no exista una certificación de tercera parte que lo acredite.",
+              "isCorrect": false
+            },
+            {
+              "index": 3,
+              "text": "Basta con haber adquirido la norma y tenerla archivada.",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "category": "Qué debe contener el inventario de sistemas de IA",
+          "text": "Meridiana tiene un inventario con el nombre de cada sistema y el equipo que lo mantiene, revisado una vez al año. ¿Cuál es la mejora que más aumenta su utilidad?",
+          "explanation": "Un inventario sirve para decidir, y para eso necesita finalidad, datos, clasificación y dueño; la reconciliación contra el gasto es lo que encuentra los sistemas que nadie declaró, que es el fallo estructural de todo inventario. La (a) añade datos que no cambian ninguna decisión. La (b) compra herramienta sobre un proceso que aún no funciona. La (d) mantiene un ciclo anual frente a un sistema que cambia con cada despliegue: duplicar la frecuencia no cierra esa brecha.",
+          "options": [
+            {
+              "index": 0,
+              "text": "Añadir el logotipo del proveedor y el nombre comercial del modelo a cada ficha.",
+              "isCorrect": false
+            },
+            {
+              "index": 1,
+              "text": "Pasarlo de una hoja de cálculo a una herramienta de gobernanza con flujos de aprobación.",
+              "isCorrect": false
+            },
+            {
+              "index": 2,
+              "text": "Añadir a cada ficha la finalidad, los datos que trata, su clasificación de riesgo y quién decide sobre él, y reconciliarlo trimestralmente contra el gasto en proveedores.",
+              "isCorrect": true
+            },
+            {
+              "index": 3,
+              "text": "Ampliar la revisión anual a dos revisiones anuales.",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "category": "Qué permite responder a tiempo ante un incidente grave",
+          "text": "Se descubre que durante seis semanas la extracción no marcó lesiones en cuarenta expedientes que debían haberse derivado. ¿Qué es lo que determina que la organización pueda cumplir sus obligaciones de notificación?",
+          "explanation": "El reloj de cualquier notificación corre desde el conocimiento, así que lo decisivo es quién puede reconocer el incidente, cuándo se entiende que la organización lo supo y con qué evidencias se acota a quién afectó. La (a) es necesaria pero insuficiente: un procedimiento no ensayado no produce ninguna de las tres cosas. La (c) reparte responsabilidad económica, no obligaciones de notificación. La (d) invierte el orden y consume el tiempo disponible.",
+          "options": [
+            {
+              "index": 0,
+              "text": "Que exista un documento de procedimiento de incidentes aprobado por dirección.",
+              "isCorrect": false
+            },
+            {
+              "index": 1,
+              "text": "Que haya una persona con autoridad para declarar el incidente, un criterio escrito de cuándo se considera que hubo conocimiento, y trazas que permitan acotar el alcance.",
+              "isCorrect": true
+            },
+            {
+              "index": 2,
+              "text": "Que el proveedor del modelo asuma contractualmente la responsabilidad del fallo.",
+              "isCorrect": false
+            },
+            {
+              "index": 3,
+              "text": "Que el fallo se corrija en producción antes de notificar nada.",
+              "isCorrect": false
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "assets": [
+    "gobernanza-eu/assets/css/curso.css",
+    "gobernanza-eu/assets/js/progreso.js",
+    "gobernanza-eu/assets/js/quiz.js",
+    "gobernanza-eu/assets/js/viewer.js"
+  ]
+}

@@ -1,0 +1,48 @@
+# .NET
+bin/
+obj/
+*.user
+*.suo
+[Dd]ebug/
+[Rr]elease/
+TestResults/
+coverage/
+*.trx
+
+# Node
+node_modules/
+dist/
+.vite/
+playwright-report/
+test-results/
+.playwright/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Secrets / local
+.env
+.dev-processes.json
+.env.local
+*.local.json
+appsettings.Local.json
+infra/caddy/data/
+infra/caddy/config/
+infra/backups/
+
+# Content artifacts (imported, regenerable)
+content/dist/
+
+# HTML generado desde el Markdown de content/cursos. Artefacto: la fuente es el .md.
+content/generado/
+content/.cache/
+
+# Paquetes de traslado de catálogo (infra/export-courses.ps1). Se regeneran de la base.
+export/
+
+# OS
+Thumbs.db
+.DS_Store

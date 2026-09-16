@@ -1,0 +1,75 @@
+# Entorno local. Levanta Postgres, aplica migraciones y arranca la API.
+# El frontend se ejecuta aparte con `npm --prefix web run dev` para conservar el HMR de Vite.
+#
+#   docker compose -f infra/docker-compose.yml up -d
+#
+# No hay Valkey ni Keycloak: ver ADR-004 y ADR-005.
+
+name: inkoova-academy
+
+services:
+  postgres:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_DB: academy
+      POSTGRES_USER: academy
+      # Solo desarrollo. En producción la contraseña viene del fichero .env del VPS.
+      POSTGRES_PASSWORD: academy
+    ports:
+      # 5433 y no 5432: casi todas las máquinas de desarrollo tienen ya un Postgres local
+      # en el puerto por defecto. Si el bind falla, Docker arranca el contenedor igual pero
+      # sin publicar el puerto, y entonces la API se conecta al Postgres equivocado.
+      - "5433:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U academy -d academy"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  migrator:
+    build:
+      context: ..
+      dockerfile: infra/Dockerfile.migrator
+    environment:
+      ConnectionStrings__Academy: "Host=postgres;Port=5432;Database=academy;Username=academy;Password=academy"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    # Corre una vez y termina; la API espera a que salga con código 0.
+    restart: "no"
+
+  api:
+    build:
+      context: ..
+      dockerfile: infra/Dockerfile.api
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_HTTP_PORTS: "8080"
+      ConnectionStrings__Academy: "Host=postgres;Port=5432;Database=academy;Username=academy;Password=academy"
+      Academy__PublicBaseUrl: "http://localhost:5173"
+      Academy__ContentRoot: "/srv/content"
+      Academy__Email__TemplatesPath: "/app/emails"
+      Academy__Cors__Origins__0: "http://localhost:5173"
+      Academy__Auth__RequireConfirmedEmail: "false"
+      # Secretos de desarrollo. Nunca se reutilizan en producción: ver infra/.env.example.
+      Academy__ContentTokenKey: "dev-content-token-key-change-me"
+      Academy__Jwt__SigningKey: "dev-jwt-signing-key-at-least-32-bytes-long!"
+      Academy__Certificates__SigningSecret: "dev-certificate-secret"
+      Academy__Stripe__SecretKey: "${STRIPE_SECRET_KEY:-sk_test_placeholder}"
+      Academy__Stripe__WebhookSecret: "${STRIPE_WEBHOOK_SECRET:-whsec_placeholder}"
+      OTEL_EXPORTER_OTLP_ENDPOINT: "${OTEL_ENDPOINT:-http://localhost:4317}"
+    ports:
+      - "5080:8080"
+    volumes:
+      # El contenido importado se monta, no se copia a la imagen: cambia por su propio ciclo.
+      - ../content/dist:/srv/content
+    depends_on:
+      postgres:
+        condition: service_healthy
+      migrator:
+        condition: service_completed_successfully
+
+volumes:
+  postgres-data:

@@ -1,0 +1,173 @@
+using Inkoova.Academy.Application.Abstractions;
+using QuestPDF.Fluent;
+using QuestPDF.Helpers;
+using QuestPDF.Infrastructure;
+
+namespace Inkoova.Academy.Infrastructure.Documents;
+
+/// <summary>
+/// El certificado: PDF para descargar e imagen para enseñar.
+///
+/// Los dos salen del MISMO documento, rasterizando el PDF. Un diseño paralelo para la imagen
+/// acabaría divergiendo, y entonces el certificado que alguien enseña en LinkedIn no sería el
+/// que se puede verificar.
+///
+/// Determinista a propósito (criterio de aceptación de T-10): sin marcas de tiempo, sin
+/// identificadores aleatorios y con id de documento fijo, así el mismo modelo produce siempre
+/// los mismos bytes y un certificado se puede regenerar y comparar.
+/// </summary>
+public sealed class CertificatePdfGenerator : ICertificatePdfGenerator
+{
+    // Tokens de diseño de Inkoova.
+    private const string Blue = "#1E3A8A";
+    private const string Magenta = "#DB2777";
+    private const string Teal = "#0891B2";
+    private const string Ink = "#0F172A";
+    private const string Muted = "#64748B";
+    private const string Hairline = "#E2E8F0";
+    private const string Paper = "#FCFCFD";
+
+    public byte[] Generate(CertificatePdfModel model) => Build(model).GeneratePdf();
+
+    /// <summary>
+    /// PNG del certificado, para compartir. 150 ppp sobre A4 apaisado da ~1754 px de ancho:
+    /// suficiente para que LinkedIn no lo vea borroso y bastante menos que un escaneo.
+    /// </summary>
+    public byte[] GenerateImage(CertificatePdfModel model) =>
+        Build(model)
+            .GenerateImages(new ImageGenerationSettings
+            {
+                ImageFormat = ImageFormat.Png,
+                RasterDpi = 150
+            })
+            .First();
+
+    private static IDocument Build(CertificatePdfModel model) =>
+        Document.Create(container =>
+        {
+            container.Page(page =>
+            {
+                page.Size(PageSizes.A4.Landscape());
+                page.Margin(0);
+                page.PageColor(Paper);
+                page.DefaultTextStyle(text => text.FontFamily(Fonts.Calibri).FontColor(Ink));
+
+                page.Content().Padding(14).Element(frame => Frame(frame, model));
+            });
+        });
+
+    /// <summary>
+    /// Marco con el filete de marca arriba. Un certificado sin marco se lee como una carta;
+    /// el borde es lo que hace que se reconozca como documento acreditativo de un vistazo.
+    /// </summary>
+    private static void Frame(IContainer container, CertificatePdfModel model) =>
+        container
+            .Border(1)
+            .BorderColor(Hairline)
+            .Background(Colors.White)
+            .Column(frame =>
+            {
+                // Tres colores de la marca, en proporción: azul dominante, magenta y teal.
+                frame.Item().Height(6).Row(bar =>
+                {
+                    bar.RelativeItem(6).Background(Blue);
+                    bar.RelativeItem(3).Background(Magenta);
+                    bar.RelativeItem(1).Background(Teal);
+                });
+
+                // El cuerpo ocupa el alto que queda y reparte: cabecera arriba, nombre en el
+                // centro óptico y el pie abajo del todo. Sin esto, todo se apilaba arriba y el
+                // tercio inferior de la hoja quedaba en blanco.
+                frame.Item().Extend().PaddingHorizontal(48).PaddingVertical(30).Column(body =>
+                {
+                    Header(body);
+
+                    body.Item().Grow().AlignMiddle().Column(middle => Recipient(middle, model));
+
+                    Footer(body, model);
+                });
+            });
+
+    private static void Header(ColumnDescriptor body)
+    {
+        body.Item().AlignCenter().Text("INKOOVA ACADEMY")
+            .FontSize(10).LetterSpacing(0.45f).FontColor(Blue).Bold();
+
+        body.Item().PaddingTop(10).AlignCenter().Text("Certificado de aprovechamiento")
+            .FontSize(26).FontColor(Ink).Bold();
+
+        // Filete corto bajo el título: separa la cabecera del cuerpo sin una línea a todo ancho.
+        body.Item().PaddingTop(12).AlignCenter().Width(64).Height(2).Background(Magenta);
+    }
+
+    private static void Recipient(ColumnDescriptor body, CertificatePdfModel model)
+    {
+        body.Item().AlignCenter().Text("Se certifica que")
+            .FontSize(11).FontColor(Muted);
+
+        body.Item().PaddingTop(6).AlignCenter().Text(model.StudentName)
+            .FontSize(32).FontColor(Blue).Bold();
+
+        body.Item().PaddingTop(14).AlignCenter().Text("ha completado")
+            .FontSize(11).FontColor(Muted);
+
+        body.Item().PaddingTop(6).AlignCenter().Text(model.CourseTitle)
+            .FontSize(17).FontColor(Ink).SemiBold();
+
+        body.Item().PaddingTop(10).AlignCenter().Text(
+                $"{model.Hours} horas de material  ·  {model.IssueDate:dd/MM/yyyy}")
+            .FontSize(10).FontColor(Muted);
+    }
+
+    /// <summary>
+    /// Pie en tres columnas: qué acredita, cómo se comprueba y quién lo firma. El QR va en el
+    /// centro porque es lo que se escanea, y el código en texto al lado por si no hay cámara.
+    /// </summary>
+    private static void Footer(ColumnDescriptor body, CertificatePdfModel model)
+    {
+        body.Item().PaddingTop(30).LineHorizontal(1).LineColor(Hairline);
+
+        body.Item().PaddingTop(16).Row(row =>
+        {
+            row.RelativeItem(4).Column(left =>
+            {
+                left.Item().Text("CÓDIGO DE VERIFICACIÓN")
+                    .FontSize(7).LetterSpacing(0.25f).FontColor(Muted).SemiBold();
+
+                left.Item().PaddingTop(4).Text(model.Code)
+                    .FontSize(18).FontColor(Magenta).Bold();
+
+                left.Item().PaddingTop(6).Text(model.VerificationUrl)
+                    .FontSize(7.5f).FontColor(Muted);
+
+                // El hash permite recalcular y comparar el certificado sin conexión.
+                left.Item().PaddingTop(3).Text($"SHA-256 {model.Hash[..32]}…")
+                    .FontSize(6.5f).FontColor(Muted);
+            });
+
+            row.ConstantItem(96).AlignCenter().Column(middle =>
+            {
+                middle.Item().Width(84).Height(84).Image(QrCode.Generate(model.VerificationUrl));
+
+                middle.Item().PaddingTop(4).AlignCenter().Text("Escanea para verificar")
+                    .FontSize(6.5f).FontColor(Muted);
+            });
+
+            row.RelativeItem(4).AlignRight().Column(right =>
+            {
+                right.Item().AlignRight().Width(150).Height(1).Background(Hairline);
+
+                right.Item().PaddingTop(6).AlignRight().Text("Inkoova Academy")
+                    .FontSize(11).FontColor(Ink).SemiBold();
+
+                right.Item().AlignRight().Text("Entidad emisora")
+                    .FontSize(7.5f).FontColor(Muted);
+
+                // Lo que este documento NO es. Decirlo aquí evita que se presente como un
+                // título oficial, que es lo que la ley no permite (T-14).
+                right.Item().PaddingTop(8).AlignRight().Text("Formación privada. No es una titulación oficial.")
+                    .FontSize(6.5f).FontColor(Muted);
+            });
+        });
+    }
+}

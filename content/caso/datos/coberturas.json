@@ -1,0 +1,44 @@
+[
+  {
+    "codigo": "RC_OBLIGATORIA",
+    "nombre": "Responsabilidad civil obligatoria",
+    "descripcion": "Daños a terceros. Obligatoria por ley.",
+    "franquicia": 0,
+    "limite": null
+  },
+  {
+    "codigo": "DANOS_PROPIOS",
+    "nombre": "Daños propios",
+    "descripcion": "Daños al vehículo asegurado con independencia de la culpa.",
+    "franquicia": 300,
+    "limite": 30000
+  },
+  {
+    "codigo": "LUNAS",
+    "nombre": "Rotura de lunas",
+    "descripcion": "Sustitución o reparación de lunas.",
+    "franquicia": 0,
+    "limite": 1500
+  },
+  {
+    "codigo": "ROBO",
+    "nombre": "Robo",
+    "descripcion": "Robo total o parcial del vehículo.",
+    "franquicia": 150,
+    "limite": 30000
+  },
+  {
+    "codigo": "ASISTENCIA",
+    "nombre": "Asistencia en carretera",
+    "descripcion": "Grúa y asistencia desde el kilómetro 0.",
+    "franquicia": 0,
+    "limite": null
+  },
+  {
+    "codigo": "OCUPANTES",
+    "nombre": "Accidentes de ocupantes",
+    "descripcion": "Indemnización por lesiones de los ocupantes.",
+    "franquicia": 0,
+    "limite": 60000
+  }
+]

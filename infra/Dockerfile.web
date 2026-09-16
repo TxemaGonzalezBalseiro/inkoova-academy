@@ -1,0 +1,20 @@
+# SPA. Se construye aquí y el resultado se sirve como estáticos desde Caddy, así que la
+# imagen final solo contiene ficheros: no hay Node ni servidor web dentro.
+FROM node:22-alpine AS build
+WORKDIR /src
+
+COPY web/package.json web/package-lock.json* ./
+RUN npm ci --no-audit --no-fund
+
+COPY web/ ./
+# La URL de la API se compila dentro del bundle; por eso es argumento de build y no variable
+# de entorno en tiempo de ejecución.
+ARG VITE_API_BASE_URL=/api
+ENV VITE_API_BASE_URL=$VITE_API_BASE_URL
+RUN npm run build
+
+FROM alpine:3.20 AS final
+WORKDIR /dist
+COPY --from=build /src/dist/ ./
+# Caddy monta este volumen; el contenedor solo existe para transportar el build.
+CMD ["true"]

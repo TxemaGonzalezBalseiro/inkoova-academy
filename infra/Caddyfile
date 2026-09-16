@@ -1,0 +1,91 @@
+# Caddy: TLS automático (Let's Encrypt), SPA en estáticos y proxy a la API.
+
+{
+	email {$ACME_EMAIL}
+}
+
+{$ACADEMY_DOMAIN} {
+	encode zstd gzip
+
+	# Cabeceras de seguridad. La CSP permite el iframe del contenido importado desde el
+	# propio origen y nada más: el HTML del curso trae su JS inline, de ahí 'unsafe-inline'
+	# en script-src. Es el precio de no reescribir el contenido (ADR-008).
+	#
+	# ANALYTICS_ORIGIN es el origen de la instancia de Plausible, y tiene que estar en
+	# script-src y en connect-src o el navegador tira el script y el beacon SIN DECIR NADA
+	# en la página: el banner enseñaría la analítica como aceptada y no se recogería nada.
+	# Vacío cuando no hay analítica configurada, que es como se despliega hasta el lanzamiento.
+	header {
+		Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+		X-Content-Type-Options "nosniff"
+		Referrer-Policy "strict-origin-when-cross-origin"
+		Permissions-Policy "camera=(), microphone=(), geolocation=(), interest-cohort=()"
+		Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' {$ANALYTICS_ORIGIN}; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob:; connect-src 'self' {$ANALYTICS_ORIGIN}; frame-src 'self'; frame-ancestors 'self'; base-uri 'self'; form-action 'self'; object-src 'none'"
+		-Server
+	}
+
+	# El webhook de Stripe llega antes que nada: su firma se valida en la API y no debe
+	# pasar por el limitador de peticiones del navegador.
+	handle /api/webhooks/* {
+		reverse_proxy api:8080
+	}
+
+	# El contenido del curso: la API dice si se puede, Caddy manda los bytes (ADR-012).
+	#
+	# Antes cada slide, cada hoja de estilo y cada imagen salía por `Results.Stream` de
+	# Kestrel. Con 321 lecciones por curso eso convierte cada alumno en una ristra de flujos
+	# de fichero por el hilo de la API, que es lo primero que se cae al subir la concurrencia.
+	# Ahora la API solo valida el HMAC y compara cadenas —sin disco y sin base de datos— y el
+	# fichero lo sirve `file_server`, con sendfile, rangos y compresión.
+	#
+	# La autorización no se duplica aquí: sigue estando entera en la API. Caddy solo pregunta.
+	handle /api/content/* {
+		route {
+			# Token a secas: la API responde con la redirección a la ruta canónica, que es
+			# la que arrastra el ancla de la slide y la query del tema.
+			@token_only path_regexp ^/api/content/[^/]+/?$
+			reverse_proxy @token_only api:8080
+
+			# Token con ruta. Si /authorize responde 2xx, devuelve en X-Content-File el
+			# fichero aprobado; si responde 403, Caddy corta aquí y el player pide un token
+			# nuevo, exactamente igual que cuando servía la API.
+			forward_auth api:8080 {
+				uri /api/content/authorize
+				copy_headers X-Content-File
+			}
+
+			# Se sirve lo que aprobó la API, no lo que pidió el navegador. La ruta viene ya
+			# normalizada y escapada desde ContentTokenScope.
+			rewrite * {http.request.header.X-Content-File}
+			root * /srv/content
+			header Cache-Control "private, no-store"
+			file_server
+		}
+	}
+
+	handle /api/* {
+		reverse_proxy api:8080
+	}
+
+	handle /health/* {
+		reverse_proxy api:8080
+	}
+
+	handle {
+		root * /srv/web
+
+		# Los assets con hash en el nombre son inmutables; el index nunca se cachea o los
+		# despliegues tardarían un día en verse.
+		@hashed path_regexp \.[0-9a-f]{8,}\.(js|css|woff2|png|jpg|svg)$
+		header @hashed Cache-Control "public, max-age=31536000, immutable"
+		header /index.html Cache-Control "no-cache"
+
+		try_files {path} /index.html
+		file_server
+	}
+}
+
+# Redirección desde el dominio sin subdominio, si se apunta también aquí.
+www.{$ACADEMY_DOMAIN} {
+	redir https://{$ACADEMY_DOMAIN}{uri} permanent
+}

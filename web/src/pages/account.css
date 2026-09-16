@@ -1,0 +1,201 @@
+.account section {
+  margin-top: var(--space-12);
+}
+
+.account section h2 {
+  font-size: var(--text-xl);
+  padding-bottom: var(--space-2);
+  border-bottom: 1px solid var(--border);
+}
+
+.account__identity {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  margin-bottom: var(--space-6);
+}
+
+.account__identity h1 {
+  margin: 0;
+  font-size: var(--text-3xl);
+}
+
+.account__avatar {
+  display: grid;
+  place-items: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  flex-shrink: 0;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(135deg, var(--ink-blue), var(--ink-magenta));
+  color: #fff;
+  font-size: var(--text-2xl);
+  font-weight: 800;
+}
+
+.account__email {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: var(--text-sm);
+  /* Monoespaciada: un email es un identificador, y así se distingue del texto de alrededor. */
+  font-family: var(--font-mono);
+}
+
+/*
+ * Grupo segmentado en vez de tres botones sueltos: son destinos hermanos de la misma cuenta,
+ * y sueltos parecían tres acciones sin relación entre sí.
+ */
+.account__nav {
+  display: flex;
+  gap: 0;
+  flex-wrap: wrap;
+  margin-bottom: var(--space-4);
+  padding: var(--space-1);
+  width: fit-content;
+  max-width: 100%;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface-muted);
+}
+
+.account__nav .btn {
+  border-color: transparent;
+  background: transparent;
+}
+
+.account__nav .btn:hover:not(:disabled) {
+  background: var(--surface);
+  border-color: var(--border);
+  color: var(--ink-blue);
+}
+
+.account__attempts {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.account__attempts li {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: var(--space-4);
+  align-items: center;
+  padding: var(--space-3) var(--space-4);
+  font-size: var(--text-sm);
+}
+
+.account__attempts li + li {
+  border-top: 1px solid var(--border);
+}
+
+.subscription__summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: var(--space-6);
+  padding: var(--space-6);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  margin-bottom: var(--space-8);
+}
+
+.subscription__summary dt {
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  margin-bottom: var(--space-1);
+}
+
+.subscription__summary dd {
+  margin: 0;
+  font-size: var(--text-lg);
+  font-weight: 700;
+}
+
+.status-pill {
+  display: inline-block;
+  padding: 2px var(--space-3);
+  border-radius: var(--radius-full);
+  font-size: var(--text-xs);
+  font-weight: 700;
+}
+
+.status-pill--active {
+  background: rgb(22 163 74 / 0.12);
+  color: var(--ink-success);
+}
+
+.status-pill--pastdue {
+  background: rgb(245 158 11 / 0.14);
+  color: #92400e;
+}
+
+.status-pill--canceled,
+.status-pill--none,
+.status-pill--unpaid {
+  background: var(--ink-100);
+  color: var(--text-muted);
+}
+
+/* Un curso empezado solo por las muestras lleva su aviso pegado debajo de la tarjeta. */
+.account__course {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.account__course-note {
+  margin: 0;
+  font-size: var(--text-xs);
+  padding-left: var(--space-2);
+  border-left: 2px solid var(--ink-magenta);
+}
+
+/* ── contenido adicional: los packs sectoriales ──────────────────────────────
+ *
+ * `.card` no trae relleno —hay tarjetas que son una imagen a sangre— así que se lo pone
+ * quien lo necesita. Sin él, el título toca el borde y la tarjeta parece rota.
+ */
+.account__pack {
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-6);
+}
+
+.account__pack-title {
+  margin: 0;
+  font-size: var(--text-lg);
+}
+
+.account__pack-sector {
+  margin: var(--space-1) 0 0;
+  color: var(--text-muted);
+  font-size: var(--text-sm);
+}
+
+/* Los datos en dos columnas: se leen de un vistazo y no como una lista de frases. El `flex: 1`
+   empuja el botón al fondo, para que quede a la misma altura en todas las tarjetas. */
+.account__pack-facts {
+  flex: 1;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--space-1) var(--space-3);
+  margin: var(--space-4) 0;
+  font-size: var(--text-sm);
+}
+
+.account__pack-facts dt {
+  color: var(--text-muted);
+}
+
+.account__pack-facts dd {
+  margin: 0;
+  font-variant-numeric: tabular-nums;
+}
+
+.account__pack .btn {
+  width: 100%;
+}

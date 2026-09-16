@@ -1,0 +1,20 @@
+# Runner de migraciones. Se ejecuta una vez antes de la API y termina.
+FROM mcr.microsoft.com/dotnet/sdk:10.0-alpine AS build
+WORKDIR /src
+
+COPY api/Directory.Build.props api/
+COPY api/src/Inkoova.Academy.Migrator/*.csproj api/src/Inkoova.Academy.Migrator/
+RUN dotnet restore api/src/Inkoova.Academy.Migrator/Inkoova.Academy.Migrator.csproj
+
+COPY api/src/Inkoova.Academy.Migrator/ api/src/Inkoova.Academy.Migrator/
+RUN dotnet publish api/src/Inkoova.Academy.Migrator/Inkoova.Academy.Migrator.csproj \
+    -c Release -o /app/publish --no-restore
+
+FROM mcr.microsoft.com/dotnet/runtime:10.0-alpine AS final
+WORKDIR /app
+
+COPY --from=build /app/publish .
+# Los scripts van en la imagen: la versión del esquema y la del binario viajan juntas.
+COPY db/migrations/ /app/migrations/
+
+ENTRYPOINT ["dotnet", "Inkoova.Academy.Migrator.dll"]

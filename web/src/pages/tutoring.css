@@ -1,0 +1,162 @@
+/*
+ * Mis tutorías.
+ *
+ * Todo sale de tokens, sin un solo color literal: la pantalla tiene que cambiar de tema sola,
+ * igual que el resto. Lo único propio de aquí son las tres cifras del resumen y la lista del
+ * histórico, que no existen en ninguna otra pantalla.
+ */
+
+.tutoring__summary {
+  display: grid;
+  /* auto-fit y no tres columnas fijas: a 375 px las tres cifras se apilan sin media query. */
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: var(--space-4);
+  margin-bottom: var(--space-8);
+}
+
+.tutoring__figure {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding: var(--space-4);
+  background: var(--surface-muted);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+}
+
+.tutoring__figure-value {
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  /* Tabular para que las tres cifras queden alineadas aunque tengan distinto número de dígitos. */
+  font-variant-numeric: tabular-nums;
+}
+
+/*
+ * `.card` no trae relleno: se lo pone cada uso, porque hay tarjetas que son una imagen a sangre
+ * y otras que son texto. Estas son de texto, así que lo llevan; sin él, el título toca el borde
+ * y el porcentaje de la barra se sale por la derecha.
+ */
+.tutoring__grant {
+  margin-bottom: var(--space-4);
+  padding: var(--space-6);
+}
+
+.tutoring__grant-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.tutoring__grant-head h3 {
+  margin: 0;
+  font-size: var(--text-lg);
+}
+
+/* La fecha de contratación, debajo del título y sin separarse de él. */
+.tutoring__grant-head .muted {
+  margin: var(--space-1) 0 0;
+  font-size: var(--text-sm);
+}
+
+.tutoring__balance {
+  margin: var(--space-4) 0 var(--space-2);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── las tarjetas de la oferta ──────────────────────────────────────────────────────────
+ *
+ * En columna y con la descripción empujando: así el precio y el botón quedan a la misma altura
+ * en las cuatro, que es lo que permite compararlas de un vistazo. Con la altura suelta, cada
+ * botón cae donde acabe su texto y la fila parece rota.
+ */
+.tutoring__pack {
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-6);
+}
+
+.tutoring__pack-title {
+  margin: 0;
+  font-size: var(--text-lg);
+}
+
+.tutoring__pack-hours {
+  margin: var(--space-1) 0 0;
+  color: var(--text-muted);
+  font-size: var(--text-sm);
+  font-variant-numeric: tabular-nums;
+}
+
+.tutoring__pack-text {
+  /* Lo que empuja. Sin el `flex: 1`, las tarjetas cortas suben el botón y se descuadran. */
+  flex: 1;
+  margin: var(--space-3) 0 0;
+}
+
+/* El botón ocupa el ancho de la tarjeta: a 375 px un botón pequeño y pegado a la izquierda es
+   un objetivo de toque incómodo, y aquí es la única acción que hay. */
+.tutoring__pack .btn {
+  width: 100%;
+}
+
+.tutoring__history {
+  margin-top: var(--space-4);
+}
+
+.tutoring__history summary {
+  cursor: pointer;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  /* El summary por defecto no tiene área de toque suficiente en móvil. */
+  padding: var(--space-2) 0;
+}
+
+.tutoring__history-list {
+  list-style: none;
+  margin: var(--space-3) 0 0;
+  padding: 0 0 0 var(--space-4);
+  border-left: 2px solid var(--border);
+}
+
+.tutoring__history-item {
+  padding: var(--space-3) 0;
+  font-size: var(--text-sm);
+}
+
+.tutoring__history-item + .tutoring__history-item {
+  border-top: 1px solid var(--border);
+}
+
+.tutoring__history-item p {
+  margin: var(--space-1) 0 0;
+}
+
+/*
+ * Las tutorías convocadas. Van separadas del histórico y no dentro de un <details> porque son
+ * lo único de la tarjeta que exige algo del alumno: conectarse un día a una hora. Escondidas
+ * detrás de un desplegable no las vería hasta que fuera tarde.
+ */
+.tutoring__upcoming {
+  margin-top: var(--space-4);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--border);
+}
+
+.tutoring__upcoming h4 {
+  font-size: var(--text-sm);
+  font-weight: 700;
+  margin: 0;
+}
+
+.tutoring__upcoming > .muted {
+  font-size: var(--text-xs);
+  margin: var(--space-2) 0 0;
+}
+
+.tutoring__price {
+  font-size: var(--text-lg);
+  font-weight: 700;
+  margin: var(--space-2) 0 var(--space-3);
+}

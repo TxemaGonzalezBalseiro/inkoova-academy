@@ -1,0 +1,679 @@
+{
+  "manifestVersion": 1,
+  "courseSlug": "pre-curso-agent-engineering",
+  "title": "Fundamentos de IA Engineer",
+  "shortDescription": "Cuatro mini-bloques con las bases para construir con LLM. El primero, gratis.",
+  "longDescription": "P0 a P3: fundamentos de LLM, primera llamada a API, tool use y tu primer agent loop. Pensado para quien no supera el test de nivel.",
+  "level": "intro",
+  "sections": [
+    {
+      "title": "P0 · Fundamentos llm",
+      "order": 0,
+      "lessons": [
+        {
+          "slug": "p0-slide-0-que-es-un-llm-en-terminos-practicos",
+          "title": "Qué es un LLM, en términos prácticos",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agent-engineering-v3/pre-curso/P0-fundamentos-llm.html#slide-0",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "f5d7a030101a55b5e7f2ee4baf4b5897efe23d8f9b8384a4fb4b5fb001b7cfe6"
+        },
+        {
+          "slug": "p0-slide-1-tokens-context-window-y-por-que-importan",
+          "title": "Tokens, context window y por qué importan",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agent-engineering-v3/pre-curso/P0-fundamentos-llm.html#slide-1",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "f5d7a030101a55b5e7f2ee4baf4b5897efe23d8f9b8384a4fb4b5fb001b7cfe6"
+        },
+        {
+          "slug": "p0-slide-2-temperature-y-top-p-controlando-la-aleatoriedad",
+          "title": "Temperature y top_p: controlando la aleatoriedad",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agent-engineering-v3/pre-curso/P0-fundamentos-llm.html#slide-2",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "f5d7a030101a55b5e7f2ee4baf4b5897efe23d8f9b8384a4fb4b5fb001b7cfe6"
+        },
+        {
+          "slug": "p0-slide-3-roles-system-user-assistant",
+          "title": "Roles: system, user, assistant",
+          "type": "slides",
+          "durationMinutes": 3,
+          "contentRef": "agent-engineering-v3/pre-curso/P0-fundamentos-llm.html#slide-3",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "f5d7a030101a55b5e7f2ee4baf4b5897efe23d8f9b8384a4fb4b5fb001b7cfe6"
+        },
+        {
+          "slug": "p0-slide-4-modelos-cuando-usar-uno-u-otro",
+          "title": "Modelos: cuándo usar uno u otro",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agent-engineering-v3/pre-curso/P0-fundamentos-llm.html#slide-4",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "f5d7a030101a55b5e7f2ee4baf4b5897efe23d8f9b8384a4fb4b5fb001b7cfe6"
+        },
+        {
+          "slug": "p0-slide-5-limitaciones-que-no-se-notan-hasta-que-pasan",
+          "title": "Limitaciones que no se notan hasta que pasan",
+          "type": "slides",
+          "durationMinutes": 3,
+          "contentRef": "agent-engineering-v3/pre-curso/P0-fundamentos-llm.html#slide-5",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "f5d7a030101a55b5e7f2ee4baf4b5897efe23d8f9b8384a4fb4b5fb001b7cfe6"
+        },
+        {
+          "slug": "p0-slide-6-mini-quiz-de-comprension-p0",
+          "title": "Mini-quiz de comprensión — P0",
+          "type": "quiz",
+          "durationMinutes": 5,
+          "contentRef": "agent-engineering-v3/pre-curso/P0-fundamentos-llm.html#slide-6",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "f5d7a030101a55b5e7f2ee4baf4b5897efe23d8f9b8384a4fb4b5fb001b7cfe6"
+        },
+        {
+          "slug": "p0-slide-7-has-terminado-el-bloque-p0",
+          "title": "Has terminado el Bloque P0",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agent-engineering-v3/pre-curso/P0-fundamentos-llm.html#slide-7",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "f5d7a030101a55b5e7f2ee4baf4b5897efe23d8f9b8384a4fb4b5fb001b7cfe6"
+        }
+      ]
+    },
+    {
+      "title": "P1 · Primera llamada a api",
+      "order": 1,
+      "lessons": [
+        {
+          "slug": "p1-slide-0-anatomia-de-una-llamada-a-un-llm",
+          "title": "Anatomía de una llamada a un LLM",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agent-engineering-v3/pre-curso/P1-primera-llamada-a-api.html#slide-0",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "e75b983077ba92edf6797da11473f2073f773bc471a7ccd97e1e29a059753e31"
+        },
+        {
+          "slug": "p1-slide-1-tu-primera-llamada-en-python",
+          "title": "Tu primera llamada en Python",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agent-engineering-v3/pre-curso/P1-primera-llamada-a-api.html#slide-1",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "e75b983077ba92edf6797da11473f2073f773bc471a7ccd97e1e29a059753e31"
+        },
+        {
+          "slug": "p1-slide-2-lo-mismo-en-c-net",
+          "title": "Lo mismo en C#/.NET",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agent-engineering-v3/pre-curso/P1-primera-llamada-a-api.html#slide-2",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "e75b983077ba92edf6797da11473f2073f773bc471a7ccd97e1e29a059753e31"
+        },
+        {
+          "slug": "p1-slide-3-output-estructurado-por-que-importa",
+          "title": "Output estructurado: por qué importa",
+          "type": "slides",
+          "durationMinutes": 3,
+          "contentRef": "agent-engineering-v3/pre-curso/P1-primera-llamada-a-api.html#slide-3",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "e75b983077ba92edf6797da11473f2073f773bc471a7ccd97e1e29a059753e31"
+        },
+        {
+          "slug": "p1-slide-4-errores-retries-y-rate-limits",
+          "title": "Errores, retries y rate limits",
+          "type": "slides",
+          "durationMinutes": 3,
+          "contentRef": "agent-engineering-v3/pre-curso/P1-primera-llamada-a-api.html#slide-4",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "e75b983077ba92edf6797da11473f2073f773bc471a7ccd97e1e29a059753e31"
+        },
+        {
+          "slug": "p1-slide-5-mini-quiz-de-comprension-p1",
+          "title": "Mini-quiz de comprensión — P1",
+          "type": "quiz",
+          "durationMinutes": 5,
+          "contentRef": "agent-engineering-v3/pre-curso/P1-primera-llamada-a-api.html#slide-5",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "e75b983077ba92edf6797da11473f2073f773bc471a7ccd97e1e29a059753e31"
+        },
+        {
+          "slug": "p1-slide-6-has-terminado-el-bloque-p1",
+          "title": "Has terminado el Bloque P1",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agent-engineering-v3/pre-curso/P1-primera-llamada-a-api.html#slide-6",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "e75b983077ba92edf6797da11473f2073f773bc471a7ccd97e1e29a059753e31"
+        }
+      ]
+    },
+    {
+      "title": "P2 · Tool use function calling",
+      "order": 2,
+      "lessons": [
+        {
+          "slug": "p2-slide-0-por-que-tool-use-es-el-punto-de-inflexion",
+          "title": "Por qué tool use es el punto de inflexión",
+          "type": "slides",
+          "durationMinutes": 3,
+          "contentRef": "agent-engineering-v3/pre-curso/P2-tool-use-function-calling.html#slide-0",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "12f34b74178408f7ca71473946ce8890b1146f73b424e9b0bf9e46eb4ad8aa9a"
+        },
+        {
+          "slug": "p2-slide-1-anatomia-de-una-declaracion-de-tool",
+          "title": "Anatomía de una declaración de tool",
+          "type": "slides",
+          "durationMinutes": 3,
+          "contentRef": "agent-engineering-v3/pre-curso/P2-tool-use-function-calling.html#slide-1",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "12f34b74178408f7ca71473946ce8890b1146f73b424e9b0bf9e46eb4ad8aa9a"
+        },
+        {
+          "slug": "p2-slide-2-el-flujo-de-tool-use-end-to-end",
+          "title": "El flujo de tool use end-to-end",
+          "type": "slides",
+          "durationMinutes": 3,
+          "contentRef": "agent-engineering-v3/pre-curso/P2-tool-use-function-calling.html#slide-2",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "12f34b74178408f7ca71473946ce8890b1146f73b424e9b0bf9e46eb4ad8aa9a"
+        },
+        {
+          "slug": "p2-slide-3-diseno-de-tools-principios",
+          "title": "Diseño de tools: principios",
+          "type": "slides",
+          "durationMinutes": 3,
+          "contentRef": "agent-engineering-v3/pre-curso/P2-tool-use-function-calling.html#slide-3",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "12f34b74178408f7ca71473946ce8890b1146f73b424e9b0bf9e46eb4ad8aa9a"
+        },
+        {
+          "slug": "p2-slide-4-errores-tipicos-de-la-primera-semana-con-tools",
+          "title": "Errores típicos de la primera semana con tools",
+          "type": "slides",
+          "durationMinutes": 3,
+          "contentRef": "agent-engineering-v3/pre-curso/P2-tool-use-function-calling.html#slide-4",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "12f34b74178408f7ca71473946ce8890b1146f73b424e9b0bf9e46eb4ad8aa9a"
+        },
+        {
+          "slug": "p2-slide-5-mini-quiz-de-comprension-p2",
+          "title": "Mini-quiz de comprensión — P2",
+          "type": "quiz",
+          "durationMinutes": 5,
+          "contentRef": "agent-engineering-v3/pre-curso/P2-tool-use-function-calling.html#slide-5",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "12f34b74178408f7ca71473946ce8890b1146f73b424e9b0bf9e46eb4ad8aa9a"
+        },
+        {
+          "slug": "p2-slide-6-has-terminado-el-bloque-p2",
+          "title": "Has terminado el Bloque P2",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agent-engineering-v3/pre-curso/P2-tool-use-function-calling.html#slide-6",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "12f34b74178408f7ca71473946ce8890b1146f73b424e9b0bf9e46eb4ad8aa9a"
+        }
+      ]
+    },
+    {
+      "title": "P3 · Tu primer agent loop",
+      "order": 3,
+      "lessons": [
+        {
+          "slug": "p3-slide-0-workflow-vs-agente-la-decision-arquitectonica-mas-importante",
+          "title": "Workflow vs Agente: la decisión arquitectónica más importante",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agent-engineering-v3/pre-curso/P3-tu-primer-agent-loop.html#slide-0",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "0f35bd640f5840071edc209721df6b880c74ebdd7621dc3171f84db67141a7cc"
+        },
+        {
+          "slug": "p3-slide-1-el-agent-loop-canonico-pseudocodigo",
+          "title": "El agent loop canónico: pseudocódigo",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agent-engineering-v3/pre-curso/P3-tu-primer-agent-loop.html#slide-1",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "0f35bd640f5840071edc209721df6b880c74ebdd7621dc3171f84db67141a7cc"
+        },
+        {
+          "slug": "p3-slide-2-implementacion-minima-en-python",
+          "title": "Implementación mínima en Python",
+          "type": "slides",
+          "durationMinutes": 3,
+          "contentRef": "agent-engineering-v3/pre-curso/P3-tu-primer-agent-loop.html#slide-2",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "0f35bd640f5840071edc209721df6b880c74ebdd7621dc3171f84db67141a7cc"
+        },
+        {
+          "slug": "p3-slide-3-hard-limits-lo-que-siempre-debes-poner",
+          "title": "Hard limits: lo que SIEMPRE debes poner",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agent-engineering-v3/pre-curso/P3-tu-primer-agent-loop.html#slide-3",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "0f35bd640f5840071edc209721df6b880c74ebdd7621dc3171f84db67141a7cc"
+        },
+        {
+          "slug": "p3-slide-4-proximos-pasos-del-prototipo-al-curso-real",
+          "title": "Próximos pasos: del prototipo al curso real",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agent-engineering-v3/pre-curso/P3-tu-primer-agent-loop.html#slide-4",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "0f35bd640f5840071edc209721df6b880c74ebdd7621dc3171f84db67141a7cc"
+        },
+        {
+          "slug": "p3-slide-5-mini-quiz-de-comprension-p3",
+          "title": "Mini-quiz de comprensión — P3",
+          "type": "quiz",
+          "durationMinutes": 5,
+          "contentRef": "agent-engineering-v3/pre-curso/P3-tu-primer-agent-loop.html#slide-5",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "0f35bd640f5840071edc209721df6b880c74ebdd7621dc3171f84db67141a7cc"
+        },
+        {
+          "slug": "p3-slide-6-has-terminado-el-bloque-p3",
+          "title": "Has terminado el Bloque P3",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agent-engineering-v3/pre-curso/P3-tu-primer-agent-loop.html#slide-6",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "0f35bd640f5840071edc209721df6b880c74ebdd7621dc3171f84db67141a7cc"
+        }
+      ]
+    }
+  ],
+  "quizzes": [
+    {
+      "slug": "pre-curso-agent-engineering-pre-p0",
+      "title": "Comprobación PRE-P0",
+      "kind": "blockcheck",
+      "questions": [
+        {
+          "category": "PRE-P0",
+          "text": "Si trabajas con un prompt de 80.000 tokens y obtienes 2.000 tokens de output, ¿cuál de estas afirmaciones es más correcta?",
+          "explanation": "El input domina el coste cuando es mucho mayor que el output. Aunque cada token de output cueste 3-5× más, 80.000 tokens de input multiplicados por su precio unitario superan a 2.000 tokens de output. Lección: cuidar el tamaño del prompt es la primera palanca de control de coste.",
+          "options": [
+            {
+              "index": 0,
+              "text": "El coste será aproximadamente igual al que tendrías con un prompt de 1.000 tokens, porque solo se paga el output.",
+              "isCorrect": false
+            },
+            {
+              "index": 1,
+              "text": "El coste estará dominado por el input (80.000 tokens), aunque cada token de input sea más barato que cada uno de output.",
+              "isCorrect": true
+            },
+            {
+              "index": 2,
+              "text": "El coste será exactamente el mismo independientemente del tamaño del prompt.",
+              "isCorrect": false
+            },
+            {
+              "index": 3,
+              "text": "El context window no afecta al coste, solo a la velocidad.",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "category": "PRE-P0",
+          "text": "Quieres que un LLM clasifique tickets en una de 5 categorías. ¿Qué configuración tiene más sentido?",
+          "explanation": "Clasificación es tarea simple y debe ser reproducible. Haiku (modelo más pequeño, más barato, más rápido) basta. Temperature 0 garantiza el mismo label para el mismo ticket. Forzar output a uno de los 5 labels evita respuestas creativas indeseadas. Usar Opus aquí es over-engineering caro.",
+          "options": [
+            {
+              "index": 0,
+              "text": "Opus, temperature 0.9, max_tokens 500.",
+              "isCorrect": false
+            },
+            {
+              "index": 1,
+              "text": "Haiku, temperature 0, output forzado a uno de los 5 labels.",
+              "isCorrect": true
+            },
+            {
+              "index": 2,
+              "text": "Sonnet, temperature 1.0, sin instrucciones de formato.",
+              "isCorrect": false
+            },
+            {
+              "index": 3,
+              "text": "Cualquier modelo, pero temperature alta para que sea más 'creativo' eligiendo.",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "category": "PRE-P0",
+          "text": "Tu LLM debe responder preguntas sobre el catálogo de productos actual de tu empresa. ¿Cuál es la estrategia correcta?",
+          "explanation": "Tu catálogo no estaba en el entrenamiento del modelo, así que el modelo no lo conoce. Y cambia con el tiempo. La solución correcta es traer el catálogo al contexto en el momento de la pregunta (vía RAG o tools), no esperar que el modelo lo sepa. Entrenar un modelo propio es caro y sobre-ingeniería para este caso.",
+          "options": [
+            {
+              "index": 0,
+              "text": "Entrenar un modelo propio con todo tu catálogo.",
+              "isCorrect": false
+            },
+            {
+              "index": 1,
+              "text": "Confiar en que el modelo \"sabe\" sobre productos en general.",
+              "isCorrect": false
+            },
+            {
+              "index": 2,
+              "text": "Pasar el catálogo completo en cada llamada en el system prompt.",
+              "isCorrect": false
+            },
+            {
+              "index": 3,
+              "text": "Dar al LLM acceso al catálogo vía RAG o tools — buscar la info en el momento, no en el entrenamiento.",
+              "isCorrect": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "pre-curso-agent-engineering-pre-p1",
+      "title": "Comprobación PRE-P1",
+      "kind": "blockcheck",
+      "questions": [
+        {
+          "category": "PRE-P1",
+          "text": "Llamas a la API de un LLM y necesitas un JSON con campos específicos para parsearlo en tu código. ¿Cuál es la mejor estrategia?",
+          "explanation": "Pedir JSON con palabras al LLM funciona en el 90% de los casos, pero el 10% que falla rompe tu sistema. La forma robusta es forzar el formato con tool use (Anthropic) o response_format con schema (OpenAI). Eso garantiza por construcción que recibes un JSON válido contra el schema.",
+          "options": [
+            {
+              "index": 0,
+              "text": "Pedir al LLM en el prompt que devuelva JSON, y parsear con `json.loads()`. Si falla, pedirlo otra vez.",
+              "isCorrect": false
+            },
+            {
+              "index": 1,
+              "text": "Usar el feature de output estructurado del proveedor (tool use con schema en Anthropic, json_schema en OpenAI), garantizando el formato.",
+              "isCorrect": true
+            },
+            {
+              "index": 2,
+              "text": "Usar regex para extraer cada campo del texto libre que devuelva el LLM.",
+              "isCorrect": false
+            },
+            {
+              "index": 3,
+              "text": "No es posible obtener output estructurado, el LLM siempre devuelve texto.",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "category": "PRE-P1",
+          "text": "Tu llamada a la API falla con un error 429 (rate limit). ¿Qué deberías hacer?",
+          "explanation": "Rate limits son transitorios — el cupo se restablece. La estrategia correcta es esperar con backoff exponencial (espera creciente entre intentos) más un poco de jitter aleatorio (para evitar thundering herd si tu servicio tiene múltiples workers). Reintentar inmediatamente solo te re-banea. Cambiar de modelo no soluciona si el límite es por organización.",
+          "options": [
+            {
+              "index": 0,
+              "text": "Reintentar inmediatamente.",
+              "isCorrect": false
+            },
+            {
+              "index": 1,
+              "text": "Cambiar de modelo y reintentar.",
+              "isCorrect": false
+            },
+            {
+              "index": 2,
+              "text": "Esperar (con backoff exponencial + jitter) y reintentar; tras N intentos fallidos, fallar de forma controlada.",
+              "isCorrect": true
+            },
+            {
+              "index": 3,
+              "text": "Fallar inmediatamente y reportar bug al proveedor.",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "category": "PRE-P1",
+          "text": "Vas a procesar 10.000 emails por noche con un LLM, clasificándolos en 3 categorías. ¿Qué configuración tiene más sentido en términos de coste y robustez?",
+          "explanation": "Para clasificación: modelo pequeño y barato (Haiku) suele bastar — 10.000 llamadas costarían $0.50-2 vs $50-200 con Opus. Temperature 0 para reproducibilidad. Output estructurado evita errores de parseo. Retry+backoff manejan rate limits. Y en producción, NO ejecutes todo en paralelo sin control — explotas el rate limit; mejor batches controlados o queue de workers.",
+          "options": [
+            {
+              "index": 0,
+              "text": "Opus, temperature 0.7, sin output estructurado, sin retry.",
+              "isCorrect": false
+            },
+            {
+              "index": 1,
+              "text": "Haiku, temperature 0, output forzado a uno de los 3 labels vía tool use, con retry y backoff configurados.",
+              "isCorrect": true
+            },
+            {
+              "index": 2,
+              "text": "Sonnet, sin temperature configurado, parseando texto libre con regex.",
+              "isCorrect": false
+            },
+            {
+              "index": 3,
+              "text": "Cualquier modelo, ejecutando todos los emails en paralelo sin control.",
+              "isCorrect": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "pre-curso-agent-engineering-pre-p2",
+      "title": "Comprobación PRE-P2",
+      "kind": "blockcheck",
+      "questions": [
+        {
+          "category": "PRE-P2",
+          "text": "¿Cuál de estas tools está MEJOR diseñada?",
+          "explanation": "La tercera tiene: (a) nombre específico verbo+objeto, (b) schema con tipos exactos y enum para status, (c) parámetro obligatorio claro, (d) descripción que dice CUÁNDO usar la tool. Las otras son demasiado genéricas y son riesgos de seguridad (do_database_operation con SQL libre = SQL injection vía LLM).",
+          "options": [
+            {
+              "index": 0,
+              "text": "<code>execute_action(action: str, payload: dict)</code> — \"Ejecuta una acción del sistema.\"",
+              "isCorrect": false
+            },
+            {
+              "index": 1,
+              "text": "<code>do_database_operation(query: str)</code> — \"Ejecuta SQL contra la base de datos.\"",
+              "isCorrect": false
+            },
+            {
+              "index": 2,
+              "text": "<code>get_customer_orders(customer_id: str, status: 'pending'|'shipped'|'delivered'|'all', limit: int)</code> — \"Devuelve órdenes de un cliente filtradas por estado. Usar cuando el usuario pregunte por sus pedidos. customer_id es obligatorio.\"",
+              "isCorrect": true
+            },
+            {
+              "index": 3,
+              "text": "<code>helper(input: any)</code> — \"Hace lo que necesites con el input dado.\"",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "category": "PRE-P2",
+          "text": "Tu agente recibe del LLM una invocación a una tool con un `customer_id=99999` que no existe en tu sistema. ¿Cuál es la respuesta correcta?",
+          "explanation": "Errores en las tools deben pasar al LLM como información, no como crashes. Un `tool_result` con un mensaje claro de error permite al LLM razonar sobre la situación y recuperarse (pidiendo aclaración, intentando otro enfoque, o reportando al usuario). Crashear pierde el progreso; devolver `null` confunde al LLM.",
+          "options": [
+            {
+              "index": 0,
+              "text": "Tu código lanza una excepción y el agente crashea.",
+              "isCorrect": false
+            },
+            {
+              "index": 1,
+              "text": "Tu tool intenta procesar como si el cliente existiese.",
+              "isCorrect": false
+            },
+            {
+              "index": 2,
+              "text": "Tu tool devuelve un `tool_result` con error claro: \"customer_id=99999 no encontrado\". El LLM lo lee y puede pedir aclaración al usuario.",
+              "isCorrect": true
+            },
+            {
+              "index": 3,
+              "text": "Devolver `null` o un objeto vacío sin más.",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "category": "PRE-P2",
+          "text": "Tu agent loop con tools entra en un bucle: el LLM pide la misma tool con el mismo input una y otra vez. ¿Cuál es la causa más probable?",
+          "explanation": "Bucles de tool repetida son típicamente porque la observación que recibe el LLM no le da pistas claras de qué hacer distinto. Mitigaciones: (1) outputs de tool más informativos (estado explícito: success/no_results/error), (2) detección de tool calls duplicadas en código y forzar replanteamiento, (3) límite duro de iteraciones para evitar consumo descontrolado.",
+          "options": [
+            {
+              "index": 0,
+              "text": "Bug en el SDK del LLM.",
+              "isCorrect": false
+            },
+            {
+              "index": 1,
+              "text": "La tool devuelve un resultado que el LLM interpreta como incompleto o ambiguo, pero no tiene contexto para cambiar de estrategia.",
+              "isCorrect": true
+            },
+            {
+              "index": 2,
+              "text": "Necesitas un modelo más grande.",
+              "isCorrect": false
+            },
+            {
+              "index": 3,
+              "text": "Es comportamiento normal e inevitable.",
+              "isCorrect": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "pre-curso-agent-engineering-pre-p3",
+      "title": "Comprobación PRE-P3",
+      "kind": "blockcheck",
+      "questions": [
+        {
+          "category": "PRE-P3",
+          "text": "Estás diseñando un sistema para extraer datos estructurados de facturas (mismo flujo siempre: OCR → extraer campos → validar → guardar). ¿Cuál es la arquitectura correcta?",
+          "explanation": "El flujo es conocido y fijo: OCR → extraer → validar → guardar. Esto es un workflow determinista, no un agente. El LLM solo se necesita en el paso de extracción (interpretar texto OCR a campos estructurados). Diseñarlo como agente añade coste, latencia y complejidad sin valor.",
+          "options": [
+            {
+              "index": 0,
+              "text": "Agente con LLM autónomo que decide en cada factura qué hacer.",
+              "isCorrect": false
+            },
+            {
+              "index": 1,
+              "text": "Workflow con pasos fijos, usando LLM solo en el paso de extracción.",
+              "isCorrect": true
+            },
+            {
+              "index": 2,
+              "text": "Multi-agente con un agente por cada campo.",
+              "isCorrect": false
+            },
+            {
+              "index": 3,
+              "text": "Sistema sin LLM.",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "category": "PRE-P3",
+          "text": "En el agent loop canónico, ¿qué condición indica que el LLM ha terminado y puedes devolver la respuesta al usuario?",
+          "explanation": "El loop termina cuando el LLM da una respuesta de texto final (stop_reason == 'end_turn'). Las otras condiciones (max_iterations, timeout, cost cap) son fallback de seguridad para evitar bucles infinitos — son condiciones de error, no de éxito normal.",
+          "options": [
+            {
+              "index": 0,
+              "text": "Has alcanzado max_iterations.",
+              "isCorrect": false
+            },
+            {
+              "index": 1,
+              "text": "El response del LLM tiene stop_reason == \"end_turn\".",
+              "isCorrect": true
+            },
+            {
+              "index": 2,
+              "text": "Ha pasado un tiempo predefinido.",
+              "isCorrect": false
+            },
+            {
+              "index": 3,
+              "text": "Has gastado todo tu cost budget.",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "category": "PRE-P3",
+          "text": "Vas a poner tu primer agente en producción. ¿Cuál de estas medidas NO deberías considerar opcional?",
+          "explanation": "Hard limits son OBLIGATORIOS en producción, no opcionales. Un bug en lógica de control puede generar bucles infinitos que consuman cientos de dólares en horas. Logo, animaciones y mensajes son nice-to-haves; los caps son la diferencia entre un incidente menor y uno serio.",
+          "options": [
+            {
+              "index": 0,
+              "text": "Logo bonito en la UI.",
+              "isCorrect": false
+            },
+            {
+              "index": 1,
+              "text": "Hard limits explícitos en max_iterations, max_cost_per_request, max_cost_per_user_per_hour. Si se exceden: HARD STOP con error claro.",
+              "isCorrect": true
+            },
+            {
+              "index": 2,
+              "text": "Animaciones suaves en el frontend.",
+              "isCorrect": false
+            },
+            {
+              "index": 3,
+              "text": "Mensajes de bienvenida personalizados.",
+              "isCorrect": false
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "assets": []
+}

@@ -1,0 +1,14 @@
+# Los tfvars reales llevan secretos (Stripe, SMTP, claves de firma): NUNCA se versionan.
+# Solo entran los .example.tfvars, que llevan placeholders.
+*.tfvars
+!envs/*.example.tfvars
+
+# Estado local de terraform. El state guarda la contraseña de Postgres y todos los
+# secretos en claro: si algún día se comparte, moverlo a un backend azurerm cifrado.
+*.tfstate
+*.tfstate.*
+terraform.tfstate.d/
+.terraform/
+
+# Volcados intermedios de migrate-db.ps1
+*.dump

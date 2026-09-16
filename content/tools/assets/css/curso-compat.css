@@ -1,0 +1,134 @@
+/* ════════════════════════════════════════════════════════════════════
+   Re-skin de los cursos legados de fichero único (prompt-engineering).
+
+   El documento original trae su propio <style> con otra identidad (Syne,
+   neón sobre negro, solo tema oscuro). Reescribir ese CSS a mano sería
+   mantener un fork; en su lugar, esta hoja se carga DESPUÉS y redefine
+   sus variables y sus pocos colores fijos con los tokens de curso.css,
+   de forma que todos los cursos compartan tipografía, paleta y los dos
+   temas de la academia. La inyecta el importador (importer.py).
+   ════════════════════════════════════════════════════════════════════ */
+
+/* ── tokens del documento legado, mapeados a la paleta de curso.css ── */
+
+:root,
+[data-theme="light"] {
+  --bg:  #f0f2f7;   /* color-bg-canvas   */
+  --bg1: #ffffff;   /* color-surface     */
+  --bg2: #f6f7fa;   /* color-bg-soft     */
+  --bg3: #eaeef5;   /* color-accent-light*/
+
+  --border:  #d8dce5;
+  --border2: #9ea4b8;
+
+  --t1: #1a1a2e;    /* color-text        */
+  --t2: #4a4a5e;    /* color-text-soft   */
+  --t3: #8a8a9e;    /* color-text-muted  */
+
+  /* Los cuatro acentos neón del original, traducidos a la marca. */
+  --cyan:    #3b4f9e;   /* color-accent-bright */
+  --magenta: #dc2626;   /* color-error         */
+  --gold:    #c4a374;   /* color-brand-mark    */
+  --lime:    #16a34a;   /* color-success       */
+  --acc:     #1a1a2e;   /* color-accent        */
+
+  /* Tokens propios de la compat, para lo que el original no distinguía. */
+  --surface:   #ffffff; /* la tarjeta de la lección, como color-surface */
+  --block-bg:  #f6f7fa; /* bloques de código sobre la tarjeta           */
+  --card-shadow: 0 12px 32px rgba(26, 26, 46, 0.12);
+}
+
+[data-theme="dark"] {
+  --bg:  #08080f;
+  --bg1: #0f0f1e;
+  --bg2: #1a1a2e;
+  --bg3: #2a2a44;
+
+  --border:  #2a2d3e;
+  --border2: #4a4f66;
+
+  --t1: #e8eaf0;
+  --t2: #b8bccc;
+  --t3: #6a6e80;
+
+  --cyan:    #d8b885;
+  --magenta: #f87171;
+  --gold:    #c4a374;
+  --lime:    #4ade80;
+  --acc:     #c4a374;
+
+  --surface:   #1a1a2e;
+  --block-bg:  #0f0f1e;
+  --card-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
+}
+
+/* ── tipografía: Inter en todo, como el resto de cursos ─────────────── */
+
+body,
+.btn,
+#search {
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+               "Helvetica Neue", Arial, sans-serif;
+}
+
+.brand,
+.l-title,
+.prose h1,
+.prose h2,
+.prose h3,
+#pane-inicio .prose > h1:first-child {
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+               sans-serif;
+}
+
+/* Syne compensaba con tracking muy negativo; con Inter queda amontonado. */
+.brand { letter-spacing: -0.2px; }
+.l-title { letter-spacing: -0.8px; }
+.prose h1 { letter-spacing: -0.5px; }
+.prose h2 { letter-spacing: -0.3px; }
+.prose h3 { letter-spacing: 0; }
+#pane-inicio .prose > h1:first-child { letter-spacing: -1px; }
+
+/* ── colores que el original dejó fijos (asumían fondo negro) ────────── */
+
+body { background: var(--bg); }
+
+::selection { background: var(--acc); color: var(--surface); }
+
+.prose p,
+.prose ul,
+.prose ol { color: var(--t1); }
+
+.prose blockquote p { color: var(--t1); }
+.prose td { color: var(--t2); }
+.prose a { border-bottom-color: var(--border2); }
+
+/* Como el deck: lo enfatizado va en el acento, no solo en negrita. */
+.prose strong { color: var(--acc); font-weight: 700; }
+
+.block { background: var(--block-bg); }
+.block code { color: var(--t1); }
+
+.btn-next { color: var(--surface); }
+
+.prose tbody tr:hover td { background: var(--bg3); }
+
+/* ── la lección como tarjeta, igual que las slides del deck ──────────── */
+
+.pane {
+  max-width: 920px;
+  margin: 48px auto 90px;
+  padding: 56px 64px;
+  background: var(--surface);
+  border-radius: 14px;          /* radius-lg de curso.css */
+  box-shadow: var(--card-shadow);
+}
+
+.pane-foot { border-top-color: var(--border); }
+
+@media (max-width: 900px) {
+  .pane {
+    margin: 70px 12px 60px;
+    padding: 32px 22px;
+  }
+}

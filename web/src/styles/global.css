@@ -1,0 +1,615 @@
+@import './tokens.css';
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+/* Quien pide menos movimiento no lo recibe, ni siquiera en el scroll. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  line-height: 1.6;
+  color: var(--text);
+  background: var(--surface);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  margin: 0 0 var(--space-4);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  font-weight: 800;
+}
+
+h1 {
+  font-size: clamp(2rem, 5vw, var(--text-4xl));
+}
+
+h2 {
+  font-size: clamp(1.5rem, 3.5vw, var(--text-3xl));
+}
+
+h3 {
+  font-size: var(--text-xl);
+}
+
+p {
+  margin: 0 0 var(--space-4);
+}
+
+a {
+  color: var(--ink-blue);
+  text-underline-offset: 3px;
+}
+
+img,
+svg,
+iframe {
+  max-width: 100%;
+}
+
+/* El foco visible no se quita nunca: es la única navegación de quien usa teclado. */
+:focus-visible {
+  outline: 3px solid var(--ink-magenta);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+.container {
+  width: 100%;
+  max-width: var(--container);
+  margin-inline: auto;
+  padding-inline: var(--space-4);
+}
+
+.section {
+  padding-block: var(--space-16);
+}
+
+.section--muted {
+  background: var(--surface-muted);
+}
+
+/* Enlace de salto: primer tabulable de la página, visible solo al enfocarlo. */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 100;
+  padding: var(--space-3) var(--space-4);
+  background: var(--ink-blue);
+  color: var(--on-brand);
+  border-radius: 0 0 var(--radius) 0;
+}
+
+.skip-link:focus {
+  left: 0;
+}
+
+/* Visible para lectores de pantalla, invisible en pantalla. */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ── botones ─────────────────────────────────────────────────────────────── */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-6);
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+  font: inherit;
+  font-weight: 600;
+  font-size: var(--text-sm);
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
+  /* Objetivo táctil mínimo cómodo en móvil. */
+  min-height: 44px;
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/*
+ * El texto de los botones de marca es `--on-brand`, no `#fff`: en oscuro la marca se aclara
+ * para poder leerse como texto en el resto de la web, y sobre azul claro el blanco desaparece.
+ */
+.btn--primary {
+  background: var(--ink-blue);
+  color: var(--on-brand);
+}
+
+.btn--primary:hover:not(:disabled) {
+  background: var(--ink-blue-600);
+}
+
+.btn--accent {
+  background: var(--ink-magenta);
+  color: var(--on-brand);
+}
+
+.btn--accent:hover:not(:disabled) {
+  background: var(--ink-magenta-600);
+}
+
+.btn--ghost {
+  background: transparent;
+  color: var(--text);
+  border-color: var(--border);
+}
+
+.btn--ghost:hover:not(:disabled) {
+  border-color: var(--ink-blue);
+  color: var(--ink-blue);
+}
+
+.btn--sm {
+  padding: var(--space-2) var(--space-4);
+  min-height: 36px;
+  font-size: var(--text-xs);
+}
+
+/*
+ * Botón de solo icono. Mantiene el objetivo táctil cuadrado y exige `aria-label`: sin texto
+ * visible, el icono es lo único que hay y un lector de pantalla no lee un SVG decorativo.
+ */
+.btn--icon {
+  padding: 0;
+  width: 36px;
+  min-width: 36px;
+  height: 36px;
+  min-height: 36px;
+}
+
+.btn:not(.btn--sm).btn--icon {
+  width: 44px;
+  min-width: 44px;
+  height: 44px;
+}
+
+/* Icono + texto: el icono no debe encogerse cuando el texto es largo. */
+.btn--icon-text > svg {
+  flex-shrink: 0;
+}
+
+/*
+ * Estados de foco visibles en todos los botones. El foco por teclado no puede depender del
+ * outline por defecto del navegador, que en fondos de color casi no se ve.
+ */
+.btn:focus-visible {
+  outline: 2px solid var(--ink-blue-600);
+  outline-offset: 2px;
+}
+
+.btn--primary:focus-visible,
+.btn--accent:focus-visible {
+  outline-color: var(--ink-900);
+}
+
+/* ── formularios ─────────────────────────────────────────────────────────── */
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin-bottom: var(--space-4);
+}
+
+.field label {
+  font-size: var(--text-sm);
+  font-weight: 600;
+}
+
+.field input,
+.field select,
+.field textarea {
+  padding: var(--space-3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+  min-height: 44px;
+  transition: border-color 0.15s var(--ease), box-shadow 0.15s var(--ease);
+}
+
+/*
+ * El foco se marca con anillo además del borde. Un borde de 1 px que solo cambia de color se
+ * pierde en una pantalla llena de campos, y engordarlo desplazaría el resto del formulario.
+ */
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  border-color: var(--ink-blue);
+  box-shadow: var(--ring);
+}
+
+.field input::placeholder,
+.field textarea::placeholder {
+  color: var(--text-muted);
+  opacity: 0.7;
+}
+
+.field .hint {
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+}
+
+/* ── avisos ──────────────────────────────────────────────────────────────── */
+
+.alert {
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius);
+  border-left: 3px solid;
+  font-size: var(--text-sm);
+  margin-bottom: var(--space-4);
+}
+
+/*
+ * Los colores salen de tokens y no de literales. Con literales había que repetir cada aviso
+ * en el bloque de `prefers-color-scheme` y otra vez en el de `data-theme`, y el oscuro manual
+ * se quedaba con el aviso en claro (que es justo lo que pasaba con `.alert--info`).
+ */
+.alert--error {
+  background: var(--alert-error-bg);
+  border-color: var(--ink-error);
+  color: var(--alert-error-fg);
+}
+
+.alert--success {
+  background: var(--alert-success-bg);
+  border-color: var(--ink-success);
+  color: var(--alert-success-fg);
+}
+
+.alert--info {
+  background: var(--alert-info-bg);
+  border-color: var(--ink-blue);
+  color: var(--alert-info-fg);
+}
+
+/* ── tarjetas y rejillas ─────────────────────────────────────────────────── */
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+/*
+ * Tarjeta sobre la que se puede pulsar. El realce va en borde y sombra, no en movimiento: una
+ * rejilla entera de tarjetas que saltan al pasar el ratón marea, y en `prefers-reduced-motion`
+ * habría que desactivarlo de todos modos.
+ */
+.card--interactive {
+  transition: border-color 0.15s var(--ease), box-shadow 0.15s var(--ease);
+}
+
+.card--interactive:hover,
+.card--interactive:focus-within {
+  border-color: var(--ink-blue);
+  box-shadow: var(--shadow);
+}
+
+.grid {
+  display: grid;
+  gap: var(--space-6);
+}
+
+.grid--cards {
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+}
+
+/*
+ * Dato escueto con su icono: nivel, duración, número de clases. Es el ladrillo con el que se
+ * escanea una tarjeta o una ficha sin leerla entera.
+ */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: 2px var(--space-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.chip > svg {
+  flex-shrink: 0;
+  opacity: 0.75;
+}
+
+.chip--brand {
+  border-color: transparent;
+  background: var(--ink-blue-050);
+  color: var(--ink-blue);
+}
+
+.chip--accent {
+  border-color: transparent;
+  background: var(--ink-magenta-050);
+  color: var(--ink-magenta);
+}
+
+.chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+/*
+ * Proceso numerado. El número del `<ol>` por defecto es un dígito suelto en el margen; aquí
+ * es una ficha con una línea que la une a la siguiente, para que se lea como una secuencia y
+ * no como una lista de cuatro cosas sin orden.
+ */
+.steps {
+  list-style: none;
+  counter-reset: step;
+  margin: 0 0 var(--space-12);
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.steps > li {
+  position: relative;
+  counter-increment: step;
+  padding-left: calc(var(--space-12) + var(--space-1));
+  min-height: 2.25rem;
+}
+
+.steps > li::before {
+  content: counter(step);
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: var(--radius);
+  background: var(--ink-blue-050);
+  color: var(--ink-blue);
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Hilo entre pasos. El último no lo lleva: no hay nada después. */
+.steps > li:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  left: calc(2.25rem / 2 - 1px);
+  top: 2.5rem;
+  bottom: calc(-1 * var(--space-6));
+  width: 2px;
+  background: var(--border);
+}
+
+/*
+ * Retícula de fondo. Va en un pseudoelemento con máscara para que se desvanezca por abajo:
+ * a borde vivo se lee como una tabla y compite con el contenido.
+ */
+.surface-grid {
+  position: relative;
+  isolation: isolate;
+}
+
+.surface-grid::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image:
+    linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+  background-size: var(--grid-size) var(--grid-size);
+  mask-image: linear-gradient(to bottom, #000 0%, transparent 85%);
+}
+
+/*
+ * El distintivo BASE ya se ve. Antes solo tenían fondo los modificadores —`--new`,
+ * `--featured`, `--soon`—, así que un `<span class="badge">` a secas salía como texto en
+ * mayúsculas flotando en una esquina, sin parecer una etiqueta. Y a secas se usa en bastantes
+ * sitios: el estado de una bolsa de tutorías, el de un pack, el de una cita.
+ */
+.badge {
+  display: inline-block;
+  padding: 2px var(--space-2);
+  border-radius: var(--radius-full);
+  background: var(--surface-muted);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  /* No se parte: «EN PAUSA» en dos líneas dentro de una píldora queda roto. */
+  white-space: nowrap;
+}
+
+/* Los modificadores traen su propio color y no necesitan el borde del base. */
+.badge--new,
+.badge--featured,
+.badge--soon {
+  border-color: transparent;
+}
+
+.badge--new {
+  background: var(--ink-magenta-050);
+  color: var(--ink-magenta);
+}
+
+.badge--featured {
+  background: var(--ink-blue-050);
+  color: var(--ink-blue);
+}
+
+.badge--soon {
+  background: var(--ink-100);
+  color: var(--text-muted);
+}
+
+.muted {
+  color: var(--text-muted);
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--text-sm);
+}
+
+th,
+td {
+  text-align: left;
+  padding: var(--space-3);
+  border-bottom: 1px solid var(--border);
+}
+
+th {
+  font-weight: 700;
+  color: var(--text-muted);
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* Cualquier tabla ancha hace scroll dentro de su caja, nunca la página. */
+.table-scroll {
+  overflow-x: auto;
+}
+
+/* ── código ──────────────────────────────────────────────────────────────── */
+
+/*
+ * No había estilo ninguno: un `<code>` heredaba la fuente del sistema y un identificador
+ * quedaba indistinguible de la frase que lo rodea. Todo sale de tokens, así que la pastilla
+ * se oscurece sola y no hay que repetir nada por tema.
+ */
+code,
+kbd,
+samp {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+}
+
+/* Solo el código en línea lleva pastilla: dentro de un `<pre>` la caja ya es el bloque. */
+:not(pre) > code {
+  padding: 0.1em 0.35em;
+  border-radius: var(--radius-sm);
+  background: var(--ink-100);
+  /* El color lo pone el contexto: dentro de `.muted` el identificador sigue siendo secundario. */
+  color: inherit;
+  overflow-wrap: break-word;
+}
+
+pre {
+  margin: 0 0 var(--space-4);
+  padding: var(--space-4);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface-muted);
+  font-size: var(--text-sm);
+  line-height: 1.6;
+  /* Un volcado largo hace scroll dentro de su caja, nunca la página. */
+  overflow-x: auto;
+}
+
+/* ── correcciones de tema de hojas que no se editan desde aquí ───────────── */
+
+/*
+ * Estas reglas pertenecen conceptualmente a `pages/*.css`, pero se corrigen desde aquí porque
+ * el problema es del sistema de temas, no de la página. Llevan `:root` delante solo para ganar
+ * el desempate de especificidad pase lo que pase con el orden en que Vite agrupe los chunks
+ * de CSS: hoy `global.css` va el último, pero eso depende del grafo de módulos.
+ */
+
+/* `#92400e` sobre ámbar al 14% se queda en 1,5:1 cuando el fondo es oscuro. */
+:root .status-pill--pastdue {
+  color: var(--warn-fg);
+}
+
+/*
+ * Marcas de estado sobre superficie de marca. Son estados que tienen que cantar, así que en
+ * oscuro la superficie se aclara y lo que va encima pasa a ser tinta.
+ */
+:root .quiz__option.is-selected .quiz__letter,
+:root .roadmap__node--completed .roadmap__marker {
+  color: var(--on-brand);
+}
+
+/*
+ * Superficies decorativas de marca con texto blanco encima. Aquí la marca NO se aclara: se
+ * fija el tono profundo en los dos temas, porque una portada pastel en una rejilla de tarjetas
+ * oscuras grita más que el título del curso que va debajo. Sin bloque oscuro: en claro estos
+ * valores son exactamente los que ya había, así que una sola regla sirve para los dos temas.
+ */
+:root .course-card__cover,
+:root .account__avatar,
+:root .plan-card--highlight::before {
+  --ink-blue: #1e3a8a;
+  --ink-magenta: #db2777;
+}

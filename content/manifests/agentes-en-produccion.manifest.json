@@ -1,0 +1,2806 @@
+{
+  "manifestVersion": 1,
+  "courseSlug": "agentes-en-produccion",
+  "title": "Agent Engineering v3.0",
+  "shortDescription": "Construye agentes de IA que sobreviven en producción.",
+  "longDescription": "Programa de capacitación en sistemas LLM para builders senior. Agnóstico de framework: se aprenden los invariantes, no la librería de moda.",
+  "level": "advanced",
+  "sections": [
+    {
+      "title": "B1 · De demo a sistema: arquitectura de referencia",
+      "order": 0,
+      "lessons": [
+        {
+          "slug": "b1-slide-0-que-separa-una-demo-de-un-sistema",
+          "title": "Qué separa una demo de un sistema",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B1-de-demo-a-sistema-arquitectura-de-referencia.html#slide-0",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "c5d5d097f8c0f713b66cfe3a145dfc2c6b87804452d371544c9a72df52c2cdec"
+        },
+        {
+          "slug": "b1-slide-1-las-cuatro-capas",
+          "title": "Las cuatro capas",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B1-de-demo-a-sistema-arquitectura-de-referencia.html#slide-1",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "c5d5d097f8c0f713b66cfe3a145dfc2c6b87804452d371544c9a72df52c2cdec"
+        },
+        {
+          "slug": "b1-slide-2-el-gateway",
+          "title": "El gateway",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B1-de-demo-a-sistema-arquitectura-de-referencia.html#slide-2",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "c5d5d097f8c0f713b66cfe3a145dfc2c6b87804452d371544c9a72df52c2cdec"
+        },
+        {
+          "slug": "b1-slide-3-el-orquestador",
+          "title": "El orquestador",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B1-de-demo-a-sistema-arquitectura-de-referencia.html#slide-3",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "c5d5d097f8c0f713b66cfe3a145dfc2c6b87804452d371544c9a72df52c2cdec"
+        },
+        {
+          "slug": "b1-slide-4-tools-como-frontera-de-confianza-no-como-funciones-auxiliares",
+          "title": "Tools como frontera de confianza, no como funciones auxiliares",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B1-de-demo-a-sistema-arquitectura-de-referencia.html#slide-4",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "c5d5d097f8c0f713b66cfe3a145dfc2c6b87804452d371544c9a72df52c2cdec"
+        },
+        {
+          "slug": "b1-slide-5-memoria",
+          "title": "Memoria",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B1-de-demo-a-sistema-arquitectura-de-referencia.html#slide-5",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "c5d5d097f8c0f713b66cfe3a145dfc2c6b87804452d371544c9a72df52c2cdec"
+        },
+        {
+          "slug": "b1-slide-6-deterministic-first",
+          "title": "Deterministic-first",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B1-de-demo-a-sistema-arquitectura-de-referencia.html#slide-6",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "c5d5d097f8c0f713b66cfe3a145dfc2c6b87804452d371544c9a72df52c2cdec"
+        },
+        {
+          "slug": "b1-slide-7-que-decisiones-no-delega-meridiana-en-el-modelo-y-por-que",
+          "title": "Qué decisiones NO delega Meridiana en el modelo, y por qué",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B1-de-demo-a-sistema-arquitectura-de-referencia.html#slide-7",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "c5d5d097f8c0f713b66cfe3a145dfc2c6b87804452d371544c9a72df52c2cdec"
+        },
+        {
+          "slug": "b1-slide-8-poner-las-reglas-en-codigo-y-no-en-el-prompt",
+          "title": "Poner las reglas en código y no en el prompt",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B1-de-demo-a-sistema-arquitectura-de-referencia.html#slide-8",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "c5d5d097f8c0f713b66cfe3a145dfc2c6b87804452d371544c9a72df52c2cdec"
+        },
+        {
+          "slug": "b1-slide-9-limites-de-confianza",
+          "title": "Límites de confianza",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B1-de-demo-a-sistema-arquitectura-de-referencia.html#slide-9",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "c5d5d097f8c0f713b66cfe3a145dfc2c6b87804452d371544c9a72df52c2cdec"
+        },
+        {
+          "slug": "b1-slide-10-el-modelo-como-dependencia-sustituible",
+          "title": "El modelo como dependencia sustituible",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B1-de-demo-a-sistema-arquitectura-de-referencia.html#slide-10",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "c5d5d097f8c0f713b66cfe3a145dfc2c6b87804452d371544c9a72df52c2cdec"
+        },
+        {
+          "slug": "b1-slide-11-idempotencia",
+          "title": "Idempotencia",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B1-de-demo-a-sistema-arquitectura-de-referencia.html#slide-11",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "c5d5d097f8c0f713b66cfe3a145dfc2c6b87804452d371544c9a72df52c2cdec"
+        },
+        {
+          "slug": "b1-slide-12-estado",
+          "title": "Estado",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B1-de-demo-a-sistema-arquitectura-de-referencia.html#slide-12",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "c5d5d097f8c0f713b66cfe3a145dfc2c6b87804452d371544c9a72df52c2cdec"
+        },
+        {
+          "slug": "b1-slide-13-colas-y-trabajos-largos",
+          "title": "Colas y trabajos largos",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B1-de-demo-a-sistema-arquitectura-de-referencia.html#slide-13",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "c5d5d097f8c0f713b66cfe3a145dfc2c6b87804452d371544c9a72df52c2cdec"
+        },
+        {
+          "slug": "b1-slide-14-reintentos",
+          "title": "Reintentos",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B1-de-demo-a-sistema-arquitectura-de-referencia.html#slide-14",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "c5d5d097f8c0f713b66cfe3a145dfc2c6b87804452d371544c9a72df52c2cdec"
+        },
+        {
+          "slug": "b1-slide-15-timeouts-en-cada-salto-incluido-el-modelo",
+          "title": "Timeouts en cada salto, incluido el modelo",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B1-de-demo-a-sistema-arquitectura-de-referencia.html#slide-15",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "c5d5d097f8c0f713b66cfe3a145dfc2c6b87804452d371544c9a72df52c2cdec"
+        },
+        {
+          "slug": "b1-slide-16-degradacion",
+          "title": "Degradación",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B1-de-demo-a-sistema-arquitectura-de-referencia.html#slide-16",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "c5d5d097f8c0f713b66cfe3a145dfc2c6b87804452d371544c9a72df52c2cdec"
+        },
+        {
+          "slug": "b1-slide-17-multi-tenant-y-aislamiento-si-aplica",
+          "title": "Multi-tenant y aislamiento, si aplica",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B1-de-demo-a-sistema-arquitectura-de-referencia.html#slide-17",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "c5d5d097f8c0f713b66cfe3a145dfc2c6b87804452d371544c9a72df52c2cdec"
+        },
+        {
+          "slug": "b1-slide-18-reestructurar-meridiana",
+          "title": "Reestructurar Meridiana",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B1-de-demo-a-sistema-arquitectura-de-referencia.html#slide-18",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "c5d5d097f8c0f713b66cfe3a145dfc2c6b87804452d371544c9a72df52c2cdec"
+        },
+        {
+          "slug": "b1-slide-19-que-no-hay-que-abstraer-todavia",
+          "title": "Qué NO hay que abstraer todavía",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B1-de-demo-a-sistema-arquitectura-de-referencia.html#slide-19",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "c5d5d097f8c0f713b66cfe3a145dfc2c6b87804452d371544c9a72df52c2cdec"
+        },
+        {
+          "slug": "b1-slide-20-el-contrato-de-una-tool",
+          "title": "El contrato de una tool",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B1-de-demo-a-sistema-arquitectura-de-referencia.html#slide-20",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "c5d5d097f8c0f713b66cfe3a145dfc2c6b87804452d371544c9a72df52c2cdec"
+        },
+        {
+          "slug": "b1-slide-21-cuantas-tools-son-demasiadas-y-que-pasa-entonces",
+          "title": "Cuántas tools son demasiadas y qué pasa entonces",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B1-de-demo-a-sistema-arquitectura-de-referencia.html#slide-21",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "c5d5d097f8c0f713b66cfe3a145dfc2c6b87804452d371544c9a72df52c2cdec"
+        },
+        {
+          "slug": "b1-slide-22-contexto",
+          "title": "Contexto",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B1-de-demo-a-sistema-arquitectura-de-referencia.html#slide-22",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "c5d5d097f8c0f713b66cfe3a145dfc2c6b87804452d371544c9a72df52c2cdec"
+        },
+        {
+          "slug": "b1-slide-23-ventana-de-contexto-como-recurso-finito-no-como-limite-lejano",
+          "title": "Ventana de contexto como recurso finito, no como límite lejano",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B1-de-demo-a-sistema-arquitectura-de-referencia.html#slide-23",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "c5d5d097f8c0f713b66cfe3a145dfc2c6b87804452d371544c9a72df52c2cdec"
+        },
+        {
+          "slug": "b1-slide-24-cuando-un-agente-debe-convertirse-en-varios",
+          "title": "Cuándo un agente debe convertirse en varios",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B1-de-demo-a-sistema-arquitectura-de-referencia.html#slide-24",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "c5d5d097f8c0f713b66cfe3a145dfc2c6b87804452d371544c9a72df52c2cdec"
+        },
+        {
+          "slug": "b1-slide-25-el-coste-de-coordinar-dos-agentes-frente-a-uno-mas-grande",
+          "title": "El coste de coordinar dos agentes frente a uno más grande",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B1-de-demo-a-sistema-arquitectura-de-referencia.html#slide-25",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "c5d5d097f8c0f713b66cfe3a145dfc2c6b87804452d371544c9a72df52c2cdec"
+        },
+        {
+          "slug": "b1-slide-26-versionado-del-contrato-entre-gateway-y-orquestador",
+          "title": "Versionado del contrato entre gateway y orquestador",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B1-de-demo-a-sistema-arquitectura-de-referencia.html#slide-26",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "c5d5d097f8c0f713b66cfe3a145dfc2c6b87804452d371544c9a72df52c2cdec"
+        },
+        {
+          "slug": "b1-slide-27-pruebas-de-arquitectura",
+          "title": "Pruebas de arquitectura",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B1-de-demo-a-sistema-arquitectura-de-referencia.html#slide-27",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "c5d5d097f8c0f713b66cfe3a145dfc2c6b87804452d371544c9a72df52c2cdec"
+        },
+        {
+          "slug": "b1-slide-28-ejercicio-practico-1",
+          "title": "Ejercicio práctico 1",
+          "type": "lab",
+          "durationMinutes": 10,
+          "contentRef": "agentes-en-produccion/bloques/B1-de-demo-a-sistema-arquitectura-de-referencia.html#slide-28",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "c5d5d097f8c0f713b66cfe3a145dfc2c6b87804452d371544c9a72df52c2cdec"
+        },
+        {
+          "slug": "b1-slide-29-ejercicio-practico-2",
+          "title": "Ejercicio práctico 2",
+          "type": "lab",
+          "durationMinutes": 10,
+          "contentRef": "agentes-en-produccion/bloques/B1-de-demo-a-sistema-arquitectura-de-referencia.html#slide-29",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "c5d5d097f8c0f713b66cfe3a145dfc2c6b87804452d371544c9a72df52c2cdec"
+        },
+        {
+          "slug": "b1-slide-30-mini-quiz-de-comprension-b1",
+          "title": "Mini-quiz de comprensión — B1",
+          "type": "quiz",
+          "durationMinutes": 5,
+          "contentRef": "agentes-en-produccion/bloques/B1-de-demo-a-sistema-arquitectura-de-referencia.html#slide-30",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "c5d5d097f8c0f713b66cfe3a145dfc2c6b87804452d371544c9a72df52c2cdec"
+        }
+      ]
+    },
+    {
+      "title": "B2 · Observabilidad de sistemas con LLM",
+      "order": 1,
+      "lessons": [
+        {
+          "slug": "b2-slide-0-la-pregunta-que-hay-que-poder-responder",
+          "title": "La pregunta que hay que poder responder",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B2-observabilidad-de-sistemas-con-llm.html#slide-0",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "16b7bbd0d6153c2f1d892cdd987830099b3ea9fea486fb5a5cc4c262436aa889"
+        },
+        {
+          "slug": "b2-slide-1-por-que-los-logs-de-siempre-no-bastan-aqui",
+          "title": "Por qué los logs de siempre no bastan aquí",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B2-observabilidad-de-sistemas-con-llm.html#slide-1",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "16b7bbd0d6153c2f1d892cdd987830099b3ea9fea486fb5a5cc4c262436aa889"
+        },
+        {
+          "slug": "b2-slide-2-trazas",
+          "title": "Trazas",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B2-observabilidad-de-sistemas-con-llm.html#slide-2",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "16b7bbd0d6153c2f1d892cdd987830099b3ea9fea486fb5a5cc4c262436aa889"
+        },
+        {
+          "slug": "b2-slide-3-instrumentar-el-loop",
+          "title": "Instrumentar el loop",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B2-observabilidad-de-sistemas-con-llm.html#slide-3",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "16b7bbd0d6153c2f1d892cdd987830099b3ea9fea486fb5a5cc4c262436aa889"
+        },
+        {
+          "slug": "b2-slide-4-instrumentar-las-tools",
+          "title": "Instrumentar las tools",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B2-observabilidad-de-sistemas-con-llm.html#slide-4",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "16b7bbd0d6153c2f1d892cdd987830099b3ea9fea486fb5a5cc4c262436aa889"
+        },
+        {
+          "slug": "b2-slide-5-que-se-guarda-del-prompt-y-que-no",
+          "title": "Qué se guarda del prompt y qué no",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B2-observabilidad-de-sistemas-con-llm.html#slide-5",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "16b7bbd0d6153c2f1d892cdd987830099b3ea9fea486fb5a5cc4c262436aa889"
+        },
+        {
+          "slug": "b2-slide-6-datos-personales-en-las-trazas",
+          "title": "Datos personales en las trazas",
+          "type": "slides",
+          "durationMinutes": 3,
+          "contentRef": "agentes-en-produccion/bloques/B2-observabilidad-de-sistemas-con-llm.html#slide-6",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "16b7bbd0d6153c2f1d892cdd987830099b3ea9fea486fb5a5cc4c262436aa889"
+        },
+        {
+          "slug": "b2-slide-7-redaccion-y-seudonimizacion-antes-de-exportar",
+          "title": "Redacción y seudonimización antes de exportar",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B2-observabilidad-de-sistemas-con-llm.html#slide-7",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "16b7bbd0d6153c2f1d892cdd987830099b3ea9fea486fb5a5cc4c262436aa889"
+        },
+        {
+          "slug": "b2-slide-8-metricas-que-importan",
+          "title": "Métricas que importan",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B2-observabilidad-de-sistemas-con-llm.html#slide-8",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "16b7bbd0d6153c2f1d892cdd987830099b3ea9fea486fb5a5cc4c262436aa889"
+        },
+        {
+          "slug": "b2-slide-9-la-metrica-que-casi-nadie-pone",
+          "title": "La métrica que casi nadie pone",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B2-observabilidad-de-sistemas-con-llm.html#slide-9",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "16b7bbd0d6153c2f1d892cdd987830099b3ea9fea486fb5a5cc4c262436aa889"
+        },
+        {
+          "slug": "b2-slide-10-muestreo",
+          "title": "Muestreo",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B2-observabilidad-de-sistemas-con-llm.html#slide-10",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "16b7bbd0d6153c2f1d892cdd987830099b3ea9fea486fb5a5cc4c262436aa889"
+        },
+        {
+          "slug": "b2-slide-11-muestreo-dirigido",
+          "title": "Muestreo dirigido",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B2-observabilidad-de-sistemas-con-llm.html#slide-11",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "16b7bbd0d6153c2f1d892cdd987830099b3ea9fea486fb5a5cc4c262436aa889"
+        },
+        {
+          "slug": "b2-slide-12-correlacion",
+          "title": "Correlación",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B2-observabilidad-de-sistemas-con-llm.html#slide-12",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "16b7bbd0d6153c2f1d892cdd987830099b3ea9fea486fb5a5cc4c262436aa889"
+        },
+        {
+          "slug": "b2-slide-13-alertas-que-se-pueden-atender-frente-a-alertas-que-se-silencian",
+          "title": "Alertas que se pueden atender frente a alertas que se silencian",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B2-observabilidad-de-sistemas-con-llm.html#slide-13",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "16b7bbd0d6153c2f1d892cdd987830099b3ea9fea486fb5a5cc4c262436aa889"
+        },
+        {
+          "slug": "b2-slide-14-dashboards",
+          "title": "Dashboards",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B2-observabilidad-de-sistemas-con-llm.html#slide-14",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "16b7bbd0d6153c2f1d892cdd987830099b3ea9fea486fb5a5cc4c262436aa889"
+        },
+        {
+          "slug": "b2-slide-15-reconstruir-un-caso",
+          "title": "Reconstruir un caso",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B2-observabilidad-de-sistemas-con-llm.html#slide-15",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "16b7bbd0d6153c2f1d892cdd987830099b3ea9fea486fb5a5cc4c262436aa889"
+        },
+        {
+          "slug": "b2-slide-16-retencion",
+          "title": "Retención",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B2-observabilidad-de-sistemas-con-llm.html#slide-16",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "16b7bbd0d6153c2f1d892cdd987830099b3ea9fea486fb5a5cc4c262436aa889"
+        },
+        {
+          "slug": "b2-slide-17-opentelemetry-sin-acoplarse-al-backend",
+          "title": "OpenTelemetry sin acoplarse al backend",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B2-observabilidad-de-sistemas-con-llm.html#slide-17",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "16b7bbd0d6153c2f1d892cdd987830099b3ea9fea486fb5a5cc4c262436aa889"
+        },
+        {
+          "slug": "b2-slide-18-coste-de-la-observabilidad-y-como-se-controla",
+          "title": "Coste de la observabilidad y cómo se controla",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B2-observabilidad-de-sistemas-con-llm.html#slide-18",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "16b7bbd0d6153c2f1d892cdd987830099b3ea9fea486fb5a5cc4c262436aa889"
+        },
+        {
+          "slug": "b2-slide-19-logs-estructurados",
+          "title": "Logs estructurados",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B2-observabilidad-de-sistemas-con-llm.html#slide-19",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "16b7bbd0d6153c2f1d892cdd987830099b3ea9fea486fb5a5cc4c262436aa889"
+        },
+        {
+          "slug": "b2-slide-20-identificadores-que-atraviesan-el-sistema-entero",
+          "title": "Identificadores que atraviesan el sistema entero",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B2-observabilidad-de-sistemas-con-llm.html#slide-20",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "16b7bbd0d6153c2f1d892cdd987830099b3ea9fea486fb5a5cc4c262436aa889"
+        },
+        {
+          "slug": "b2-slide-21-version-de-prompt-y-de-modelo-como-atributos-de-la-traza",
+          "title": "Versión de prompt y de modelo como atributos de la traza",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B2-observabilidad-de-sistemas-con-llm.html#slide-21",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "16b7bbd0d6153c2f1d892cdd987830099b3ea9fea486fb5a5cc4c262436aa889"
+        },
+        {
+          "slug": "b2-slide-22-reproducir-una-ejecucion-a-partir-de-su-traza",
+          "title": "Reproducir una ejecución a partir de su traza",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B2-observabilidad-de-sistemas-con-llm.html#slide-22",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "16b7bbd0d6153c2f1d892cdd987830099b3ea9fea486fb5a5cc4c262436aa889"
+        },
+        {
+          "slug": "b2-slide-23-grabar-y-reproducir",
+          "title": "Grabar y reproducir",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B2-observabilidad-de-sistemas-con-llm.html#slide-23",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "16b7bbd0d6153c2f1d892cdd987830099b3ea9fea486fb5a5cc4c262436aa889"
+        },
+        {
+          "slug": "b2-slide-24-paneles-para-negocio-frente-a-paneles-para-guardia",
+          "title": "Paneles para negocio frente a paneles para guardia",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B2-observabilidad-de-sistemas-con-llm.html#slide-24",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "16b7bbd0d6153c2f1d892cdd987830099b3ea9fea486fb5a5cc4c262436aa889"
+        },
+        {
+          "slug": "b2-slide-25-que-mide-bien-el-porcentaje-de-derivaciones-y-que-esconde",
+          "title": "Qué mide bien el porcentaje de derivaciones y qué esconde",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B2-observabilidad-de-sistemas-con-llm.html#slide-25",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "16b7bbd0d6153c2f1d892cdd987830099b3ea9fea486fb5a5cc4c262436aa889"
+        },
+        {
+          "slug": "b2-slide-26-errores-del-proveedor",
+          "title": "Errores del proveedor",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B2-observabilidad-de-sistemas-con-llm.html#slide-26",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "16b7bbd0d6153c2f1d892cdd987830099b3ea9fea486fb5a5cc4c262436aa889"
+        },
+        {
+          "slug": "b2-slide-27-el-primer-dia-con-observabilidad",
+          "title": "El primer día con observabilidad",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B2-observabilidad-de-sistemas-con-llm.html#slide-27",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "16b7bbd0d6153c2f1d892cdd987830099b3ea9fea486fb5a5cc4c262436aa889"
+        },
+        {
+          "slug": "b2-slide-28-ejercicio-practico-1",
+          "title": "Ejercicio práctico 1",
+          "type": "lab",
+          "durationMinutes": 10,
+          "contentRef": "agentes-en-produccion/bloques/B2-observabilidad-de-sistemas-con-llm.html#slide-28",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "16b7bbd0d6153c2f1d892cdd987830099b3ea9fea486fb5a5cc4c262436aa889"
+        },
+        {
+          "slug": "b2-slide-29-ejercicio-practico-2",
+          "title": "Ejercicio práctico 2",
+          "type": "lab",
+          "durationMinutes": 10,
+          "contentRef": "agentes-en-produccion/bloques/B2-observabilidad-de-sistemas-con-llm.html#slide-29",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "16b7bbd0d6153c2f1d892cdd987830099b3ea9fea486fb5a5cc4c262436aa889"
+        },
+        {
+          "slug": "b2-slide-30-mini-quiz-de-comprension-b2",
+          "title": "Mini-quiz de comprensión — B2",
+          "type": "quiz",
+          "durationMinutes": 5,
+          "contentRef": "agentes-en-produccion/bloques/B2-observabilidad-de-sistemas-con-llm.html#slide-30",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "16b7bbd0d6153c2f1d892cdd987830099b3ea9fea486fb5a5cc4c262436aa889"
+        }
+      ]
+    },
+    {
+      "title": "B3 · Evals continuas",
+      "order": 2,
+      "lessons": [
+        {
+          "slug": "b3-slide-0-por-que-los-evals-de-un-cuaderno-no-sobreviven-al-primer-mes",
+          "title": "Por qué los evals de un cuaderno no sobreviven al primer mes",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B3-evals-continuas.html#slide-0",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "56007b9f4a708b67ab8924a16f2af1e2b723d6b67894e2a442b219ba4e554b98"
+        },
+        {
+          "slug": "b3-slide-1-conjunto-de-evaluacion",
+          "title": "Conjunto de evaluación",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B3-evals-continuas.html#slide-1",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "56007b9f4a708b67ab8924a16f2af1e2b723d6b67894e2a442b219ba4e554b98"
+        },
+        {
+          "slug": "b3-slide-2-etiquetas",
+          "title": "Etiquetas",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B3-evals-continuas.html#slide-2",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "56007b9f4a708b67ab8924a16f2af1e2b723d6b67894e2a442b219ba4e554b98"
+        },
+        {
+          "slug": "b3-slide-3-el-dataset-de-meridiana",
+          "title": "El dataset de Meridiana",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B3-evals-continuas.html#slide-3",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "56007b9f4a708b67ab8924a16f2af1e2b723d6b67894e2a442b219ba4e554b98"
+        },
+        {
+          "slug": "b3-slide-4-casos-dificiles-a-proposito",
+          "title": "Casos difíciles a propósito",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B3-evals-continuas.html#slide-4",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "56007b9f4a708b67ab8924a16f2af1e2b723d6b67894e2a442b219ba4e554b98"
+        },
+        {
+          "slug": "b3-slide-5-evals-deterministas",
+          "title": "Evals deterministas",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B3-evals-continuas.html#slide-5",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "56007b9f4a708b67ab8924a16f2af1e2b723d6b67894e2a442b219ba4e554b98"
+        },
+        {
+          "slug": "b3-slide-6-evals-con-modelo-como-juez",
+          "title": "Evals con modelo como juez",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B3-evals-continuas.html#slide-6",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "56007b9f4a708b67ab8924a16f2af1e2b723d6b67894e2a442b219ba4e554b98"
+        },
+        {
+          "slug": "b3-slide-7-el-sesgo-del-juez",
+          "title": "El sesgo del juez",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B3-evals-continuas.html#slide-7",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "56007b9f4a708b67ab8924a16f2af1e2b723d6b67894e2a442b219ba4e554b98"
+        },
+        {
+          "slug": "b3-slide-8-metricas-por-caso-frente-a-metricas-agregadas",
+          "title": "Métricas por caso frente a métricas agregadas",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B3-evals-continuas.html#slide-8",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "56007b9f4a708b67ab8924a16f2af1e2b723d6b67894e2a442b219ba4e554b98"
+        },
+        {
+          "slug": "b3-slide-9-el-agregado-que-oculta",
+          "title": "El agregado que oculta",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B3-evals-continuas.html#slide-9",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "56007b9f4a708b67ab8924a16f2af1e2b723d6b67894e2a442b219ba4e554b98"
+        },
+        {
+          "slug": "b3-slide-10-segmentar",
+          "title": "Segmentar",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B3-evals-continuas.html#slide-10",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "56007b9f4a708b67ab8924a16f2af1e2b723d6b67894e2a442b219ba4e554b98"
+        },
+        {
+          "slug": "b3-slide-11-evals-en-ci",
+          "title": "Evals en CI",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B3-evals-continuas.html#slide-11",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "56007b9f4a708b67ab8924a16f2af1e2b723d6b67894e2a442b219ba4e554b98"
+        },
+        {
+          "slug": "b3-slide-12-coste-y-tiempo-de-un-eval-en-ci-y-como-acotarlos",
+          "title": "Coste y tiempo de un eval en CI, y cómo acotarlos",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B3-evals-continuas.html#slide-12",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "56007b9f4a708b67ab8924a16f2af1e2b723d6b67894e2a442b219ba4e554b98"
+        },
+        {
+          "slug": "b3-slide-13-umbrales-de-bloqueo",
+          "title": "Umbrales de bloqueo",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B3-evals-continuas.html#slide-13",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "56007b9f4a708b67ab8924a16f2af1e2b723d6b67894e2a442b219ba4e554b98"
+        },
+        {
+          "slug": "b3-slide-14-regresiones",
+          "title": "Regresiones",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B3-evals-continuas.html#slide-14",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "56007b9f4a708b67ab8924a16f2af1e2b723d6b67894e2a442b219ba4e554b98"
+        },
+        {
+          "slug": "b3-slide-15-deriva",
+          "title": "Deriva",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B3-evals-continuas.html#slide-15",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "56007b9f4a708b67ab8924a16f2af1e2b723d6b67894e2a442b219ba4e554b98"
+        },
+        {
+          "slug": "b3-slide-16-actualizar-el-conjunto-sin-invalidar-el-historico",
+          "title": "Actualizar el conjunto sin invalidar el histórico",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B3-evals-continuas.html#slide-16",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "56007b9f4a708b67ab8924a16f2af1e2b723d6b67894e2a442b219ba4e554b98"
+        },
+        {
+          "slug": "b3-slide-17-evals-en-produccion",
+          "title": "Evals en producción",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B3-evals-continuas.html#slide-17",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "56007b9f4a708b67ab8924a16f2af1e2b723d6b67894e2a442b219ba4e554b98"
+        },
+        {
+          "slug": "b3-slide-18-el-bucle-completo",
+          "title": "El bucle completo",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B3-evals-continuas.html#slide-18",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "56007b9f4a708b67ab8924a16f2af1e2b723d6b67894e2a442b219ba4e554b98"
+        },
+        {
+          "slug": "b3-slide-19-anotacion-humana",
+          "title": "Anotación humana",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B3-evals-continuas.html#slide-19",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "56007b9f4a708b67ab8924a16f2af1e2b723d6b67894e2a442b219ba4e554b98"
+        },
+        {
+          "slug": "b3-slide-20-desacuerdo-entre-anotadores",
+          "title": "Desacuerdo entre anotadores",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B3-evals-continuas.html#slide-20",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "56007b9f4a708b67ab8924a16f2af1e2b723d6b67894e2a442b219ba4e554b98"
+        },
+        {
+          "slug": "b3-slide-21-evals-de-seguridad-como-conjunto-aparte",
+          "title": "Evals de seguridad como conjunto aparte",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B3-evals-continuas.html#slide-21",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "56007b9f4a708b67ab8924a16f2af1e2b723d6b67894e2a442b219ba4e554b98"
+        },
+        {
+          "slug": "b3-slide-22-evals-de-coste-y-latencia-junto-a-los-de-calidad",
+          "title": "Evals de coste y latencia junto a los de calidad",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B3-evals-continuas.html#slide-22",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "56007b9f4a708b67ab8924a16f2af1e2b723d6b67894e2a442b219ba4e554b98"
+        },
+        {
+          "slug": "b3-slide-23-comparar-dos-modelos-con-el-mismo-conjunto",
+          "title": "Comparar dos modelos con el mismo conjunto",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B3-evals-continuas.html#slide-23",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "56007b9f4a708b67ab8924a16f2af1e2b723d6b67894e2a442b219ba4e554b98"
+        },
+        {
+          "slug": "b3-slide-24-fugas-de-datos-entre-el-conjunto-de-evaluacion-y-el-desarrollo",
+          "title": "Fugas de datos entre el conjunto de evaluación y el desarrollo",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B3-evals-continuas.html#slide-24",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "56007b9f4a708b67ab8924a16f2af1e2b723d6b67894e2a442b219ba4e554b98"
+        },
+        {
+          "slug": "b3-slide-25-versionar-el-conjunto-de-evaluacion-y-su-historia",
+          "title": "Versionar el conjunto de evaluación y su historia",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B3-evals-continuas.html#slide-25",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "56007b9f4a708b67ab8924a16f2af1e2b723d6b67894e2a442b219ba4e554b98"
+        },
+        {
+          "slug": "b3-slide-26-el-eval-que-nadie-mira",
+          "title": "El eval que nadie mira",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B3-evals-continuas.html#slide-26",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "56007b9f4a708b67ab8924a16f2af1e2b723d6b67894e2a442b219ba4e554b98"
+        },
+        {
+          "slug": "b3-slide-27-ejercicio-practico-1",
+          "title": "Ejercicio práctico 1",
+          "type": "lab",
+          "durationMinutes": 10,
+          "contentRef": "agentes-en-produccion/bloques/B3-evals-continuas.html#slide-27",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "56007b9f4a708b67ab8924a16f2af1e2b723d6b67894e2a442b219ba4e554b98"
+        },
+        {
+          "slug": "b3-slide-28-ejercicio-practico-2",
+          "title": "Ejercicio práctico 2",
+          "type": "lab",
+          "durationMinutes": 10,
+          "contentRef": "agentes-en-produccion/bloques/B3-evals-continuas.html#slide-28",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "56007b9f4a708b67ab8924a16f2af1e2b723d6b67894e2a442b219ba4e554b98"
+        },
+        {
+          "slug": "b3-slide-29-mini-quiz-de-comprension-b3",
+          "title": "Mini-quiz de comprensión — B3",
+          "type": "quiz",
+          "durationMinutes": 5,
+          "contentRef": "agentes-en-produccion/bloques/B3-evals-continuas.html#slide-29",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "56007b9f4a708b67ab8924a16f2af1e2b723d6b67894e2a442b219ba4e554b98"
+        }
+      ]
+    },
+    {
+      "title": "B4 · Costes y rendimiento",
+      "order": 3,
+      "lessons": [
+        {
+          "slug": "b4-slide-0-el-coste-por-caso",
+          "title": "El coste por caso",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B4-costes-y-rendimiento.html#slide-0",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "4555b70da88f354a52e68319dda31624bed23553a7e17ee1709a8124393b40d2"
+        },
+        {
+          "slug": "b4-slide-1-tokens-de-entrada-y-de-salida",
+          "title": "Tokens de entrada y de salida",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B4-costes-y-rendimiento.html#slide-1",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "4555b70da88f354a52e68319dda31624bed23553a7e17ee1709a8124393b40d2"
+        },
+        {
+          "slug": "b4-slide-2-el-coste-escondido",
+          "title": "El coste escondido",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B4-costes-y-rendimiento.html#slide-2",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "4555b70da88f354a52e68319dda31624bed23553a7e17ee1709a8124393b40d2"
+        },
+        {
+          "slug": "b4-slide-3-el-coste-escondido",
+          "title": "El coste escondido",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B4-costes-y-rendimiento.html#slide-3",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "4555b70da88f354a52e68319dda31624bed23553a7e17ee1709a8124393b40d2"
+        },
+        {
+          "slug": "b4-slide-4-prompt-caching",
+          "title": "Prompt caching",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B4-costes-y-rendimiento.html#slide-4",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "4555b70da88f354a52e68319dda31624bed23553a7e17ee1709a8124393b40d2"
+        },
+        {
+          "slug": "b4-slide-5-disenar-el-prompt-para-que-el-caching-sirva",
+          "title": "Diseñar el prompt para que el caching sirva",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B4-costes-y-rendimiento.html#slide-5",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "4555b70da88f354a52e68319dda31624bed23553a7e17ee1709a8124393b40d2"
+        },
+        {
+          "slug": "b4-slide-6-elegir-modelo-por-tarea",
+          "title": "Elegir modelo por tarea",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B4-costes-y-rendimiento.html#slide-6",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "4555b70da88f354a52e68319dda31624bed23553a7e17ee1709a8124393b40d2"
+        },
+        {
+          "slug": "b4-slide-7-cascada-de-modelos",
+          "title": "Cascada de modelos",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B4-costes-y-rendimiento.html#slide-7",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "4555b70da88f354a52e68319dda31624bed23553a7e17ee1709a8124393b40d2"
+        },
+        {
+          "slug": "b4-slide-8-el-coste-de-la-cascada-cuando-el-barato-falla-mucho",
+          "title": "El coste de la cascada cuando el barato falla mucho",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B4-costes-y-rendimiento.html#slide-8",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "4555b70da88f354a52e68319dda31624bed23553a7e17ee1709a8124393b40d2"
+        },
+        {
+          "slug": "b4-slide-9-batching",
+          "title": "Batching",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B4-costes-y-rendimiento.html#slide-9",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "4555b70da88f354a52e68319dda31624bed23553a7e17ee1709a8124393b40d2"
+        },
+        {
+          "slug": "b4-slide-10-latencia-percibida-frente-a-latencia-real",
+          "title": "Latencia percibida frente a latencia real",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B4-costes-y-rendimiento.html#slide-10",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "4555b70da88f354a52e68319dda31624bed23553a7e17ee1709a8124393b40d2"
+        },
+        {
+          "slug": "b4-slide-11-streaming",
+          "title": "Streaming",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B4-costes-y-rendimiento.html#slide-11",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "4555b70da88f354a52e68319dda31624bed23553a7e17ee1709a8124393b40d2"
+        },
+        {
+          "slug": "b4-slide-12-paralelizar-tools-independientes",
+          "title": "Paralelizar tools independientes",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B4-costes-y-rendimiento.html#slide-12",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "4555b70da88f354a52e68319dda31624bed23553a7e17ee1709a8124393b40d2"
+        },
+        {
+          "slug": "b4-slide-13-presupuesto-por-caso",
+          "title": "Presupuesto por caso",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B4-costes-y-rendimiento.html#slide-13",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "4555b70da88f354a52e68319dda31624bed23553a7e17ee1709a8124393b40d2"
+        },
+        {
+          "slug": "b4-slide-14-presupuesto-por-tenant-y-por-dia",
+          "title": "Presupuesto por tenant y por día",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B4-costes-y-rendimiento.html#slide-14",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "4555b70da88f354a52e68319dda31624bed23553a7e17ee1709a8124393b40d2"
+        },
+        {
+          "slug": "b4-slide-15-el-pico-de-granizo",
+          "title": "El pico de granizo",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B4-costes-y-rendimiento.html#slide-15",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "4555b70da88f354a52e68319dda31624bed23553a7e17ee1709a8124393b40d2"
+        },
+        {
+          "slug": "b4-slide-16-colas-contrapresion-y-degradacion-ordenada",
+          "title": "Colas, contrapresión y degradación ordenada",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B4-costes-y-rendimiento.html#slide-16",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "4555b70da88f354a52e68319dda31624bed23553a7e17ee1709a8124393b40d2"
+        },
+        {
+          "slug": "b4-slide-17-limites-de-tasa-del-proveedor-y-que-hacer-con-ellos",
+          "title": "Límites de tasa del proveedor y qué hacer con ellos",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B4-costes-y-rendimiento.html#slide-17",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "4555b70da88f354a52e68319dda31624bed23553a7e17ee1709a8124393b40d2"
+        },
+        {
+          "slug": "b4-slide-18-modelar-el-coste-mensual-con-numeros-de-meridiana",
+          "title": "Modelar el coste mensual con números de Meridiana",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B4-costes-y-rendimiento.html#slide-18",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "4555b70da88f354a52e68319dda31624bed23553a7e17ee1709a8124393b40d2"
+        },
+        {
+          "slug": "b4-slide-19-alertas-de-coste-que-avisan-antes-de-la-factura-no-despues",
+          "title": "Alertas de coste que avisan antes de la factura, no después",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B4-costes-y-rendimiento.html#slide-19",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "4555b70da88f354a52e68319dda31624bed23553a7e17ee1709a8124393b40d2"
+        },
+        {
+          "slug": "b4-slide-20-atribuir-coste-por-cliente-por-via-y-por-version-de-prompt",
+          "title": "Atribuir coste por cliente, por vía y por versión de prompt",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B4-costes-y-rendimiento.html#slide-20",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "4555b70da88f354a52e68319dda31624bed23553a7e17ee1709a8124393b40d2"
+        },
+        {
+          "slug": "b4-slide-21-el-coste-de-los-evals-en-ci-y-cuando-empieza-a-doler",
+          "title": "El coste de los evals en CI y cuándo empieza a doler",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B4-costes-y-rendimiento.html#slide-21",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "4555b70da88f354a52e68319dda31624bed23553a7e17ee1709a8124393b40d2"
+        },
+        {
+          "slug": "b4-slide-22-contexto-largo-frente-a-recuperacion",
+          "title": "Contexto largo frente a recuperación",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B4-costes-y-rendimiento.html#slide-22",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "4555b70da88f354a52e68319dda31624bed23553a7e17ee1709a8124393b40d2"
+        },
+        {
+          "slug": "b4-slide-23-comprimir-contexto-sin-perder-lo-que-decide",
+          "title": "Comprimir contexto sin perder lo que decide",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B4-costes-y-rendimiento.html#slide-23",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "4555b70da88f354a52e68319dda31624bed23553a7e17ee1709a8124393b40d2"
+        },
+        {
+          "slug": "b4-slide-24-medir-antes-de-optimizar",
+          "title": "Medir antes de optimizar",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B4-costes-y-rendimiento.html#slide-24",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "4555b70da88f354a52e68319dda31624bed23553a7e17ee1709a8124393b40d2"
+        },
+        {
+          "slug": "b4-slide-25-la-optimizacion-que-no-compensa",
+          "title": "La optimización que no compensa",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B4-costes-y-rendimiento.html#slide-25",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "4555b70da88f354a52e68319dda31624bed23553a7e17ee1709a8124393b40d2"
+        },
+        {
+          "slug": "b4-slide-26-negociar-volumen-con-el-proveedor",
+          "title": "Negociar volumen con el proveedor",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B4-costes-y-rendimiento.html#slide-26",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "4555b70da88f354a52e68319dda31624bed23553a7e17ee1709a8124393b40d2"
+        },
+        {
+          "slug": "b4-slide-27-coste-de-la-alternativa",
+          "title": "Coste de la alternativa",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B4-costes-y-rendimiento.html#slide-27",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "4555b70da88f354a52e68319dda31624bed23553a7e17ee1709a8124393b40d2"
+        },
+        {
+          "slug": "b4-slide-28-ejercicio-practico-1",
+          "title": "Ejercicio práctico 1",
+          "type": "lab",
+          "durationMinutes": 10,
+          "contentRef": "agentes-en-produccion/bloques/B4-costes-y-rendimiento.html#slide-28",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "4555b70da88f354a52e68319dda31624bed23553a7e17ee1709a8124393b40d2"
+        },
+        {
+          "slug": "b4-slide-29-ejercicio-practico-2",
+          "title": "Ejercicio práctico 2",
+          "type": "lab",
+          "durationMinutes": 10,
+          "contentRef": "agentes-en-produccion/bloques/B4-costes-y-rendimiento.html#slide-29",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "4555b70da88f354a52e68319dda31624bed23553a7e17ee1709a8124393b40d2"
+        },
+        {
+          "slug": "b4-slide-30-mini-quiz-de-comprension-b4",
+          "title": "Mini-quiz de comprensión — B4",
+          "type": "quiz",
+          "durationMinutes": 5,
+          "contentRef": "agentes-en-produccion/bloques/B4-costes-y-rendimiento.html#slide-30",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "4555b70da88f354a52e68319dda31624bed23553a7e17ee1709a8124393b40d2"
+        }
+      ]
+    },
+    {
+      "title": "B5 · Seguridad de agentes",
+      "order": 4,
+      "lessons": [
+        {
+          "slug": "b5-slide-0-el-modelo-de-amenaza-de-un-agente-escrito",
+          "title": "El modelo de amenaza de un agente, escrito",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B5-seguridad-de-agentes.html#slide-0",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "70695bda13233fd8adb45cbbff6fa735a8f4a6fdf4d936ffab46b7755724dca3"
+        },
+        {
+          "slug": "b5-slide-1-inyeccion-de-instrucciones",
+          "title": "Inyección de instrucciones",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B5-seguridad-de-agentes.html#slide-1",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "70695bda13233fd8adb45cbbff6fa735a8f4a6fdf4d936ffab46b7755724dca3"
+        },
+        {
+          "slug": "b5-slide-2-inyeccion-directa",
+          "title": "Inyección directa",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B5-seguridad-de-agentes.html#slide-2",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "70695bda13233fd8adb45cbbff6fa735a8f4a6fdf4d936ffab46b7755724dca3"
+        },
+        {
+          "slug": "b5-slide-3-inyeccion-indirecta",
+          "title": "Inyección indirecta",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B5-seguridad-de-agentes.html#slide-3",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "70695bda13233fd8adb45cbbff6fa735a8f4a6fdf4d936ffab46b7755724dca3"
+        },
+        {
+          "slug": "b5-slide-4-por-que-detectar-prompts-maliciosos-es-una-carrera-perdida",
+          "title": "Por qué «detectar prompts maliciosos» es una carrera perdida",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B5-seguridad-de-agentes.html#slide-4",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "70695bda13233fd8adb45cbbff6fa735a8f4a6fdf4d936ffab46b7755724dca3"
+        },
+        {
+          "slug": "b5-slide-5-el-principio-que-si-funciona",
+          "title": "El principio que sí funciona",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B5-seguridad-de-agentes.html#slide-5",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "70695bda13233fd8adb45cbbff6fa735a8f4a6fdf4d936ffab46b7755724dca3"
+        },
+        {
+          "slug": "b5-slide-6-disenar-tools-que-no-puedan-hacer-dano-aunque-se-invoquen-mal",
+          "title": "Diseñar tools que no puedan hacer daño aunque se invoquen mal",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B5-seguridad-de-agentes.html#slide-6",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "70695bda13233fd8adb45cbbff6fa735a8f4a6fdf4d936ffab46b7755724dca3"
+        },
+        {
+          "slug": "b5-slide-7-confirmacion-humana-en-las-acciones-irreversibles",
+          "title": "Confirmación humana en las acciones irreversibles",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B5-seguridad-de-agentes.html#slide-7",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "70695bda13233fd8adb45cbbff6fa735a8f4a6fdf4d936ffab46b7755724dca3"
+        },
+        {
+          "slug": "b5-slide-8-separar-canales",
+          "title": "Separar canales",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B5-seguridad-de-agentes.html#slide-8",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "70695bda13233fd8adb45cbbff6fa735a8f4a6fdf4d936ffab46b7755724dca3"
+        },
+        {
+          "slug": "b5-slide-9-salidas",
+          "title": "Salidas",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B5-seguridad-de-agentes.html#slide-9",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "70695bda13233fd8adb45cbbff6fa735a8f4a6fdf4d936ffab46b7755724dca3"
+        },
+        {
+          "slug": "b5-slide-10-fuga-de-datos",
+          "title": "Fuga de datos",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B5-seguridad-de-agentes.html#slide-10",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "70695bda13233fd8adb45cbbff6fa735a8f4a6fdf4d936ffab46b7755724dca3"
+        },
+        {
+          "slug": "b5-slide-11-aislamiento-entre-expedientes-y-entre-clientes",
+          "title": "Aislamiento entre expedientes y entre clientes",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B5-seguridad-de-agentes.html#slide-11",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "70695bda13233fd8adb45cbbff6fa735a8f4a6fdf4d936ffab46b7755724dca3"
+        },
+        {
+          "slug": "b5-slide-12-secretos",
+          "title": "Secretos",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B5-seguridad-de-agentes.html#slide-12",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "70695bda13233fd8adb45cbbff6fa735a8f4a6fdf4d936ffab46b7755724dca3"
+        },
+        {
+          "slug": "b5-slide-13-exfiltracion-por-url",
+          "title": "Exfiltración por URL",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B5-seguridad-de-agentes.html#slide-13",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "70695bda13233fd8adb45cbbff6fa735a8f4a6fdf4d936ffab46b7755724dca3"
+        },
+        {
+          "slug": "b5-slide-14-denegacion-de-servicio-por-coste",
+          "title": "Denegación de servicio por coste",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B5-seguridad-de-agentes.html#slide-14",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "70695bda13233fd8adb45cbbff6fa735a8f4a6fdf4d936ffab46b7755724dca3"
+        },
+        {
+          "slug": "b5-slide-15-registro-de-intentos",
+          "title": "Registro de intentos",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B5-seguridad-de-agentes.html#slide-15",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "70695bda13233fd8adb45cbbff6fa735a8f4a6fdf4d936ffab46b7755724dca3"
+        },
+        {
+          "slug": "b5-slide-16-pruebas-adversariales-como-parte-del-conjunto-de-evaluacion",
+          "title": "Pruebas adversariales como parte del conjunto de evaluación",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B5-seguridad-de-agentes.html#slide-16",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "70695bda13233fd8adb45cbbff6fa735a8f4a6fdf4d936ffab46b7755724dca3"
+        },
+        {
+          "slug": "b5-slide-17-respuesta-a-incidentes-de-seguridad-especificos-de-agentes",
+          "title": "Respuesta a incidentes de seguridad específicos de agentes",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B5-seguridad-de-agentes.html#slide-17",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "70695bda13233fd8adb45cbbff6fa735a8f4a6fdf4d936ffab46b7755724dca3"
+        },
+        {
+          "slug": "b5-slide-18-revision-de-seguridad-de-meridiana",
+          "title": "Revisión de seguridad de Meridiana",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B5-seguridad-de-agentes.html#slide-18",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "70695bda13233fd8adb45cbbff6fa735a8f4a6fdf4d936ffab46b7755724dca3"
+        },
+        {
+          "slug": "b5-slide-19-ficheros-adjuntos",
+          "title": "Ficheros adjuntos",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B5-seguridad-de-agentes.html#slide-19",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "70695bda13233fd8adb45cbbff6fa735a8f4a6fdf4d936ffab46b7755724dca3"
+        },
+        {
+          "slug": "b5-slide-20-contenido-recuperado-de-fuentes-externas-como-entrada-hostil",
+          "title": "Contenido recuperado de fuentes externas como entrada hostil",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B5-seguridad-de-agentes.html#slide-20",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "70695bda13233fd8adb45cbbff6fa735a8f4a6fdf4d936ffab46b7755724dca3"
+        },
+        {
+          "slug": "b5-slide-21-herramientas-que-navegan",
+          "title": "Herramientas que navegan",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B5-seguridad-de-agentes.html#slide-21",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "70695bda13233fd8adb45cbbff6fa735a8f4a6fdf4d936ffab46b7755724dca3"
+        },
+        {
+          "slug": "b5-slide-22-permisos-por-expediente-no-por-usuario-global",
+          "title": "Permisos por expediente, no por usuario global",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B5-seguridad-de-agentes.html#slide-22",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "70695bda13233fd8adb45cbbff6fa735a8f4a6fdf4d936ffab46b7755724dca3"
+        },
+        {
+          "slug": "b5-slide-23-auditar-que-pudo-ver-el-agente-en-cada-ejecucion",
+          "title": "Auditar qué pudo ver el agente en cada ejecución",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B5-seguridad-de-agentes.html#slide-23",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "70695bda13233fd8adb45cbbff6fa735a8f4a6fdf4d936ffab46b7755724dca3"
+        },
+        {
+          "slug": "b5-slide-24-rotacion-de-credenciales-de-las-tools",
+          "title": "Rotación de credenciales de las tools",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B5-seguridad-de-agentes.html#slide-24",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "70695bda13233fd8adb45cbbff6fa735a8f4a6fdf4d936ffab46b7755724dca3"
+        },
+        {
+          "slug": "b5-slide-25-modelo-de-amenaza-de-meridiana-escrito-y-revisado",
+          "title": "Modelo de amenaza de Meridiana, escrito y revisado",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B5-seguridad-de-agentes.html#slide-25",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "70695bda13233fd8adb45cbbff6fa735a8f4a6fdf4d936ffab46b7755724dca3"
+        },
+        {
+          "slug": "b5-slide-26-que-se-le-cuenta-al-cliente-cuando-el-ataque-tuvo-exito",
+          "title": "Qué se le cuenta al cliente cuando el ataque tuvo éxito",
+          "type": "slides",
+          "durationMinutes": 3,
+          "contentRef": "agentes-en-produccion/bloques/B5-seguridad-de-agentes.html#slide-26",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "70695bda13233fd8adb45cbbff6fa735a8f4a6fdf4d936ffab46b7755724dca3"
+        },
+        {
+          "slug": "b5-slide-27-ejercicio-practico-1",
+          "title": "Ejercicio práctico 1",
+          "type": "lab",
+          "durationMinutes": 10,
+          "contentRef": "agentes-en-produccion/bloques/B5-seguridad-de-agentes.html#slide-27",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "70695bda13233fd8adb45cbbff6fa735a8f4a6fdf4d936ffab46b7755724dca3"
+        },
+        {
+          "slug": "b5-slide-28-ejercicio-practico-2",
+          "title": "Ejercicio práctico 2",
+          "type": "lab",
+          "durationMinutes": 10,
+          "contentRef": "agentes-en-produccion/bloques/B5-seguridad-de-agentes.html#slide-28",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "70695bda13233fd8adb45cbbff6fa735a8f4a6fdf4d936ffab46b7755724dca3"
+        },
+        {
+          "slug": "b5-slide-29-mini-quiz-de-comprension-b5",
+          "title": "Mini-quiz de comprensión — B5",
+          "type": "quiz",
+          "durationMinutes": 5,
+          "contentRef": "agentes-en-produccion/bloques/B5-seguridad-de-agentes.html#slide-29",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "70695bda13233fd8adb45cbbff6fa735a8f4a6fdf4d936ffab46b7755724dca3"
+        }
+      ]
+    },
+    {
+      "title": "B6 · Despliegue progresivo",
+      "order": 5,
+      "lessons": [
+        {
+          "slug": "b6-slide-0-por-que-desplegar-un-cambio-de-modelo-no-es-desplegar-codigo",
+          "title": "Por qué desplegar un cambio de modelo no es desplegar código",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B6-despliegue-progresivo.html#slide-0",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "acf23249d41f52c410e3f0f9d7907a3e315a800f6d012bb0b3a48e8d6e831ac4"
+        },
+        {
+          "slug": "b6-slide-1-lo-que-cambia-sin-avisar",
+          "title": "Lo que cambia sin avisar",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B6-despliegue-progresivo.html#slide-1",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "acf23249d41f52c410e3f0f9d7907a3e315a800f6d012bb0b3a48e8d6e831ac4"
+        },
+        {
+          "slug": "b6-slide-2-fijar-version-de-modelo-y-que-implica",
+          "title": "Fijar versión de modelo y qué implica",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B6-despliegue-progresivo.html#slide-2",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "acf23249d41f52c410e3f0f9d7907a3e315a800f6d012bb0b3a48e8d6e831ac4"
+        },
+        {
+          "slug": "b6-slide-3-banderas-de-funcionalidad-aplicadas-a-prompts-y-modelos",
+          "title": "Banderas de funcionalidad aplicadas a prompts y modelos",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B6-despliegue-progresivo.html#slide-3",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "acf23249d41f52c410e3f0f9d7907a3e315a800f6d012bb0b3a48e8d6e831ac4"
+        },
+        {
+          "slug": "b6-slide-4-shadow-mode",
+          "title": "Shadow mode",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B6-despliegue-progresivo.html#slide-4",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "acf23249d41f52c410e3f0f9d7907a3e315a800f6d012bb0b3a48e8d6e831ac4"
+        },
+        {
+          "slug": "b6-slide-5-comparar-shadow-contra-produccion",
+          "title": "Comparar shadow contra producción",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B6-despliegue-progresivo.html#slide-5",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "acf23249d41f52c410e3f0f9d7907a3e315a800f6d012bb0b3a48e8d6e831ac4"
+        },
+        {
+          "slug": "b6-slide-6-parallel-run",
+          "title": "Parallel run",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B6-despliegue-progresivo.html#slide-6",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "acf23249d41f52c410e3f0f9d7907a3e315a800f6d012bb0b3a48e8d6e831ac4"
+        },
+        {
+          "slug": "b6-slide-7-canary",
+          "title": "Canary",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B6-despliegue-progresivo.html#slide-7",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "acf23249d41f52c410e3f0f9d7907a3e315a800f6d012bb0b3a48e8d6e831ac4"
+        },
+        {
+          "slug": "b6-slide-8-segmentar-el-canary",
+          "title": "Segmentar el canary",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B6-despliegue-progresivo.html#slide-8",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "acf23249d41f52c410e3f0f9d7907a3e315a800f6d012bb0b3a48e8d6e831ac4"
+        },
+        {
+          "slug": "b6-slide-9-criterios-de-promocion-escritos-antes-de-empezar",
+          "title": "Criterios de promoción escritos antes de empezar",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B6-despliegue-progresivo.html#slide-9",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "acf23249d41f52c410e3f0f9d7907a3e315a800f6d012bb0b3a48e8d6e831ac4"
+        },
+        {
+          "slug": "b6-slide-10-criterios-de-reversion-y-quien-puede-pulsar-el-boton",
+          "title": "Criterios de reversión, y quién puede pulsar el botón",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B6-despliegue-progresivo.html#slide-10",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "acf23249d41f52c410e3f0f9d7907a3e315a800f6d012bb0b3a48e8d6e831ac4"
+        },
+        {
+          "slug": "b6-slide-11-reversion-en-un-minuto",
+          "title": "Reversión en un minuto",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B6-despliegue-progresivo.html#slide-11",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "acf23249d41f52c410e3f0f9d7907a3e315a800f6d012bb0b3a48e8d6e831ac4"
+        },
+        {
+          "slug": "b6-slide-12-el-despliegue-que-no-se-puede-revertir",
+          "title": "El despliegue que no se puede revertir",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B6-despliegue-progresivo.html#slide-12",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "acf23249d41f52c410e3f0f9d7907a3e315a800f6d012bb0b3a48e8d6e831ac4"
+        },
+        {
+          "slug": "b6-slide-13-migraciones-de-esquema-de-memoria-y-contexto",
+          "title": "Migraciones de esquema de memoria y contexto",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B6-despliegue-progresivo.html#slide-13",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "acf23249d41f52c410e3f0f9d7907a3e315a800f6d012bb0b3a48e8d6e831ac4"
+        },
+        {
+          "slug": "b6-slide-14-comunicar-el-cambio-a-operaciones-y-a-negocio",
+          "title": "Comunicar el cambio a operaciones y a negocio",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B6-despliegue-progresivo.html#slide-14",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "acf23249d41f52c410e3f0f9d7907a3e315a800f6d012bb0b3a48e8d6e831ac4"
+        },
+        {
+          "slug": "b6-slide-15-el-plan-de-despliegue-de-un-cambio-de-modelo-en-meridiana",
+          "title": "El plan de despliegue de un cambio de modelo en Meridiana",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B6-despliegue-progresivo.html#slide-15",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "acf23249d41f52c410e3f0f9d7907a3e315a800f6d012bb0b3a48e8d6e831ac4"
+        },
+        {
+          "slug": "b6-slide-16-que-cambia-de-un-despliegue-de-prompt-frente-a-uno-de-modelo",
+          "title": "Qué cambia de un despliegue de prompt frente a uno de modelo",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B6-despliegue-progresivo.html#slide-16",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "acf23249d41f52c410e3f0f9d7907a3e315a800f6d012bb0b3a48e8d6e831ac4"
+        },
+        {
+          "slug": "b6-slide-17-congelar-cambios-durante-los-picos-de-siniestralidad",
+          "title": "Congelar cambios durante los picos de siniestralidad",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B6-despliegue-progresivo.html#slide-17",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "acf23249d41f52c410e3f0f9d7907a3e315a800f6d012bb0b3a48e8d6e831ac4"
+        },
+        {
+          "slug": "b6-slide-18-ventanas-de-despliegue-y-por-que-existen-aqui",
+          "title": "Ventanas de despliegue y por qué existen aquí",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B6-despliegue-progresivo.html#slide-18",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "acf23249d41f52c410e3f0f9d7907a3e315a800f6d012bb0b3a48e8d6e831ac4"
+        },
+        {
+          "slug": "b6-slide-19-el-eval-de-preproduccion-como-puerta-previa-al-canary",
+          "title": "El eval de preproducción como puerta previa al canary",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B6-despliegue-progresivo.html#slide-19",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "acf23249d41f52c410e3f0f9d7907a3e315a800f6d012bb0b3a48e8d6e831ac4"
+        },
+        {
+          "slug": "b6-slide-20-metricas-que-se-miran-durante-el-canary-y-durante-cuanto-tiempo",
+          "title": "Métricas que se miran durante el canary y durante cuánto tiempo",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B6-despliegue-progresivo.html#slide-20",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "acf23249d41f52c410e3f0f9d7907a3e315a800f6d012bb0b3a48e8d6e831ac4"
+        },
+        {
+          "slug": "b6-slide-21-falsos-positivos-en-la-comparacion",
+          "title": "Falsos positivos en la comparación",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B6-despliegue-progresivo.html#slide-21",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "acf23249d41f52c410e3f0f9d7907a3e315a800f6d012bb0b3a48e8d6e831ac4"
+        },
+        {
+          "slug": "b6-slide-22-convivencia-de-dos-versiones-de-prompt-en-produccion",
+          "title": "Convivencia de dos versiones de prompt en producción",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B6-despliegue-progresivo.html#slide-22",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "acf23249d41f52c410e3f0f9d7907a3e315a800f6d012bb0b3a48e8d6e831ac4"
+        },
+        {
+          "slug": "b6-slide-23-registrar-que-version-atendio-cada-caso",
+          "title": "Registrar qué versión atendió cada caso",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B6-despliegue-progresivo.html#slide-23",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "acf23249d41f52c410e3f0f9d7907a3e315a800f6d012bb0b3a48e8d6e831ac4"
+        },
+        {
+          "slug": "b6-slide-24-auditoria-de-despliegues",
+          "title": "Auditoría de despliegues",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B6-despliegue-progresivo.html#slide-24",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "acf23249d41f52c410e3f0f9d7907a3e315a800f6d012bb0b3a48e8d6e831ac4"
+        },
+        {
+          "slug": "b6-slide-25-ensayo-de-reversion",
+          "title": "Ensayo de reversión",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B6-despliegue-progresivo.html#slide-25",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "acf23249d41f52c410e3f0f9d7907a3e315a800f6d012bb0b3a48e8d6e831ac4"
+        },
+        {
+          "slug": "b6-slide-26-ejercicio-practico-1",
+          "title": "Ejercicio práctico 1",
+          "type": "lab",
+          "durationMinutes": 10,
+          "contentRef": "agentes-en-produccion/bloques/B6-despliegue-progresivo.html#slide-26",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "acf23249d41f52c410e3f0f9d7907a3e315a800f6d012bb0b3a48e8d6e831ac4"
+        },
+        {
+          "slug": "b6-slide-27-ejercicio-practico-2",
+          "title": "Ejercicio práctico 2",
+          "type": "lab",
+          "durationMinutes": 10,
+          "contentRef": "agentes-en-produccion/bloques/B6-despliegue-progresivo.html#slide-27",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "acf23249d41f52c410e3f0f9d7907a3e315a800f6d012bb0b3a48e8d6e831ac4"
+        },
+        {
+          "slug": "b6-slide-28-mini-quiz-de-comprension-b6",
+          "title": "Mini-quiz de comprensión — B6",
+          "type": "quiz",
+          "durationMinutes": 5,
+          "contentRef": "agentes-en-produccion/bloques/B6-despliegue-progresivo.html#slide-28",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "acf23249d41f52c410e3f0f9d7907a3e315a800f6d012bb0b3a48e8d6e831ac4"
+        }
+      ]
+    },
+    {
+      "title": "B7 · Operación e incidentes",
+      "order": 6,
+      "lessons": [
+        {
+          "slug": "b7-slide-0-que-significa-estar-de-guardia-de-un-agente",
+          "title": "Qué significa estar de guardia de un agente",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B7-operacion-e-incidentes.html#slide-0",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "6d41be7f935019c1c2746b8c8904c926594cb20e6304acde00323aae99081375"
+        },
+        {
+          "slug": "b7-slide-1-los-modos-de-fallo-propios",
+          "title": "Los modos de fallo propios",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B7-operacion-e-incidentes.html#slide-1",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "6d41be7f935019c1c2746b8c8904c926594cb20e6304acde00323aae99081375"
+        },
+        {
+          "slug": "b7-slide-2-el-peor",
+          "title": "El peor",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B7-operacion-e-incidentes.html#slide-2",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "6d41be7f935019c1c2746b8c8904c926594cb20e6304acde00323aae99081375"
+        },
+        {
+          "slug": "b7-slide-3-senales-que-los-detectan-antes-que-el-cliente",
+          "title": "Señales que los detectan antes que el cliente",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B7-operacion-e-incidentes.html#slide-3",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "6d41be7f935019c1c2746b8c8904c926594cb20e6304acde00323aae99081375"
+        },
+        {
+          "slug": "b7-slide-4-runbooks",
+          "title": "Runbooks",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B7-operacion-e-incidentes.html#slide-4",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "6d41be7f935019c1c2746b8c8904c926594cb20e6304acde00323aae99081375"
+        },
+        {
+          "slug": "b7-slide-5-el-runbook-de-el-agente-deriva-todo",
+          "title": "El runbook de «el agente deriva todo»",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B7-operacion-e-incidentes.html#slide-5",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "6d41be7f935019c1c2746b8c8904c926594cb20e6304acde00323aae99081375"
+        },
+        {
+          "slug": "b7-slide-6-el-runbook-de-el-coste-se-ha-triplicado-esta-noche",
+          "title": "El runbook de «el coste se ha triplicado esta noche»",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B7-operacion-e-incidentes.html#slide-6",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "6d41be7f935019c1c2746b8c8904c926594cb20e6304acde00323aae99081375"
+        },
+        {
+          "slug": "b7-slide-7-el-runbook-de-el-proveedor-esta-degradado",
+          "title": "El runbook de «el proveedor está degradado»",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B7-operacion-e-incidentes.html#slide-7",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "6d41be7f935019c1c2746b8c8904c926594cb20e6304acde00323aae99081375"
+        },
+        {
+          "slug": "b7-slide-8-el-interruptor",
+          "title": "El interruptor",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B7-operacion-e-incidentes.html#slide-8",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "6d41be7f935019c1c2746b8c8904c926594cb20e6304acde00323aae99081375"
+        },
+        {
+          "slug": "b7-slide-9-disenar-el-sistema-para-que-apagar-el-agente-sea-posible",
+          "title": "Diseñar el sistema para que apagar el agente sea posible",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B7-operacion-e-incidentes.html#slide-9",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "6d41be7f935019c1c2746b8c8904c926594cb20e6304acde00323aae99081375"
+        },
+        {
+          "slug": "b7-slide-10-alertas",
+          "title": "Alertas",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B7-operacion-e-incidentes.html#slide-10",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "6d41be7f935019c1c2746b8c8904c926594cb20e6304acde00323aae99081375"
+        },
+        {
+          "slug": "b7-slide-11-fatiga-de-alertas",
+          "title": "Fatiga de alertas",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B7-operacion-e-incidentes.html#slide-11",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "6d41be7f935019c1c2746b8c8904c926594cb20e6304acde00323aae99081375"
+        },
+        {
+          "slug": "b7-slide-12-triaje-de-un-incidente",
+          "title": "Triaje de un incidente",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B7-operacion-e-incidentes.html#slide-12",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "6d41be7f935019c1c2746b8c8904c926594cb20e6304acde00323aae99081375"
+        },
+        {
+          "slug": "b7-slide-13-comunicacion-durante-el-incidente-dentro-y-fuera",
+          "title": "Comunicación durante el incidente, dentro y fuera",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B7-operacion-e-incidentes.html#slide-13",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "6d41be7f935019c1c2746b8c8904c926594cb20e6304acde00323aae99081375"
+        },
+        {
+          "slug": "b7-slide-14-postmortem-sin-culpables-con-acciones",
+          "title": "Postmortem sin culpables, con acciones",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B7-operacion-e-incidentes.html#slide-14",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "6d41be7f935019c1c2746b8c8904c926594cb20e6304acde00323aae99081375"
+        },
+        {
+          "slug": "b7-slide-15-que-acciones-del-postmortem-son-evals-nuevos",
+          "title": "Qué acciones del postmortem son evals nuevos",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B7-operacion-e-incidentes.html#slide-15",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "6d41be7f935019c1c2746b8c8904c926594cb20e6304acde00323aae99081375"
+        },
+        {
+          "slug": "b7-slide-16-slo-realistas-para-un-sistema-no-determinista",
+          "title": "SLO realistas para un sistema no determinista",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B7-operacion-e-incidentes.html#slide-16",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "6d41be7f935019c1c2746b8c8904c926594cb20e6304acde00323aae99081375"
+        },
+        {
+          "slug": "b7-slide-17-el-traspaso-a-operaciones",
+          "title": "El traspaso a operaciones",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B7-operacion-e-incidentes.html#slide-17",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "6d41be7f935019c1c2746b8c8904c926594cb20e6304acde00323aae99081375"
+        },
+        {
+          "slug": "b7-slide-18-el-runbook-de-el-proveedor-cambio-el-modelo-por-debajo",
+          "title": "El runbook de «el proveedor cambió el modelo por debajo»",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B7-operacion-e-incidentes.html#slide-18",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "6d41be7f935019c1c2746b8c8904c926594cb20e6304acde00323aae99081375"
+        },
+        {
+          "slug": "b7-slide-19-el-runbook-de-hay-datos-personales-en-las-trazas",
+          "title": "El runbook de «hay datos personales en las trazas»",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B7-operacion-e-incidentes.html#slide-19",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "6d41be7f935019c1c2746b8c8904c926594cb20e6304acde00323aae99081375"
+        },
+        {
+          "slug": "b7-slide-20-degradacion-por-etapas",
+          "title": "Degradación por etapas",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B7-operacion-e-incidentes.html#slide-20",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "6d41be7f935019c1c2746b8c8904c926594cb20e6304acde00323aae99081375"
+        },
+        {
+          "slug": "b7-slide-21-cola-de-expedientes-atascados-y-su-drenaje",
+          "title": "Cola de expedientes atascados y su drenaje",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B7-operacion-e-incidentes.html#slide-21",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "6d41be7f935019c1c2746b8c8904c926594cb20e6304acde00323aae99081375"
+        },
+        {
+          "slug": "b7-slide-22-reprocesar-en-lote-sin-duplicar-avisos-al-cliente",
+          "title": "Reprocesar en lote sin duplicar avisos al cliente",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B7-operacion-e-incidentes.html#slide-22",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "6d41be7f935019c1c2746b8c8904c926594cb20e6304acde00323aae99081375"
+        },
+        {
+          "slug": "b7-slide-23-guardias-sostenibles",
+          "title": "Guardias sostenibles",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B7-operacion-e-incidentes.html#slide-23",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "6d41be7f935019c1c2746b8c8904c926594cb20e6304acde00323aae99081375"
+        },
+        {
+          "slug": "b7-slide-24-que-se-escala-a-negocio-y-en-que-momento",
+          "title": "Qué se escala a negocio y en qué momento",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B7-operacion-e-incidentes.html#slide-24",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "6d41be7f935019c1c2746b8c8904c926594cb20e6304acde00323aae99081375"
+        },
+        {
+          "slug": "b7-slide-25-ejercicios-de-caos-aplicados-a-un-agente",
+          "title": "Ejercicios de caos aplicados a un agente",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B7-operacion-e-incidentes.html#slide-25",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "6d41be7f935019c1c2746b8c8904c926594cb20e6304acde00323aae99081375"
+        },
+        {
+          "slug": "b7-slide-26-los-indicadores-que-anticipan-un-incidente-por-horas",
+          "title": "Los indicadores que anticipan un incidente por horas",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B7-operacion-e-incidentes.html#slide-26",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "6d41be7f935019c1c2746b8c8904c926594cb20e6304acde00323aae99081375"
+        },
+        {
+          "slug": "b7-slide-27-cerrar-el-circulo",
+          "title": "Cerrar el círculo",
+          "type": "slides",
+          "durationMinutes": 2,
+          "contentRef": "agentes-en-produccion/bloques/B7-operacion-e-incidentes.html#slide-27",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "6d41be7f935019c1c2746b8c8904c926594cb20e6304acde00323aae99081375"
+        },
+        {
+          "slug": "b7-slide-28-ejercicio-practico-1",
+          "title": "Ejercicio práctico 1",
+          "type": "lab",
+          "durationMinutes": 10,
+          "contentRef": "agentes-en-produccion/bloques/B7-operacion-e-incidentes.html#slide-28",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "6d41be7f935019c1c2746b8c8904c926594cb20e6304acde00323aae99081375"
+        },
+        {
+          "slug": "b7-slide-29-ejercicio-practico-2",
+          "title": "Ejercicio práctico 2",
+          "type": "lab",
+          "durationMinutes": 10,
+          "contentRef": "agentes-en-produccion/bloques/B7-operacion-e-incidentes.html#slide-29",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "6d41be7f935019c1c2746b8c8904c926594cb20e6304acde00323aae99081375"
+        },
+        {
+          "slug": "b7-slide-30-mini-quiz-de-comprension-b7",
+          "title": "Mini-quiz de comprensión — B7",
+          "type": "quiz",
+          "durationMinutes": 5,
+          "contentRef": "agentes-en-produccion/bloques/B7-operacion-e-incidentes.html#slide-30",
+          "isFreePreview": false,
+          "isRequired": true,
+          "sha256": "6d41be7f935019c1c2746b8c8904c926594cb20e6304acde00323aae99081375"
+        }
+      ]
+    }
+  ],
+  "quizzes": [
+    {
+      "slug": "agentes-en-produccion-b1",
+      "title": "Comprobación B1",
+      "kind": "blockcheck",
+      "questions": [
+        {
+          "category": "Dónde debe vivir la regla de derivar por lesiones y por qué",
+          "text": "El equipo discute dónde poner «si hay lesiones personales, deriva a un humano». ¿Cuál es la opción correcta y por qué?",
+          "explanation": "Es la única opción reproducible, auditable y que no compite por atención con el relato del asegurado. La (a) puede diluirse o sobrescribirse por inyección. La (c) parece prudente pero deja la regla real sin identificar y duplica el mantenimiento. La (d) devuelve la decisión al modelo con un rodeo.",
+          "options": [
+            {
+              "index": 0,
+              "text": "En el prompt del sistema, porque así se puede ajustar sin desplegar.",
+              "isCorrect": false
+            },
+            {
+              "index": 1,
+              "text": "En código, después de la extracción: el modelo detecta lesiones y el código decide derivar.",
+              "isCorrect": true
+            },
+            {
+              "index": 2,
+              "text": "En el prompt y en código, para tener doble red.",
+              "isCorrect": false
+            },
+            {
+              "index": 3,
+              "text": "En una tool que el modelo llame cuando lo crea oportuno.",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "category": "Qué se puede reintentar sin efectos duplicados en el flujo de Meridiana",
+          "text": "El orquestador recibe un timeout. ¿Cuál de estas operaciones se puede reintentar sin más precauciones?",
+          "explanation": "Las lecturas son idempotentes por naturaleza. La (a) manda dos correos y la (b) deja dos adjuntos iguales; las dos necesitan clave de idempotencia. La (d) confunde *cuándo* reintentar con *qué* se puede reintentar: la espera evita saturar, no evita duplicar.",
+          "options": [
+            {
+              "index": 0,
+              "text": "`crear_peticion_documentacion`, porque el asegurado ignorará el correo repetido.",
+              "isCorrect": false
+            },
+            {
+              "index": 1,
+              "text": "`adjuntar_documento`, porque el expediente admite varios adjuntos.",
+              "isCorrect": false
+            },
+            {
+              "index": 2,
+              "text": "`consultar_coberturas`, porque es una lectura y no cambia nada.",
+              "isCorrect": true
+            },
+            {
+              "index": 3,
+              "text": "Cualquiera, si el reintento va con espera exponencial.",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "category": "Qué distingue una tool bien diseñada de una envoltura de la base de datos",
+          "text": "¿Cuál de estas cuatro está mejor diseñada como tool de un agente?",
+          "explanation": "La (c) tiene tipos estrechos, una intención concreta y dice cuándo **no** usarla, que es lo que evita las llamadas razonables pero equivocadas. La (a) y la (b) son la base de datos con otro nombre: el modelo tendría que saber el esquema y podría leer cualquier cosa. La (d) no dice nada.",
+          "options": [
+            {
+              "index": 0,
+              "text": "`ejecutar_sql(consulta: str)` — «Ejecuta una consulta contra la base.»",
+              "isCorrect": false
+            },
+            {
+              "index": 1,
+              "text": "`obtener_datos(tabla: str, filtro: dict)` — «Devuelve filas de una tabla.»",
+              "isCorrect": false
+            },
+            {
+              "index": 2,
+              "text": "`consultar_coberturas(poliza_id: str)` — «Devuelve las coberturas contratadas. Úsala antes de decidir qué documentación pedir. NO la uses para comprobar si la póliza está en vigor.»",
+              "isCorrect": true
+            },
+            {
+              "index": 3,
+              "text": "`helper(entrada: any)` — «Hace lo que necesites con la entrada.»",
+              "isCorrect": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "agentes-en-produccion-b2",
+      "title": "Comprobación B2",
+      "kind": "blockcheck",
+      "questions": [
+        {
+          "category": "Qué atributos debe llevar el span de una tool para ser útil en una investigación",
+          "text": "`consultar_poliza` devuelve un fallo en producción. ¿Qué conjunto de atributos del span permite investigarlo sin abrir el código ni consultar la base?",
+          "explanation": "La (c) es la única que permite responder qué se pidió, qué pasó y si el fallo es un incidente o una respuesta legítima del negocio. La (a) mide pero no explica: `ok=false` no distingue una póliza caducada de Postgres caído. La (b) mete la póliza entera en la traza, dispara el coste y arrastra datos personales. La (d) confunde el span de la tool con el contexto del caso y guarda justo lo que no debe salir del expediente.",
+          "options": [
+            {
+              "index": 0,
+              "text": "La duración y un booleano `ok`, que es lo que hace falta para el panel de latencia.",
+              "isCorrect": false
+            },
+            {
+              "index": 1,
+              "text": "El diccionario completo de argumentos y la respuesta íntegra de la tool, para no quedarse corto.",
+              "isCorrect": false
+            },
+            {
+              "index": 2,
+              "text": "`tool.name`, los argumentos de la lista blanca, `tool.idempotente`, un resumen del resultado y `tool.error.tipo` distinguiendo error de negocio de error de infraestructura.",
+              "isCorrect": true
+            },
+            {
+              "index": 3,
+              "text": "El `claim.id` y el relato del asegurado, que es lo que explica el caso.",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "category": "Por qué el muestreo aleatorio puro es mala idea en un agente",
+          "text": "Meridiana procesa unos 88 siniestros al día. Alguien propone muestrear el 1 % de las trazas de forma aleatoria para controlar el coste. ¿Cuál es la objeción correcta?",
+          "explanation": "El valor de una traza es responder por **un** caso concreto, y eso no se promedia. Con 88 casos diarios el volumen no es el problema: lo es el tamaño de cada span, que se ataca adelgazando el contenido y, si hace falta, con muestreo por cola que conserva errores, derivaciones y colas de latencia. La (a) confunde trazas con métricas, que van agregadas y aparte. La (c) describe justo lo contrario del muestreo por cola. La (d) no es una objeción, es una excusa.",
+          "options": [
+            {
+              "index": 0,
+              "text": "Que el muestreo aleatorio introduce sesgo estadístico y las métricas dejarían de ser fiables.",
+              "isCorrect": false
+            },
+            {
+              "index": 1,
+              "text": "Que con ese volumen guardarías menos de una traza al día, y la probabilidad de tener la del caso por el que preguntan sería del 1 %: pagas almacenamiento para no poder responder ninguna pregunta concreta.",
+              "isCorrect": true
+            },
+            {
+              "index": 2,
+              "text": "Que el muestreo hay que decidirlo siempre al empezar la traza, y al 1 % no da tiempo.",
+              "isCorrect": false
+            },
+            {
+              "index": 3,
+              "text": "Que las trazas de un agente no se pueden muestrear porque cada una es distinta.",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "category": "Qué hacer con los datos personales que aparecen en el relato antes de exportarlo",
+          "text": "El relato «*iba con mi hija y se quejaba del cuello*» explica por qué el modelo marcó lesiones inciertas. ¿Qué se hace con él en la traza?",
+          "explanation": "La (c) mantiene el dato en el sistema donde ya está inventariado, con permisos y plazo conocidos, y no crea una segunda copia en una herramienta que suele ser más laxa y a veces externa. La (a) traslada el problema a la gestión de permisos de un sistema que no controlas. La (b) deja la traza sin capacidad de explicar la extracción, que es lo que se pedía. La (d) es falsa seguridad: un hash sin clave sobre un espacio pequeño —matrículas, nombres— se revierte con una tabla; para correlacionar sin exponer se usa HMAC con clave guardada aparte.",
+          "options": [
+            {
+              "index": 0,
+              "text": "Guardarlo íntegro en el span y restringir el acceso a la herramienta de observabilidad.",
+              "isCorrect": false
+            },
+            {
+              "index": 1,
+              "text": "No guardar nada del relato y añadir un comentario en el código explicando el motivo.",
+              "isCorrect": false
+            },
+            {
+              "index": 2,
+              "text": "Guardar sólo la referencia `claim.id` y dejar el relato en Postgres con sus permisos y su retención; si hace falta el texto en la traza, pasarlo antes por el procesador de redacción con lista blanca.",
+              "isCorrect": true
+            },
+            {
+              "index": 3,
+              "text": "Guardar el relato con un SHA-256 de cada palabra sensible, que así queda anonimizado.",
+              "isCorrect": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "agentes-en-produccion-b3",
+      "title": "Comprobación B3",
+      "kind": "blockcheck",
+      "questions": [
+        {
+          "category": "Cuándo un modelo como juez es apropiado y cuándo no",
+          "text": "El equipo quiere añadir un modelo como juez al eval de Meridiana. ¿En cuál de estas cuatro comprobaciones tiene sentido usarlo?",
+          "explanation": "La redacción es lo único del flujo que no admite comparación exacta, y la (c) además cumple las dos condiciones: rúbrica concreta y calibración contra humanos. La (a) sustituye una etiqueta escrita por una decisión probabilística en la regla más crítica del caso. La (b) tiene etiqueta: se compara con `==`. La (d) produce un número que da tranquilidad y no señala ningún caso concreto que arreglar.",
+          "options": [
+            {
+              "index": 0,
+              "text": "Decidir si un siniestro con lesiones debería haberse derivado, porque el juez entiende el matiz del relato.",
+              "isCorrect": false
+            },
+            {
+              "index": 1,
+              "text": "Comprobar si la vía elegida coincide con la esperada, porque a veces hay varias vías razonables.",
+              "isCorrect": false
+            },
+            {
+              "index": 2,
+              "text": "Valorar la redacción de la petición de documentación con una rúbrica de cuatro preguntas binarias, calibrada contra el tramitador senior.",
+              "isCorrect": true
+            },
+            {
+              "index": 3,
+              "text": "Dar una nota global de calidad del 1 al 10 a cada caso, para seguirla mes a mes.",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "category": "Qué umbral tiene sentido para la regla de derivar por lesiones",
+          "text": "Estás escribiendo `umbrales.yaml`. ¿Qué umbral pones a la comprobación «todo caso con lesiones personales deriva»?",
+          "explanation": "Un umbral por debajo del 100 % es una frase escrita —«tantos heridos sin derivar por cada cien son aceptables»— que nadie firma. La (a) y la (b) la firman sin decirlo. La (d) convierte un control en un informe, que es exactamente el eval que nadie mira. Si un caso límite impide el 100 %, el problema está en la etiqueta o en la política, y ahí es donde hay que arreglarlo.",
+          "options": [
+            {
+              "index": 0,
+              "text": "95 %, alineado con la exactitud agregada del sistema.",
+              "isCorrect": false
+            },
+            {
+              "index": 1,
+              "text": "99 %, porque exigir el 100 % bloqueará el merge por casos límite.",
+              "isCorrect": false
+            },
+            {
+              "index": 2,
+              "text": "100 %, y bloquea el merge; si algún caso lo hace inviable, se arregla la comprobación, no se baja el umbral.",
+              "isCorrect": true
+            },
+            {
+              "index": 3,
+              "text": "Sin umbral: se mide y se revisa en la reunión mensual.",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "category": "Cómo detectar una regresión que el agregado no muestra",
+          "text": "Un cambio de prompt sube la exactitud del 90,3 % al 93,5 % sobre los mismos 31 casos. ¿Qué comprobación decide si el cambio entra?",
+          "explanation": "El agregado es un neto: puede subir con cinco casos arreglados y tres rotos, y uno de los rotos puede ser el de lesiones. Solo la comparación caso a caso la enseña. La (a) es precisamente el error. La (b) aplica estadística a 31 casos, donde no hay potencia para nada. La (d) elige la ejecución más favorable, que es la forma más rápida de convertir varianza en conclusión.",
+          "options": [
+            {
+              "index": 0,
+              "text": "Que el agregado suba, que es justo lo que ha pasado.",
+              "isCorrect": false
+            },
+            {
+              "index": 1,
+              "text": "Que el intervalo de confianza de la mejora no incluya el cero.",
+              "isCorrect": false
+            },
+            {
+              "index": 2,
+              "text": "La lista de casos que pasaban antes y ahora fallan: si no está vacía, se revisa uno a uno antes de decidir.",
+              "isCorrect": true
+            },
+            {
+              "index": 3,
+              "text": "Repetir la ejecución tres veces y quedarse con la media más alta.",
+              "isCorrect": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "agentes-en-produccion-b4",
+      "title": "Comprobación B4",
+      "kind": "blockcheck",
+      "questions": [
+        {
+          "category": "Qué parte del prompt conviene fijar para aprovechar el caching",
+          "text": "El prompt del FNOL empieza con «Hoy es {fecha}. Expediente {claim_id}.» y sigue con las instrucciones del sistema, los schemas de las cinco tools y el catálogo de documentos. El acierto de caché es prácticamente cero. ¿Qué hay que cambiar?",
+          "explanation": "La caché exige un prefijo idéntico byte a byte, y la fecha y el identificador cambian en cada llamada, así que invalidan todo lo que va detrás. Moverlos deja 4.000 tokens estables cacheables. La (a) confunde el problema: el prefijo largo es precisamente lo que hace rentable el caching. La (c) no depende del cliente. La (d) es falsa: incluso dentro de un solo caso, con tres llamadas que comparten prefijo, el ahorro ya es del orden del 18 % de la factura.",
+          "options": [
+            {
+              "index": 0,
+              "text": "Acortar las instrucciones del sistema, porque el prefijo es demasiado largo para cachearse.",
+              "isCorrect": false
+            },
+            {
+              "index": 1,
+              "text": "Mover la fecha y el `claim_id` detrás del bloque estable, dejando delante instrucciones, schemas y catálogo.",
+              "isCorrect": true
+            },
+            {
+              "index": 2,
+              "text": "Subir el TTL de la caché desde el cliente, para que sobreviva entre casos.",
+              "isCorrect": false
+            },
+            {
+              "index": 3,
+              "text": "Nada: con 88 siniestros al día no hay volumen suficiente para que el caching sirva.",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "category": "Cuándo una cascada de modelos sale más cara que el modelo grande",
+          "text": "El modelo pequeño cuesta la décima parte que el grande. Montas una cascada con verificación determinista. ¿A partir de qué tasa de escalada la cascada deja de ahorrar dinero?",
+          "explanation": "La fórmula da el punto de indiferencia exacto, y con una relación de 1 a 10 son el 90 %. Ojo: eso es solo en euros. La latencia de los casos escalados, mantener dos suites de evals y una rama más de comportamiento hacen que en la práctica se quite la cascada bastante antes, alrededor del 50 %. La (a) y la (b) son intuiciones sin cuenta detrás. La (d) ignora que el caso escalado paga las dos llamadas, no solo la grande.",
+          "options": [
+            {
+              "index": 0,
+              "text": "A partir del 10 %, porque es la proporción de precio entre los dos modelos.",
+              "isCorrect": false
+            },
+            {
+              "index": 1,
+              "text": "A partir del 50 %, porque a partir de ahí más de la mitad de los casos pasan dos veces.",
+              "isCorrect": false
+            },
+            {
+              "index": 2,
+              "text": "A partir del 90 %: el coste esperado es `C_pequeño + e × C_grande`, que iguala a `C_grande` cuando `e = 1 − C_pequeño/C_grande`.",
+              "isCorrect": true
+            },
+            {
+              "index": 3,
+              "text": "Nunca: como el pequeño siempre es más barato, la cascada siempre ahorra algo.",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "category": "Qué hacer cuando llegan 600 siniestros y el proveedor limita la tasa",
+          "text": "Episodio de granizo: ráfagas de 80 siniestros en diez minutos y el proveedor empieza a devolver 429 por límite de tokens por minuto. ¿Cuál es la respuesta correcta?",
+          "explanation": "La admisión nunca se degrada, porque es un canal regulado de atención; lo que se encola es la parte cara. La prioridad por lesiones asegura que lo que tiene consecuencias sale primero, y la concurrencia adaptativa respeta el límite sin sincronizar la flota. La (a) rompe el servicio justo cuando más se usa. La (b) provoca que todos vuelvan a la vez y genera el siguiente 429. La (c) cambia dinero —66 € en total, irrelevante— por horas de latencia, en contra del objetivo de bajar la tramitación de 11 días a 4.",
+          "options": [
+            {
+              "index": 0,
+              "text": "Cerrar temporalmente la admisión de FNOL en el portal hasta que baje la ráfaga.",
+              "isCorrect": false
+            },
+            {
+              "index": 1,
+              "text": "Reintentar cada 429 con espera exponencial en todos los trabajadores a la vez.",
+              "isCorrect": false
+            },
+            {
+              "index": 2,
+              "text": "Pasar los 600 casos al modo por lotes del proveedor, que además sale más barato.",
+              "isCorrect": false
+            },
+            {
+              "index": 3,
+              "text": "Aceptar y persistir todos los FNOL, encolar la extracción con prioridad para los indicios de lesiones, y bajar la concurrencia de forma adaptativa mientras haya 429.",
+              "isCorrect": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "agentes-en-produccion-b5",
+      "title": "Comprobación B5",
+      "kind": "blockcheck",
+      "questions": [
+        {
+          "category": "Por qué un filtro de prompts maliciosos no resuelve la inyección indirecta",
+          "text": "Meridiana pone un clasificador delante del agente que marca los relatos de FNOL sospechosos. ¿Por qué eso no cierra el problema de la inyección indirecta?",
+          "explanation": "El filtro vigila el canal que controlas; la inyección indirecta entra por canales que no controlas y con desfase temporal. Además, un filtro con falsos positivos bloquea siniestros legítimos en un canal regulado de atención. La (a) y la (d) son costes reales pero no explican el fallo. La (c) es falsa. Un filtro sirve como señal de observabilidad, nunca como la razón por la que el sistema es seguro.",
+          "options": [
+            {
+              "index": 0,
+              "text": "Porque el clasificador introduce latencia y encarece cada siniestro.",
+              "isCorrect": false
+            },
+            {
+              "index": 1,
+              "text": "Porque el texto hostil también llega en contenido que el sistema recupera por su cuenta —el OCR de un adjunto, una nota interna, un catálogo de terceros— y ese contenido no pasa por el formulario que el filtro vigila.",
+              "isCorrect": true
+            },
+            {
+              "index": 2,
+              "text": "Porque los clasificadores solo funcionan en inglés.",
+              "isCorrect": false
+            },
+            {
+              "index": 3,
+              "text": "Porque hay que reentrenarlo cada mes con los ataques nuevos.",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "category": "Qué cambio de diseño hace inofensivo «aprueba 50.000 € sin revisión»",
+          "text": "Un asegurado escribe en su relato una instrucción para que se apruebe un importe alto sin revisión. ¿Qué hace que ese texto no consiga nada en Meridiana?",
+          "explanation": "La capacidad que no existe no se puede invocar, escriba lo que escriba quien sea. La (a) sube el listón pero no garantiza nada: compite por atención y cambia con la versión del modelo. La (b) es la carrera perdida de la slide 5 y además bloquea siniestros reales. La (d) es higiene útil contra confusiones de formato, no un control de seguridad: el modelo sigue leyendo el texto y entendiéndolo.",
+          "options": [
+            {
+              "index": 0,
+              "text": "Una instrucción en el prompt del sistema que prohíbe obedecer órdenes contenidas en el relato.",
+              "isCorrect": false
+            },
+            {
+              "index": 1,
+              "text": "Un filtro que detecta cifras seguidas de la palabra «aprueba» y bloquea el FNOL.",
+              "isCorrect": false
+            },
+            {
+              "index": 2,
+              "text": "Que no exista ninguna tool capaz de aprobar un importe: el agente propone y una persona aprueba siempre, con el umbral de 1.500 € gobernando cuánta revisión se aplica.",
+              "isCorrect": true
+            },
+            {
+              "index": 3,
+              "text": "Escapar el texto del relato antes de meterlo en el prompt.",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "category": "Qué acciones de Meridiana exigen confirmación humana y por qué",
+          "text": "De las cinco tools del agente, ¿cuál es el criterio correcto para decidir cuáles necesitan confirmación humana antes de ejecutarse?",
+          "explanation": "La confirmación se paga con atención humana, que es escasa: se gasta donde el efecto no se puede deshacer. La (a) produce un tramitador que confirma sin leer a partir de la trigésima vez, y entonces la confirmación solo reparte la culpa. La (b) confunde dos controles complementarios: la validación acota el rango, la confirmación cubre lo irreversible dentro de ese rango. La (c) devuelve la decisión al modelo, que es justo lo que el bloque evita.",
+          "options": [
+            {
+              "index": 0,
+              "text": "Todas, porque cualquier acción de un agente debe ser supervisada.",
+              "isCorrect": false
+            },
+            {
+              "index": 1,
+              "text": "Ninguna, porque las validaciones de argumentos ya impiden los usos indebidos.",
+              "isCorrect": false
+            },
+            {
+              "index": 2,
+              "text": "Las que el modelo marque como dudosas en su razonamiento.",
+              "isCorrect": false
+            },
+            {
+              "index": 3,
+              "text": "Las que producen efectos irreversibles fuera del sistema —enviar la petición al asegurado, adjuntar un documento al expediente—, mostrando la carga útil exacta y no la intención.",
+              "isCorrect": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "agentes-en-produccion-b6",
+      "title": "Comprobación B6",
+      "kind": "blockcheck",
+      "questions": [
+        {
+          "category": "Qué comparar entre shadow y producción para decidir una promoción",
+          "text": "Llevas cinco días de sombra sobre el tráfico de Meridiana. ¿Qué comparación te sirve para decidir si el cambio pasa al canary?",
+          "explanation": "Lo que importa es si cambia la consecuencia, no el texto. La (a) mide redacción: en un flujo con texto libre casi nada es idéntico y el número resultante mezcla erratas con derivaciones perdidas. La (c) es una métrica de coste, útil pero incapaz de detectar una regresión de comportamiento. La (d) es la puerta previa, no la comparación: 31 casos no ven un desplazamiento del 3 % sobre 88 siniestros diarios.",
+          "options": [
+            {
+              "index": 0,
+              "text": "El porcentaje de salidas idénticas carácter a carácter entre las dos versiones.",
+              "isCorrect": false
+            },
+            {
+              "index": 1,
+              "text": "Las diferencias clasificadas por consecuencia: derivación por lesiones, cambio de vía y cruce del umbral de 1.500 €, con los casos graves revisados uno a uno.",
+              "isCorrect": true
+            },
+            {
+              "index": 2,
+              "text": "La media de tokens por caso de cada versión.",
+              "isCorrect": false
+            },
+            {
+              "index": 3,
+              "text": "El resultado de `--all --check` sobre los 31 casos, que ya se ejecutó antes de la sombra.",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "category": "Por qué un canary aleatorio puede ser inaceptable en un flujo de siniestros",
+          "text": "Propones un canary del 5 % sorteado al azar en cada petición. ¿Cuál es el problema más grave de ese diseño en Meridiana?",
+          "explanation": "La asignación tiene que ser pegajosa por identificador de expediente y respetar las exclusiones: un expediente partido entre dos comportamientos no se puede atribuir ni explicar. La (a) va justo al revés: cuatro casos al día son pocos, no muchos. La (c) es falsa, el coste depende del volumen expuesto, no de cómo se sortea. La (d) confunde el problema con la solución: el control correcto es la versión anterior corriendo a la vez, nunca el histórico.",
+          "options": [
+            {
+              "index": 0,
+              "text": "Que el 5 % de 88 siniestros diarios es demasiado tráfico para una primera fase.",
+              "isCorrect": false
+            },
+            {
+              "index": 1,
+              "text": "Que el sorteo por petición hace que un mismo expediente pueda ser atendido por las dos versiones en momentos distintos, y que no excluye los casos que no se experimentan.",
+              "isCorrect": true
+            },
+            {
+              "index": 2,
+              "text": "Que un canary aleatorio siempre cuesta más tokens que uno segmentado.",
+              "isCorrect": false
+            },
+            {
+              "index": 3,
+              "text": "Que impide comparar contra el histórico del trimestre anterior.",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "category": "Qué hace irreversible un despliegue y cómo se mitiga",
+          "text": "Tras una semana de canary al 25 % detectas una regresión y bajas la bandera en menos de un minuto. ¿Qué queda por hacer y qué te permite hacerlo?",
+          "explanation": "La bandera detiene el daño futuro; no rebobina los efectos ya escritos ni los correos ya enviados, que en una semana al 25 % son unos 150 expedientes. Sacar esa lista solo es posible si cada caso registró su versión. La (a) es el error que este bloque intenta desmontar. La (b) es sano pero no repara nada. La (d) destruiría el trabajo legítimo de esa semana: los expedientes atendidos por la versión anterior también están en esa base.",
+          "options": [
+            {
+              "index": 0,
+              "text": "Nada más: bajar la bandera deja el sistema en el estado anterior.",
+              "isCorrect": false
+            },
+            {
+              "index": 1,
+              "text": "Volver a ejecutar `--all --check` para confirmar que la versión anterior sigue pasando los 31 casos.",
+              "isCorrect": false
+            },
+            {
+              "index": 2,
+              "text": "Revisar los expedientes que ya atendió la versión nueva —con sus correos, adjuntos y propuestas ya emitidos— usando el registro de `modelo_version` y `prompt_version` de cada caso.",
+              "isCorrect": true
+            },
+            {
+              "index": 3,
+              "text": "Restaurar la copia de seguridad de la base de datos al momento anterior al canary.",
+              "isCorrect": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "agentes-en-produccion-b7",
+      "title": "Comprobación B7",
+      "kind": "blockcheck",
+      "questions": [
+        {
+          "category": "Qué señal delata que el agente empezó a derivar de más",
+          "text": "A las 03:10 la tasa de derivación de Meridiana lleva 40 minutos en el 52 %, cuando su banda habitual es el 18 %. ¿Qué comprobación distingue mejor un incidente de calidad de un aumento normal de volumen?",
+          "explanation": "El porcentaje aísla el volumen, y el motivo dice si el problema es de extracción o de una regla que se está disparando legítimamente. La (a) engaña: en la noche del granizo el absoluto se multiplica sin que nada vaya mal. La (c) busca el modo de fallo equivocado: una derivación excesiva no genera excepciones, el sistema está funcionando. La (d) es útil y es el paso siguiente cuando se sospecha del proveedor, pero tarda y no contiene nada.",
+          "options": [
+            {
+              "index": 0,
+              "text": "Comparar el número absoluto de derivaciones con el de ayer a la misma hora.",
+              "isCorrect": false
+            },
+            {
+              "index": 1,
+              "text": "Segmentar el porcentaje de derivación por motivo y comparar cada motivo con su línea base.",
+              "isCorrect": true
+            },
+            {
+              "index": 2,
+              "text": "Revisar los logs de error del orquestador buscando excepciones nuevas.",
+              "isCorrect": false
+            },
+            {
+              "index": 3,
+              "text": "Ejecutar el conjunto de evaluación completo antes de tocar nada.",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "category": "Qué hace falta para que apagar el agente sea una opción real",
+          "text": "¿Cuál de estas condiciones convierte el interruptor de apagado en un plan de contingencia y no en un botón decorativo?",
+          "explanation": "El interruptor solo vale lo que valga el flujo al que devuelve el trabajo, y eso se atrofia salvo que se ensaye. La (a) mete una llamada de teléfono entre el daño y su contención. La (b) hace depender el apagado del despliegue, que puede ser justo lo que está roto y que además tarda. La (d) tira la degradación por etapas y cierra la puerta de entrada, que es lo único que nunca se apaga.",
+          "options": [
+            {
+              "index": 0,
+              "text": "Que accionarlo requiera la aprobación del responsable técnico, para evitar apagados por error.",
+              "isCorrect": false
+            },
+            {
+              "index": 1,
+              "text": "Que el apagado se haga desplegando con la bandera cambiada, para que quede rastro en el repositorio.",
+              "isCorrect": false
+            },
+            {
+              "index": 2,
+              "text": "Que el flujo manual esté vivo —pantallas, capacidad y gente que sepa usarlo— y que se haya apagado a propósito en producción al menos una vez.",
+              "isCorrect": true
+            },
+            {
+              "index": 3,
+              "text": "Que apague el sistema entero de golpe, para no dejar ninguna etapa en un estado ambiguo.",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "category": "Cuál es un SLO honesto para un sistema con LLM",
+          "text": "El comité pide un SLO para el agente de Meridiana. ¿Cuál es defendible?",
+          "explanation": "La (b) mide en continuo lo que se puede medir en continuo y es explícita sobre lo que solo se puede estimar. La (a) exigiría revisar a mano 32.000 casos al año. La (c) confunde dos cosas: donde el fallo es inaceptable —las lesiones— la garantía la da una regla determinista en código, no un objetivo estadístico. La (d) convierte una métrica de negocio en objetivo del sistema e incentiva justo lo contrario de lo que protege al asegurado: derivar menos.",
+          "options": [
+            {
+              "index": 0,
+              "text": "99 % de extracciones correctas, medido sobre el total de siniestros del mes.",
+              "isCorrect": false
+            },
+            {
+              "index": 1,
+              "text": "99,9 % de disponibilidad del canal de FNOL contando el modo degradado como disponible, p95 por debajo de 15 s, y calidad estimada por muestreo semanal presentada con su margen de error.",
+              "isCorrect": true
+            },
+            {
+              "index": 2,
+              "text": "Cero errores del modelo, dado que hay lesiones de por medio.",
+              "isCorrect": false
+            },
+            {
+              "index": 3,
+              "text": "95 % de casos resueltos sin derivación, para demostrar el ahorro.",
+              "isCorrect": false
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "assets": [
+    "agentes-en-produccion/assets/css/curso.css",
+    "agentes-en-produccion/assets/js/progreso.js",
+    "agentes-en-produccion/assets/js/quiz.js",
+    "agentes-en-produccion/assets/js/viewer.js"
+  ]
+}

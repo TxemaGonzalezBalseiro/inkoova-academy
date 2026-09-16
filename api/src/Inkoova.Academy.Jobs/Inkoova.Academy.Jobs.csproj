@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk.Worker">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>dotnet-Inkoova.Academy.Jobs-aa39dc24-9099-4a97-a4a4-e117dce85444</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.9" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Inkoova.Academy.Infrastructure\Inkoova.Academy.Infrastructure.csproj" />
+    <ProjectReference Include="..\Inkoova.Academy.Application\Inkoova.Academy.Application.csproj" />
+    <ProjectReference Include="..\Inkoova.Academy.Domain\Inkoova.Academy.Domain.csproj" />
+  </ItemGroup>
+</Project>

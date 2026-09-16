@@ -1,0 +1,931 @@
+import { useCallback, useState } from 'react';
+import { ErrorMessage, Spinner } from '../../components/common';
+import { IconCheck, IconPencil, IconPlus, IconTrash } from '../../components/icons';
+import { useApi } from '../../hooks/useApi';
+import { api, ApiError } from '../../lib/api';
+
+/**
+ * Tutorías: el catálogo de paquetes y lo que tiene consumido cada alumno.
+ *
+ * El tiempo viaja en minutos y se enseña en horas. La conversión está en un sitio
+ * (`formatMinutes` y `toMinutes`) porque repartirla por los formularios acaba en dos
+ * redondeos distintos y en un saldo que no cuadra con el de la API.
+ */
+type TutoringPackage = {
+  id: string;
+  slug: string;
+  name: string;
+  description: string;
+  minutes: number;
+  priceCents: number;
+  currency: string;
+  validityDays: number | null;
+  displayOrder: number;
+  isActive: boolean;
+};
+
+type TutoringSession = {
+  id: string;
+  minutes: number;
+  occurredAt: string;
+  topic: string;
+  notes: string;
+};
+
+type TutoringGrant = {
+  id: string;
+  packageId: string | null;
+  packageName: string;
+  minutesTotal: number;
+  minutesUsed: number;
+  minutesRemaining: number;
+  source: string;
+  grantedAt: string;
+  expiresAt: string | null;
+  isExpired: boolean;
+  isRevoked: boolean;
+  revokedReason: string | null;
+  note: string;
+  sessions: TutoringSession[];
+};
+
+type Balance = {
+  userId: string;
+  displayName: string;
+  email: string;
+  minutesTotal: number;
+  minutesUsed: number;
+  minutesRemaining: number;
+  activeGrants: number;
+};
+
+type StudentDetail = {
+  userId: string;
+  displayName: string;
+  email: string;
+  minutesRemaining: number;
+  minutesTotal: number;
+  minutesUsed: number;
+  grants: TutoringGrant[];
+};
+
+type AdminUser = { id: string; email: string; displayName: string };
+
+/** "5 h 30 min". Nunca decimales: el saldo es aritmética entera y así se lee. */
+function formatMinutes(minutes: number): string {
+  const hours = Math.floor(minutes / 60);
+  const rest = minutes % 60;
+
+  if (hours === 0) return `${rest} min`;
+  if (rest === 0) return `${hours} h`;
+  return `${hours} h ${rest} min`;
+}
+
+/**
+ * Número tecleado por una persona en español: "450", "450,50" y "450.50" valen los tres.
+ *
+ * Va con `type="text"` y no con `type="number"` a propósito. Un campo numérico rechaza la coma
+ * en silencio —el valor llega vacío al enviar, sin decir por qué— y sus flechas se mueven de
+ * uno en uno según el `step`, que con céntimos obliga a cien pulsaciones por euro.
+ */
+const parseDecimal = (value: string): number => Number(value.replace(',', '.').trim());
+
+/** Horas en decimal (1,5) a minutos exactos. El redondeo ocurre aquí y solo aquí. */
+const toMinutes = (hours: number) => Math.round(hours * 60);
+
+const euros = (cents: number) =>
+  (cents / 100).toLocaleString('es-ES', { style: 'currency', currency: 'EUR' });
+
+const shortDate = (iso: string) => new Date(iso).toLocaleDateString('es-ES');
+
+export function AdminTutoring() {
+  const packages = useApi<TutoringPackage[]>('/admin/tutoring/packages', []);
+  const balances = useApi<Balance[]>('/admin/tutoring/balances', []);
+  const [selected, setSelected] = useState<string | null>(null);
+
+  if (packages.loading || balances.loading) {
+    return <Spinner label="Cargando tutorías…" />;
+  }
+
+  if (packages.error) {
+    return <ErrorMessage>{packages.error.message}</ErrorMessage>;
+  }
+
+  const reloadAll = () => {
+    balances.reload();
+    packages.reload();
+  };
+
+  return (
+    <>
+      <PackagesPanel packages={packages.data ?? []} onChanged={packages.reload} />
+
+      <GrantPanel packages={packages.data ?? []} onGranted={reloadAll} />
+
+      <BalancesPanel
+        balances={balances.data ?? []}
+        selected={selected}
+        onSelect={setSelected}
+        onChanged={reloadAll}
+      />
+    </>
+  );
+}
+
+// ── catálogo ────────────────────────────────────────────────────────────────────────────
+
+function PackagesPanel({
+  packages,
+  onChanged,
+}: {
+  packages: TutoringPackage[];
+  onChanged: () => void;
+}) {
+  const [editing, setEditing] = useState<string | null>(null);
+  const [creating, setCreating] = useState(false);
+  const { busy, problem, run } = useAction();
+
+  return (
+    <section className="admin__panel">
+      <div className="admin__panel-head">
+        <h2>Paquetes de tutorías</h2>
+
+        <button
+          type="button"
+          className="btn btn--ghost btn--sm btn--icon-text"
+          onClick={() => {
+            setCreating(true);
+            setEditing(null);
+          }}
+        >
+          <IconPlus /> Nuevo paquete
+        </button>
+      </div>
+
+      <p className="muted">
+        Lo que se vende: horas y precio. Editar un paquete no cambia lo que ya tiene concedido
+        ningún alumno, porque cada concesión guardó sus horas en el momento de darse.
+      </p>
+
+      {problem && <ErrorMessage>{problem}</ErrorMessage>}
+
+      {creating && (
+        <PackageForm
+          onCancel={() => setCreating(false)}
+          onDone={() => {
+            setCreating(false);
+            onChanged();
+          }}
+        />
+      )}
+
+      {packages.length === 0 && !creating ? (
+        <p className="muted">Todavía no hay paquetes. Crea el primero para poder venderlos.</p>
+      ) : (
+        <div className="table-scroll">
+          <table >
+            <thead>
+              <tr>
+                <th scope="col">Paquete</th>
+                <th scope="col">Tiempo</th>
+                <th scope="col">Importe</th>
+                <th scope="col">Validez</th>
+                <th scope="col">Estado</th>
+                <th scope="col">
+                  <span className="sr-only">Acciones</span>
+                </th>
+              </tr>
+            </thead>
+
+            <tbody>
+              {packages.map((pack) =>
+                editing === pack.id ? (
+                  <tr key={pack.id}>
+                    <td colSpan={6}>
+                      <PackageForm
+                        pack={pack}
+                        onCancel={() => setEditing(null)}
+                        onDone={() => {
+                          setEditing(null);
+                          onChanged();
+                        }}
+                      />
+                    </td>
+                  </tr>
+                ) : (
+                  <tr key={pack.id} >
+                    <td>
+                      <strong>{pack.name}</strong>
+                      <br />
+                      <span className="muted">{pack.slug}</span>
+                    </td>
+                    <td>{formatMinutes(pack.minutes)}</td>
+                    <td>{euros(pack.priceCents)}</td>
+                    <td>{pack.validityDays === null ? 'Sin caducidad' : `${pack.validityDays} días`}</td>
+                    <td>{pack.isActive ? 'A la venta' : 'Retirado'}</td>
+                    <td>
+                      <div className="row">
+                        <button
+                          type="button"
+                          className="btn btn--ghost btn--sm btn--icon-text"
+                          onClick={() => {
+                            setEditing(pack.id);
+                            setCreating(false);
+                          }}
+                        >
+                          <IconPencil /> Editar
+                        </button>
+
+                        <button
+                          type="button"
+                          className="btn btn--ghost btn--sm"
+                          disabled={busy}
+                          onClick={() =>
+                            void run(
+                              () =>
+                                api.post(`/admin/tutoring/packages/${pack.id}/active`, {
+                                  active: !pack.isActive,
+                                }),
+                              onChanged,
+                            )
+                          }
+                        >
+                          {pack.isActive ? 'Retirar' : 'Reactivar'}
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ),
+              )}
+            </tbody>
+          </table>
+        </div>
+      )}
+    </section>
+  );
+}
+
+function PackageForm({
+  pack,
+  onCancel,
+  onDone,
+}: {
+  pack?: TutoringPackage;
+  onCancel: () => void;
+  onDone: () => void;
+}) {
+  const [form, setForm] = useState({
+    slug: pack?.slug ?? '',
+    name: pack?.name ?? '',
+    description: pack?.description ?? '',
+    hours: pack ? String(pack.minutes / 60) : '5',
+    price: pack ? String(pack.priceCents / 100) : '',
+    validityDays: pack?.validityDays === null || pack === undefined ? '' : String(pack.validityDays),
+    displayOrder: String(pack?.displayOrder ?? 0),
+  });
+
+  const { busy, problem, run } = useAction();
+  const set = (key: keyof typeof form) => (value: string) => setForm((f) => ({ ...f, [key]: value }));
+
+  return (
+    <form
+      className="stack"
+      onSubmit={(event) => {
+        event.preventDefault();
+
+        void run(
+          () =>
+            api.post('/admin/tutoring/packages', {
+              id: pack?.id ?? null,
+              slug: form.slug,
+              name: form.name,
+              description: form.description,
+              minutes: toMinutes(parseDecimal(form.hours)),
+              priceCents: Math.round(parseDecimal(form.price) * 100),
+              currency: 'EUR',
+              // Vacío significa "no caduca", que no es lo mismo que cero días.
+              validityDays: form.validityDays.trim() === '' ? null : Number(form.validityDays),
+              displayOrder: Number(form.displayOrder),
+            }),
+          onDone,
+        );
+      }}
+    >
+      {problem && <ErrorMessage>{problem}</ErrorMessage>}
+
+      <div className="admin__form-grid">
+        <div className="field">
+          <label htmlFor="pack-name">Nombre</label>
+          <input
+            id="pack-name"
+            value={form.name}
+            required
+            maxLength={160}
+            onChange={(e) => set('name')(e.target.value)}
+          />
+        </div>
+
+        <div className="field">
+          <label htmlFor="pack-slug">Identificador</label>
+          <input
+            id="pack-slug"
+            value={form.slug}
+            required
+            disabled={pack !== undefined}
+            placeholder="pack-5-tutorias"
+            onChange={(e) => set('slug')(e.target.value)}
+          />
+          <p className="muted admin__hint">
+            {pack ? 'No se cambia: es la referencia estable del paquete.' : 'En minúsculas y con guiones.'}
+          </p>
+        </div>
+
+        <div className="field">
+          <label htmlFor="pack-hours">Horas incluidas</label>
+          <input
+            id="pack-hours"
+            type="text"
+            inputMode="decimal"
+            value={form.hours}
+            required
+            onChange={(e) => set('hours')(e.target.value)}
+          />
+          <p className="muted admin__hint">
+            Se guarda en minutos: {formatMinutes(toMinutes(parseDecimal(form.hours) || 0))}.
+          </p>
+        </div>
+
+        <div className="field">
+          <label htmlFor="pack-price">Importe (€)</label>
+          <input
+            id="pack-price"
+            type="text"
+            inputMode="decimal"
+            placeholder="450"
+            value={form.price}
+            required
+            onChange={(e) => set('price')(e.target.value)}
+          />
+          <p className="muted admin__hint">
+            {form.price.trim() === '' || Number.isNaN(parseDecimal(form.price))
+              ? 'Con coma o con punto: 450 o 450,50.'
+              : `Se cobra ${euros(Math.round(parseDecimal(form.price) * 100))}.`}
+          </p>
+        </div>
+
+        <div className="field">
+          <label htmlFor="pack-validity">Validez en días</label>
+          <input
+            id="pack-validity"
+            type="number"
+            min="1"
+            value={form.validityDays}
+            placeholder="Sin caducidad"
+            onChange={(e) => set('validityDays')(e.target.value)}
+          />
+          <p className="muted admin__hint">Vacío = no caduca.</p>
+        </div>
+
+        <div className="field">
+          <label htmlFor="pack-order">Orden</label>
+          <input
+            id="pack-order"
+            type="number"
+            value={form.displayOrder}
+            onChange={(e) => set('displayOrder')(e.target.value)}
+          />
+        </div>
+      </div>
+
+      <div className="field">
+        <label htmlFor="pack-description">Descripción</label>
+        <textarea
+          id="pack-description"
+          rows={2}
+          value={form.description}
+          onChange={(e) => set('description')(e.target.value)}
+        />
+      </div>
+
+      <div className="row">
+        <button type="submit" className="btn btn--primary btn--sm" disabled={busy}>
+          {pack ? 'Guardar' : 'Crear paquete'}
+        </button>
+
+        <button type="button" className="btn btn--ghost btn--sm" onClick={onCancel}>
+          Cancelar
+        </button>
+      </div>
+    </form>
+  );
+}
+
+// ── conceder ────────────────────────────────────────────────────────────────────────────
+
+function GrantPanel({
+  packages,
+  onGranted,
+}: {
+  packages: TutoringPackage[];
+  onGranted: () => void;
+}) {
+  const [term, setTerm] = useState('');
+  const [found, setFound] = useState<AdminUser[]>([]);
+  const [student, setStudent] = useState<AdminUser | null>(null);
+  const [packageId, setPackageId] = useState('');
+  const [hours, setHours] = useState('1');
+  const [source, setSource] = useState('purchase');
+  const [note, setNote] = useState('');
+  const [done, setDone] = useState<string | null>(null);
+  const { busy, problem, run } = useAction();
+
+  const active = packages.filter((p) => p.isActive);
+
+  return (
+    <section className="admin__panel">
+      <div className="admin__panel-head">
+        <h2>Conceder tutorías</h2>
+      </div>
+
+      <p className="muted">
+        Busca al alumno y dale un paquete del catálogo, o un tiempo suelto si es un acuerdo
+        concreto. Queda registrado con tu usuario y la hora.
+      </p>
+
+      {problem && <ErrorMessage>{problem}</ErrorMessage>}
+      {done && (
+        <p className="alert alert--success">
+          <IconCheck /> {done}
+        </p>
+      )}
+
+      <form
+        className="row"
+        onSubmit={(event) => {
+          event.preventDefault();
+          void run(
+            () => api.get<AdminUser[]>(`/admin/users?q=${encodeURIComponent(term)}`),
+            (result) => setFound(result as AdminUser[]),
+          );
+        }}
+      >
+        <div className="field">
+          <label htmlFor="tut-search">Alumno</label>
+          <input
+            id="tut-search"
+            type="search"
+            value={term}
+            placeholder="Email o nombre"
+            onChange={(e) => setTerm(e.target.value)}
+          />
+        </div>
+
+        <button type="submit" className="btn btn--ghost btn--sm" disabled={busy || term.length < 2}>
+          Buscar
+        </button>
+      </form>
+
+      {found.length > 0 && (
+        <ul className="chip-row">
+          {found.map((user) => (
+            <li key={user.id}>
+              <button
+                type="button"
+                className={`chip ${student?.id === user.id ? 'is-active' : ''}`}
+                onClick={() => setStudent(user)}
+              >
+                {user.displayName} · {user.email}
+              </button>
+            </li>
+          ))}
+        </ul>
+      )}
+
+      {student && (
+        <form
+          className="stack"
+          onSubmit={(event) => {
+            event.preventDefault();
+
+            void run(
+              () =>
+                api.post('/admin/tutoring/grants', {
+                  userId: student.id,
+                  packageId: packageId === '' ? null : packageId,
+                  minutes: packageId === '' ? toMinutes(Number(hours)) : null,
+                  name: packageId === '' ? 'Tutorías' : null,
+                  source,
+                  expiresAt: null,
+                  note,
+                }),
+              () => {
+                setDone(`Tutorías concedidas a ${student.displayName}.`);
+                setNote('');
+                onGranted();
+              },
+            );
+          }}
+        >
+          <div className="admin__form-grid">
+            <div className="field">
+              <label htmlFor="tut-package">Paquete</label>
+              <select
+                id="tut-package"
+                value={packageId}
+                onChange={(e) => setPackageId(e.target.value)}
+              >
+                <option value="">Tiempo suelto (sin paquete)</option>
+                {active.map((pack) => (
+                  <option key={pack.id} value={pack.id}>
+                    {pack.name} · {formatMinutes(pack.minutes)} · {euros(pack.priceCents)}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            {packageId === '' && (
+              <div className="field">
+                <label htmlFor="tut-hours">Horas</label>
+                <input
+                  id="tut-hours"
+                  type="number"
+                  min="0.25"
+                  step="0.25"
+                  value={hours}
+                  onChange={(e) => setHours(e.target.value)}
+                />
+              </div>
+            )}
+
+            <div className="field">
+              <label htmlFor="tut-source">Origen</label>
+              <select id="tut-source" value={source} onChange={(e) => setSource(e.target.value)}>
+                <option value="purchase">Compra</option>
+                <option value="manual">Manual (beca, cortesía, acuerdo)</option>
+              </select>
+            </div>
+
+            <div className="field">
+              <label htmlFor="tut-note">Nota</label>
+              <input
+                id="tut-note"
+                value={note}
+                maxLength={300}
+                onChange={(e) => setNote(e.target.value)}
+              />
+            </div>
+          </div>
+
+          <div className="row">
+            <button type="submit" className="btn btn--primary btn--sm" disabled={busy}>
+              Conceder a {student.displayName}
+            </button>
+
+            <button type="button" className="btn btn--ghost btn--sm" onClick={() => setStudent(null)}>
+              Cambiar de alumno
+            </button>
+          </div>
+        </form>
+      )}
+    </section>
+  );
+}
+
+// ── saldos y consumo ────────────────────────────────────────────────────────────────────
+
+function BalancesPanel({
+  balances,
+  selected,
+  onSelect,
+  onChanged,
+}: {
+  balances: Balance[];
+  selected: string | null;
+  onSelect: (id: string | null) => void;
+  onChanged: () => void;
+}) {
+  return (
+    <section className="admin__panel">
+      <div className="admin__panel-head">
+        <h2>Alumnos con tutorías</h2>
+      </div>
+
+      {balances.length === 0 ? (
+        <p className="muted">Todavía no hay tutorías concedidas.</p>
+      ) : (
+        <div className="table-scroll">
+          <table >
+            <thead>
+              <tr>
+                <th scope="col">Alumno</th>
+                <th scope="col">Concedido</th>
+                <th scope="col">Consumido</th>
+                <th scope="col">Restante</th>
+                <th scope="col">Bolsas vivas</th>
+                <th scope="col">
+                  <span className="sr-only">Detalle</span>
+                </th>
+              </tr>
+            </thead>
+
+            <tbody>
+              {balances.map((row) => (
+                <tr key={row.userId}>
+                  <td>
+                    <strong>{row.displayName}</strong>
+                    <br />
+                    <span className="muted">{row.email}</span>
+                  </td>
+                  <td>{formatMinutes(row.minutesTotal)}</td>
+                  <td>{formatMinutes(row.minutesUsed)}</td>
+                  <td>
+                    <strong>{formatMinutes(row.minutesRemaining)}</strong>
+                  </td>
+                  <td>{row.activeGrants}</td>
+                  <td>
+                    <button
+                      type="button"
+                      className="btn btn--ghost btn--sm"
+                      onClick={() => onSelect(selected === row.userId ? null : row.userId)}
+                    >
+                      {selected === row.userId ? 'Cerrar' : 'Ver ficha'}
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+
+      {selected && <StudentDetailPanel userId={selected} onChanged={onChanged} />}
+    </section>
+  );
+}
+
+function StudentDetailPanel({ userId, onChanged }: { userId: string; onChanged: () => void }) {
+  const detail = useApi<StudentDetail>(`/admin/tutoring/students/${userId}`, [userId]);
+
+  if (detail.loading) {
+    return <Spinner label="Cargando ficha…" />;
+  }
+
+  if (detail.error) {
+    return <ErrorMessage>{detail.error.message}</ErrorMessage>;
+  }
+
+  const student = detail.data;
+  if (!student) {
+    return null;
+  }
+
+  const refresh = () => {
+    detail.reload();
+    onChanged();
+  };
+
+  return (
+    <div className="admin__section">
+      <h3>
+        {student.displayName} · {formatMinutes(student.minutesRemaining)} disponibles
+      </h3>
+
+      <p className="muted">
+        Concedido {formatMinutes(student.minutesTotal)} · consumido{' '}
+        {formatMinutes(student.minutesUsed)}
+      </p>
+
+      {student.grants.map((grant) => (
+        <GrantCard key={grant.id} grant={grant} onChanged={refresh} />
+      ))}
+    </div>
+  );
+}
+
+function GrantCard({ grant, onChanged }: { grant: TutoringGrant; onChanged: () => void }) {
+  const [recording, setRecording] = useState(false);
+  const { busy, problem, run } = useAction();
+
+  const state = grant.isRevoked
+    ? 'Revocada'
+    : grant.isExpired
+      ? 'Caducada'
+      : grant.minutesRemaining === 0
+        ? 'Agotada'
+        : 'Disponible';
+
+  return (
+    <article className="card admin__section">
+      <header className="admin__section-head">
+        <div>
+          <strong>{grant.packageName}</strong>{' '}
+          <span className="badge">{grant.source === 'purchase' ? 'Compra' : 'Manual'}</span>{' '}
+          <span className="badge">{state}</span>
+          <p className="muted">
+            {formatMinutes(grant.minutesRemaining)} de {formatMinutes(grant.minutesTotal)} ·
+            concedida el {shortDate(grant.grantedAt)}
+            {grant.expiresAt && ` · caduca el ${shortDate(grant.expiresAt)}`}
+          </p>
+          {grant.note && <p className="muted">{grant.note}</p>}
+          {grant.revokedReason && <p className="muted">Motivo: {grant.revokedReason}</p>}
+        </div>
+
+        <div className="row">
+          {!grant.isRevoked && (
+            <button
+              type="button"
+              className="btn btn--ghost btn--sm"
+              onClick={() => setRecording((value) => !value)}
+            >
+              Apuntar tutoría
+            </button>
+          )}
+
+          {!grant.isRevoked && (
+            <button
+              type="button"
+              className="btn btn--ghost btn--sm"
+              disabled={busy}
+              onClick={() => {
+                const reason = window.prompt('Motivo de la revocación');
+                if (reason === null) return;
+
+                void run(
+                  () => api.post(`/admin/tutoring/grants/${grant.id}/revoke`, { reason }),
+                  onChanged,
+                );
+              }}
+            >
+              Revocar
+            </button>
+          )}
+        </div>
+      </header>
+
+      {problem && <ErrorMessage>{problem}</ErrorMessage>}
+
+      {recording && (
+        <SessionForm
+          grantId={grant.id}
+          remaining={grant.minutesRemaining}
+          onDone={() => {
+            setRecording(false);
+            onChanged();
+          }}
+          onCancel={() => setRecording(false)}
+        />
+      )}
+
+      {grant.sessions.length > 0 && (
+        <ul className="admin__history">
+          {grant.sessions.map((session) => (
+            <li key={session.id} className="admin__history-item">
+              <div>
+                <strong>{formatMinutes(session.minutes)}</strong> · {shortDate(session.occurredAt)}
+                <br />
+                {session.topic}
+                {session.notes && <p className="muted">{session.notes}</p>}
+              </div>
+
+              <button
+                type="button"
+                className="btn btn--ghost btn--sm btn--icon-text"
+                disabled={busy}
+                onClick={() =>
+                  void run(
+                    () =>
+                      api.del(`/admin/tutoring/grants/${grant.id}/sessions/${session.id}`),
+                    onChanged,
+                  )
+                }
+              >
+                <IconTrash /> Deshacer
+              </button>
+            </li>
+          ))}
+        </ul>
+      )}
+    </article>
+  );
+}
+
+function SessionForm({
+  grantId,
+  remaining,
+  onDone,
+  onCancel,
+}: {
+  grantId: string;
+  remaining: number;
+  onDone: () => void;
+  onCancel: () => void;
+}) {
+  const today = new Date().toISOString().slice(0, 10);
+  const [form, setForm] = useState({ hours: '1', date: today, topic: '', notes: '' });
+  const { busy, problem, run } = useAction();
+
+  return (
+    <form
+      className="stack"
+      onSubmit={(event) => {
+        event.preventDefault();
+
+        void run(
+          () =>
+            api.post(`/admin/tutoring/grants/${grantId}/sessions`, {
+              minutes: toMinutes(Number(form.hours)),
+              // Mediodía y no medianoche: con medianoche, un huso por detrás mueve la tutoría
+              // al día anterior en el histórico del alumno.
+              occurredAt: new Date(`${form.date}T12:00:00`).toISOString(),
+              topic: form.topic,
+              notes: form.notes,
+            }),
+          onDone,
+        );
+      }}
+    >
+      {problem && <ErrorMessage>{problem}</ErrorMessage>}
+
+      <div className="admin__form-grid">
+        <div className="field">
+          <label htmlFor={`ses-hours-${grantId}`}>Duración (horas)</label>
+          <input
+            id={`ses-hours-${grantId}`}
+            type="number"
+            min="0.25"
+            step="0.25"
+            value={form.hours}
+            required
+            onChange={(e) => setForm((f) => ({ ...f, hours: e.target.value }))}
+          />
+          <p className="muted admin__hint">Quedan {formatMinutes(remaining)}.</p>
+        </div>
+
+        <div className="field">
+          <label htmlFor={`ses-date-${grantId}`}>Fecha</label>
+          <input
+            id={`ses-date-${grantId}`}
+            type="date"
+            value={form.date}
+            required
+            onChange={(e) => setForm((f) => ({ ...f, date: e.target.value }))}
+          />
+        </div>
+      </div>
+
+      <div className="field">
+        <label htmlFor={`ses-topic-${grantId}`}>De qué fue</label>
+        <input
+          id={`ses-topic-${grantId}`}
+          value={form.topic}
+          required
+          maxLength={200}
+          onChange={(e) => setForm((f) => ({ ...f, topic: e.target.value }))}
+        />
+      </div>
+
+      <div className="field">
+        <label htmlFor={`ses-notes-${grantId}`}>Notas</label>
+        <textarea
+          id={`ses-notes-${grantId}`}
+          rows={2}
+          value={form.notes}
+          onChange={(e) => setForm((f) => ({ ...f, notes: e.target.value }))}
+        />
+      </div>
+
+      <div className="row">
+        <button type="submit" className="btn btn--primary btn--sm" disabled={busy}>
+          Apuntar y descontar
+        </button>
+
+        <button type="button" className="btn btn--ghost btn--sm" onClick={onCancel}>
+          Cancelar
+        </button>
+      </div>
+    </form>
+  );
+}
+
+function useAction() {
+  const [busy, setBusy] = useState(false);
+  const [problem, setProblem] = useState<string | null>(null);
+
+  const run = useCallback(
+    async (action: () => Promise<unknown>, onDone?: (result: unknown) => void) => {
+      setBusy(true);
+      setProblem(null);
+
+      try {
+        onDone?.(await action());
+      } catch (caught) {
+        setProblem(caught instanceof ApiError ? caught.message : 'No se ha podido guardar.');
+      } finally {
+        setBusy(false);
+      }
+    },
+    [],
+  );
+
+  return { busy, problem, run };
+}

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://academy.inkoova.com/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://academy.inkoova.com/cursos</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://academy.inkoova.com/precios</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://academy.inkoova.com/roadmap</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://academy.inkoova.com/packs</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://academy.inkoova.com/empresas</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://academy.inkoova.com/sobre-mi</loc><changefreq>yearly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://academy.inkoova.com/faq</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://academy.inkoova.com/check-certificate</loc><changefreq>yearly</changefreq><priority>0.4</priority></url>
+</urlset>
